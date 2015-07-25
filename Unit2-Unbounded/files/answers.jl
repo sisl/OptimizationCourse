@@ -1,0 +1,586 @@
+using Revealables
+
+#############
+# Lesson 01 #
+#############
+
+ans201A = Revealable("""
+###Answer A
+1. Should look like an upside-down quartic:<br />
+<img src=\"files/2-1/quartic.png\" width=100 align=\"left\" />
+<br clear=\"all\" />
+2. Could be a line or a cubic <br />
+<img src=\"files/2-1/line.png\" width=100 align=\"left\" /> <img src=\"files/2-1/cubic.png\" width=100 align=\"left\" />
+<br clear=\"all\" />
+3. A parabola or absolute value function<br />
+<img src=\"files/2-1/parabola.png\" width=100 align=\"left\" /> <img src=\"files/2-1/absval.png\" width=100 align=\"left\" />
+<br clear=\"all\" />
+4. A symmetric quartic<br />
+<img src=\"files/2-1/symquartic.png\" width=100 align=\"left\" />
+""", "Answer", false)
+
+ans201B = Revealable("""
+###Answer B
+To be possible, the numbers of local maxima and minima must be within 1 of each other. Or, with unbounded functions, there can't be both a global maximum and a global minimum.
+""", "Answer", false)
+
+#############
+# Lesson 02 #
+#############
+
+ans202A = Revealable("""
+###Answer A
+
+<p>In unit 1, of course, you did this by hand. </p>
+
+<p>It's a lot easier if you just keep the original x as one of the endpoints and only march the other endpoint, instead of marching both endpoints. This will work but will yield a very wide interval in some cases. If you do this and finish early, modify your program so that both endpoints march along.</p>
+
+<p>Here's my version:</p>
+<code>
+f(x) = x^2 - 4x  # this function is just to test, it can be changed
+
+function threept(f, x, int)  # f is above, x is the given start value, int is the interval (may be large, around 0.5)
+    a = x + int  # finding first point location
+    if f(a) > f(x)  # testing to see if the function is decreasing and...
+        int = -int  # ...reversing direction if not
+        a = x + int 
+    end
+    b = a + int  # another step in same direction
+    while f(b) < f(a)  # this loop will run until f(b) is greater than f(a), ie an increase
+        x = a  # reassigning variables here... this is what marches the entire interval along.
+        a = b 
+        b = b + int 
+    end
+    println(\"\$x, \$(f(x))\")  #prints the three points in order found
+    println(\"\$a, \$(f(a))\")
+    println(\"\$b, \$(f(b))\")
+end
+</code>
+""", "Answer", false)
+
+ans202B = Revealable("""
+###Answer B
+
+The value of h controls two things: first, how accurate your interval is; and second, how many iterations are run. This was discussed in the previous unit: h too large and your interval could be inaccurate (or you might skip over it); h too small and your iteration count goes through the roof. 
+
+Here's my program with the counter thrown in:
+
+<code>
+function threept(f, x, int)
+    a = x + int
+    if f(a) > f(x)
+        int = -int 
+        a = x + int 
+    end
+    b = a + int 
+    iter = 0
+    while f(b) < f(a)
+        x = a 
+        a = b 
+        b = b + int 
+        iter = iter + 1
+    end
+    println(\"\$x, \$(f(x))\")
+    println(\"\$a, \$(f(a))\")
+    println(\"\$b, \$(f(b))\")
+    println(iter)
+end
+</code>
+""", "Answer", false)
+
+ans202C = Revealable("""
+###Answer C
+
+The first attempt is fairly straightforward, and the second a little harder.
+
+For the first, a line just before the end of the `while` loop saying `h = 1.5h` will suffice.
+
+For the second, one option is to create a bunch of new variables for the intervals. This is ugly but sufficient.
+
+A much more elegant trick is to notice that the sum of the last two intervals is merely the difference between the first and third current points. In my code, the three points were named `x`, `a`, `b`; so I added a line just before the end of the `while` loop saying `h = b - x`.  
+
+My final code, with counter:
+
+<code>
+function threept(f, x, int)
+    a = x + int
+    if f(a) > f(x)
+        int = -int 
+        a = x + int 
+    end
+    b = a + int 
+    iter = 0
+    while f(b) < f(a)
+        x = a 
+        a = b 
+        b = b + int 
+        iter = iter + 1
+        int = b - x  # new line creating Fibonacci incrementation of interval width
+    end
+    println(\"\$x, \$(f(x))\")
+    println(\"\$a, \$(f(a))\")
+    println(\"\$b, \$(f(b))\")
+    println(iter)
+end
+</code>
+""", "Answer", false)
+
+#############
+# Lesson 03 #
+#############
+
+passwords = Revealable("""
+Intelligence that can be (and is) applied to this procedure includes:
+* testing the most common passwords, like *Password123*
+* testing dictionary words instead of random strings of numbers
+* testing numbers related to dates, like year numbers or month-day combinations
+* testing user information (usually publicly available on Facebook) like their pet's or spouse's name, their birthday or anniversary. 
+
+If you want to get into a moral lesson here, the obvious conclusion is you want to make your password immune to this sort of intelligence by avoiding common passwords, actual words, actual dates, or personal information.)
+""", "More on Passwords and Brute Force", false)
+
+ans203A = Revealable("""
+###Sample Answer
+
+
+Because this program is awful, you won't use it again. The purpose is to:
+1. show you how to do a brute-force-type program in case you ever need to
+2. solidify the idea of a minimum value and some of the programming concepts behind finding it; and 
+3. show you how improvement-y the improvements are in the next few lessons.
+
+<code>
+f(x) = x^2 - 4x  # could be anything
+
+function brute(f, int, a, b)  # f = predefined function, interval (very small, like .001), a = left endpoint, b = right endpoint
+    low = f(a)  # defining variables; starting with the left endpoint a
+    test = a 
+    loc = a
+    while test < b  # will test all numbers between a and b
+            if f(test) < low  # this check runs if the test point is lower than the previous low value
+                low = f(test)  # and replaces the old low with the new low
+                loc = test  # then records its location for later
+            else  # if the test point is higher, nothing happens
+            end
+        test = test + int  # moves on to the next test point
+    end
+    println(\"minimum at x = \$loc with y-value = \$low\")  # after getting to b, prints the record low and its location
+end
+</code>
+
+""", "Answer", false)
+
+#############
+# Lesson 04 #
+#############
+
+soln204A = Revealable("""
+## The Solution
+Instead, we divide the interval into three sections instead of two by choosing two interior points instead of one.
+
+<img src=\"files/2-4/solution.png\" width=350 />
+
+Although it would seem obvious to divide the segment into equal thirds, with points at .33 and .67 across the segment, there is a better way.
+""", "So what do we do?", false)
+
+ans204A = Revealable("""
+###Answer A
+
+Although you won't always be required to write a plan as a practice problem, the longer the code, the more important it is to do so on you own.
+1. Start with the endpoints of an interval
+2. End when a certain tolerance is reached&mdash;probably the width of the interval is less than [some number] or `f(var) <` [some other number].
+3. Divide the interval into three sections by the golden ratio. Choose the section that forms a V (interior point lower than endpoints).
+4. Using the new endpoints/interval, loop back to step 3.
+""", "Answer", false)
+
+ans204B = Revealable("""
+###Answer B
+This code does not shorten calculations using the golden ratio property, but you could!
+
+<code>
+function fibmin(eq, minlim, maxlim, epsilon)  # equation must be pre-loaded; epsilon is an arbitrary error tolerance.
+    phi = (-1+(5)^(1/2))/2  # phi, the golden ratio, used for sectioning below.
+        int = maxlim - minlim
+        iteration = 0  # keeping track of iterations out of curiosity, not necessary.
+        while int > epsilon
+            subdiv = phi * int
+            lefttest = maxlim - subdiv  # this line and the next create two points within the interval...
+            righttest = minlim + subdiv
+                if eq(lefttest) < eq(righttest)  # this loop tests the interior points and shifts the endpoints inward accordingly
+                    maxlim = righttest
+                else
+                    minlim = lefttest
+                end
+            int = maxlim - minlim
+            iteration = iteration + 1
+        end
+    println(\"\$minlim, \$maxlim\")
+    println(iteration)
+end
+</code>
+""", "Answer", false)
+
+#############
+# Lesson 05 #
+#############
+
+
+
+ans205A = Revealable("""
+###Answer A
+
+One of the tricky things about this task is how much to narrow the interval. I used thirds in my program for speed and convenience, though I worried that thirds might be overly aggressive. There's a possibility that the minimum would occur in the outer third and if I skip over it, I'll end up with an infinite loop in my program. Fortunately infinite loops are easy to identify, and then I would just change my /3 to /4 or /10 or something and repeat.
+
+How did you choose to narrow the interval, and why? 
+<code>
+function findmin(f, leftbound, rightbound)  # Function `f` will need to be pre-loaded. 
+    while rightbound - leftbound > .0001  # This tolerance can be adjusted as needed. Or, add a new defined variable `tolerance`.
+        slope = (f(rightbound) - f(leftbound))/(rightbound - leftbound)
+        if slope < 0
+                leftbound = leftbound + (rightbound - leftbound)/3  # here's that /3 -- modify as needed
+        elseif slope > 0
+                rightbound = rightbound - (rightbound - leftbound)/3
+        else  # In the special case where the slopes are equal it marches both endpoints in. 
+            leftbound = leftbound + (rightbound + leftbound)/3 
+            rightbound = rightbound - (rightbound + leftbound)/3
+        end
+    end
+    println(\"\$leftbound, \$rightbound\")  # Prints the boundaries, from which you can estimate the location of the minimum
+end
+</code>
+""", "Answer", false)
+
+ans105B = Revealable("""
+###Answer B
+1. Points should be: (0, 0) (0.6, -2.04) (1.2, -3.36) (1.8, -3.96) (2.4, -3.84). The interval/answer is bolded.
+
+2. (2, -4) (2.5, -6.125) This is going the wrong direction; change step to -0.5. [If you didn't pay attention, you got the minimum, around 3.] Complete answer: (2, -4) (1.5, -1.375) (1, 1) (.5, 2.375) (0, 2)
+""", "Answer", false)
+
+ans105C = Revealable("""
+###Answer C
+Answers will vary greatly depending on starting \$x\$, starting \$h\$, and how you increment \$h\$ (Fibonacci numbers are only a suggestion).
+
+Make sure you are beginning with a small \$h\$ (at most 0.5). It will ramp up fairly quickly as you increase its value.
+
+1. The local maximum is at \$x = -8.6852\$. Note that this cubic is unbounded on both left and right so if you choose a starting \$x\$ greater than 12 or so, your numbers will fly off to infinity.
+
+2. This function has a few local minima past -12, but as long as you choose an \$x\$-value greater than -11 or so, you should reach the absolute minimum at around \$x = 2.75172\$.
+""", "Answer", false)
+
+#############
+# Lesson 06 #
+#############
+
+hint206A = Revealable("""
+Step 1: determine direction of *increase* (meaning, `f(x + h)` or `f(x - h)` is *higher*, not lower, than `f(x))`.
+
+Step 2: mark off intervals until the y-values *decrease* (meaning, `f(x + h)` is *lower* than `f(x))`.
+
+Step 3: does not change.
+""", "Just a few things...", false)
+
+ans206A = Revealable("""
+###Answer A
+<code>
+function threeptmax(f, x, int) # f is the pre-loaded function (above), x is the initial value, int is the initial test interval (small).
+    a = x + int
+    if f(a) < f(x)
+        int = -int
+        a = x + int
+    end
+    b = a + int
+    iter = 0  # no reason to keep track of iterations, just curious
+    while f(b) > f(a)
+        x = a  # stepping the interval along
+        a = b
+        b = b + int
+        iter = iter + 1
+        int = b - x  # this increases the interval width in a Fibonacci pattern.
+    end
+    println(\"\$x, \$(f(x))\")
+    println(\"\$a, \$(f(a))\")
+    println(\"\$b, \$(f(b))\")
+    println(iter)
+end
+</code>
+""", "Answer", false)
+
+hint206B = Revealable("""
+Step 1: The interval will now surround a *maximum*&mdash;easy because you now have a 3-point max program.
+
+Step 2: Does not change.
+
+Step 3: The endpoints of the chosen interval will now be *lower* than the midpoint.
+
+Step 4: Does not change.
+""", "Half the steps change.", false)
+
+ans206B = Revealable("""
+###Answer B
+<code>
+function fibmax(f, minlim, maxlim, epsilon)  # equation specified at the end. See above for cautions on minlim, maxlim. Epsilon is the acceptable interval width/error.
+    phi = (-1+(5)^(1/2))/2  # the value of the golden ratio, about 61.8%, used as our sectioning number
+    int = maxlim - minlim
+    iteration = 0  # totally unnecessary to keep track of iterations, but why not
+    while int > epsilon  # loop runs until the interval is within the tolerance specified.
+        subdiv = phi * int  # these three lines mark two points within the interval
+        lefttest = maxlim - subdiv  
+        righttest = minlim + subdiv
+        if f(lefttest) > f(righttest)  # loop decreases interval by shifting endpoints inward to the inner point with the highest function value
+            maxlim = righttest
+        else
+            minlim = lefttest
+        end
+        int = maxlim - minlim
+        iteration = iteration + 1  # again, not necessary.
+    end
+    println(\"\$minlim, \$maxlim\")
+    println(iteration)  # still not necessary. Interesting maybe.
+end
+</code>
+""", "Answer", false)
+
+#############
+# Lesson 07 #
+#############
+
+ans107A = Revealable("""
+###Answer A
+```
+function Abs(x)
+    if x < 0
+        println(\"The absolute value is \$(-x)\")
+    else
+        println(\"The absolute value is \$x\")
+    end
+end
+```
+""", "Answer", false)
+
+ans107B = Revealable("""
+###Answer B
+```
+function grade(x)
+    p = round(x/28*100,2)  # Converting points to percent, rounding to 2 decimal places
+    if p >= 90
+        println(\"Congratulations! You got an A, \$p%!\")
+    elseif p >= 70
+        println(\"You passed your essay with \$p%!\")
+    else
+        println(\"Please see Mrs. Crabapple for help raising your \$p%.\")
+    end
+end
+```
+""", "Answer", false)
+
+#############
+# Lesson 08 #
+#############
+
+defIteration = Revealable("""
+__Iteration__ is when the same procedure is repeated multiple times.
+
+
+Some examples were long division, the Fibonacci numbers, prime numbers, and the calculator game. Some of these used recursion as well, but not all of them.
+""", "Definition", false)
+
+ext1081 = Revealable("""
+You would change it to `function Sum(a,b)`, and modify the \"for\" line to `for x in a:b`.
+""", "Extension Answer", false)
+
+ext1082 = Revealable("""
+Change it to `println(\"The sum is \$S\"`
+""", "Extension Answer", false)
+
+ans108A = Revealable("""
+###Answer A
+Sample code:
+```
+for x in -6:6
+    println(4x^2 - 12)
+end
+```
+""", "Answer", false)
+
+ans108B = Revealable("""
+###Answer B
+Sample code:
+```
+x = 20
+for n in 1:12
+    println(x)
+    x = sqrt(x)
+end
+```
+""", "Answer", false)
+
+ans108C = Revealable("""
+###Answer C
+It has to be a function, otherwise getting the first two numbers in the output is a real pain.
+
+    function Fibo(x)    
+        println(1)  # first term
+        println(1)  # second term
+        a = 1  # seed numbers...
+        b = 1
+        for n = 1:x
+            c = a + b
+            println(c)
+            a = b  # replacement of variables...
+            b = c
+        end
+    end
+
+`fibo(13)` should end with 610.
+""", "Answer", false)
+
+ans108D = Revealable("""
+###Answer D
+Sample program (not including extensions):
+
+    function compound(P)
+        n = 0  # starting the counter at 0
+        while P < 1000000
+            P = 1.05P  # calculation for new value of P
+            n = n + 1  # incrementing the counter
+        end
+        println(n)  # prints the number of iterations
+    end
+""", "Answer", false)
+
+ans108E = Revealable("""
+###Answer E
+Example code:
+
+    function calcgame(x)
+        n = 0
+        while x != 1
+            if x%2 == 0
+                x = x/2
+                n = n + 1
+            else 
+                x = 3x + 1
+                n = n + 1
+            end
+        end
+        println(n)
+    end
+""", "Answer", false)
+
+ans108F = Revealable("""
+###Answer F
+Example code:
+
+    for i in 1:20
+        calcgame(i)
+    end
+""", "Answer", false)
+
+ans108G = Revealable("""
+###Answer G
+My version of the program has an interesting feature that you may or may not have come up with on their own: a variable called `primeness`, which is set to `true` unless/until the number divides evenly. There are lots of different ways to deal with the issue of how to report `n` as prime. As long as the program has output in words that tells whether the number is prime, consider yourself correct. Nevertheless, the idea of a binary variable is a useful one, so if you struggled, you might want go back and modify your program.
+
+For an extension to the extension, list out the factors of the non-prime numbers. For an extension, list out the factors as factor pairs rather than an ordered list.
+
+    function prime(n)
+        primeness = true  # assumes the number is prime until proven otherwise
+        test = 2  # starting with 2 as the divisor
+        while test <= sqrt(n)  # ending when we get over the square root of n
+            if n % test == 0  # if no remainder, then...
+                primeness = false  # the number is not prime.
+            end
+            test = test + 1  # increments the divisor by 1 -- there are fancier ways
+        end
+        if primeness  # here we see the `primeness` variable used to generate an output
+            println(\"\$n is prime.\")
+        else 
+            println(\"\$n is not prime.\")
+        end
+    end
+
+""", "Answer", false)
+
+#############
+# Lesson 09 #
+#############
+
+
+ans109A = Revealable("""
+###Answer A
+I chose to use a `for` loop on this, but a `while` loop with a counter would work perfectly well also.
+
+```
+function fibstring(n)
+    fibs = [1, 1]  # preloading the array fibs and variables
+    a = 1
+    b = 1
+    for x in 1:(n - 2)  # since I already have 2 elements, for n elements total I need (n - 2) more elements.
+            c = a + b  # finding the next term...
+            a = b  # ...and redefining the other variables 
+            b = c 
+            push!(fibs, c)  # finally tack c on the end of fibs; this step could have been earlier
+    end
+    println(fibs)  # at the end, print out the final list
+end
+```
+""", "Answer", false)
+
+ans109B = Revealable("""
+###Answer B
+
+    function vector(s, t)
+        vec = t - s
+        println (\"The vector from s to t is \$vec\")
+        v = s + 1.5 * vec
+        println(\"The new point v is \$v\")
+    end
+```
+""", "Answer", false)
+
+ans109C = Revealable("""
+###Answer C
+    function unitize(v)
+        n = length(v)  # so I know where to stop in my for loop later
+        sum = 0  # seeding 0 for the current sum 
+        for x in 1:n  # repeats for each element of v
+            sum = sum + (v[x])^2  # augments sum with the value of the next term, squared -- Pythagorean Theorem
+        end
+        mag = sqrt(sum)  # finishes with square root of the sum of squares, to find magnitude
+        v = v/mag  # replaces old vector v with unitized elements
+        println(\"The unitized vector is \$v\")
+    end
+""", "Answer", false)
+
+ans109D = Revealable("""
+###Answer D
+    function Dot(a, b)
+        n = length(a)  # finds the length of a for my loop later
+        products = []  # preloads products as the empty set
+        for x in 1:n  # stops when we run out of elements to multiply.
+                k = a[x] * b[x]  # multiplies each term in order...
+                push!(products, k)  # ...and pushes that onto the end of products
+            end
+        println(\"The dot product is \$sum(products)\")  # then reports the sum of products 
+    end
+""", "Answer", false)
+
+#############
+# Lesson 10 #
+#############
+
+ans110 = Revealable("""
+###Sample Program:
+
+    f(x) = x^2 - 4x  # function can be modified to whatever
+
+    function secant(f, a, b)
+        while abs(b - a) > 0.00001  # more accurate is fine. Note absolute value is important for distance!
+                                    # Also could use f(b) < 0.00001.
+            m = (f(a) - f(b))/(a - b)  # made a variable for slope to simplify next line
+            x = -f(a)/m + a  # calculating the x-intercept
+            a = b  # redefining a and b to include the old b and the x-intercept x
+            b = x 
+        end  # loop ends when tolerance is reached
+        println(b)  # print the value of b (the last x-intercept found).
+    end
+""", "Answer", false)

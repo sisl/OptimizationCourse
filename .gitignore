@@ -1,9 +1,9 @@
-MO/
-RevealHTML/
-test_slides.ipynb
 .DS_Store
 .ipynb_checkpoints
-unit1/1-01 Intro to Mathematical Optimization.ipynb
-unit1/1-02 Intro to Vectors.ipynb
-unit1/1-03 Iteration and Recursion.ipynb
-unit1/1-04 Iteration and Recursion 2.ipynb
+MO
+RevealHTML
+test_slides.ipynb
+Unit1-Intro/1-01\ Intro\ to\ Mathematical\ Optimization.ipynb
+Unit1-Intro/1-02\ Intro\ to\ Vectors.ipynb
+Unit1-Intro/1-03\ Iteration\ and\ Recursion.ipynb
+Unit1-Intro/1-04\ Iteration\ and\ Recursion\ 2.ipynb
