@@ -484,11 +484,16 @@ end
 #############
 
 slope = Revealable("""
-The math here can get ugly. Some ways to make it less ugly:
-1. Enter the function `f(x)` into Julia and use that to evaluate y-values.
-2. Use point-slope form for your linear equations.
-3, Continue to use point-slope form when solving. The slopes of adjacent lines are opposite so the x-values will cancel nicely every time.
-""", "Hints for Easier Calculations", false)
+##Curved Functions and Slope
+__Slope__ is a term used to describe the steepness of straight lines. 
+<img src=\"files/2-8/slopes.png\" width=200 />
+
+But even curved functions have *steepness*.
+<img src=\"files/2-8/function.png\" width=200 />
+
+In this diagram, the steepest part of the curve is steeper than the yellow line, and shallower than the red line, and about the same as the green line.
+<img src=\"files/2-8/redgreenyellowslopes.png\" width=200 />
+""", "Slope Review", false)
 
 hint208A = Revealable("""
 The math here can get ugly. Some ways to make it less ugly:
@@ -506,102 +511,100 @@ ans208A = Revealable("""
 3. (-1.88, 1479), (4.12, 1587)
 """, "Answer", false)
 
-ans108B = Revealable("""
+ans208B = Revealable("""
 ###Answer B
-Sample code:
-```
-x = 20
-for n in 1:12
-    println(x)
-    x = sqrt(x)
+Very subtle note here: Because of the nature of the method, the left hand point will always reach forward with a positive slope m, towards the right hand point which reaches back with a negative slope -m. The equations are written with the assumption that (x1, y1) are the left hand point and (x2, y2) are the right hand point. Therefore order is important when calling the program.
+<code>
+function intersect(x1, y1, x2, y2)
+    m = 450
+    ycross = (m*(x2 - x1) + (y1 + y2))/2
+    xcross = (ycross - y1)/m + x1
+    println(\"x = \$xcross\")
+    println(\"y = \$ycross\")
 end
-```
+</code>
 """, "Answer", false)
 
-ans108C = Revealable("""
+ans208C = Revealable("""
 ###Answer C
-It has to be a function, otherwise getting the first two numbers in the output is a real pain.
+1. On the function, (4.12, 494.840ish)
+2. Two new points: (2.9065, 1040.9199) and (5.3335, 1040.9199)
 
-    function Fibo(x)    
-        println(1)  # first term
-        println(1)  # second term
-        a = 1  # seed numbers...
-        b = 1
-        for n = 1:x
-            c = a + b
-            println(c)
-            a = b  # replacement of variables...
-            b = c
-        end
-    end
-
-`fibo(13)` should end with 610.
+These two have the same y-value. Neither has the current high y-value which is (-1.88, 1479), but if two were ever tied you would just pick one and run with it. Tradition says left first.
 """, "Answer", false)
 
-ans108D = Revealable("""
+step = [Revealable("""
+<img src=\"files/2-8/step1.png\" width=300 />
+""", "=", true), Revealable("""
+<img src=\"files/2-8/step2.png\" width=300 />
+""", "=", true), Revealable("""
+<img src=\"files/2-8/step3.png\" width=300 />
+""", "=", true), Revealable("""
+<img src=\"files/2-8/step4.png\" width=300 />
+""", "=", true), Revealable("""
+<img src=\"files/2-8/step5.png\" width=300 />
+""", "=", true)]
+
+ans208D = Revealable("""
 ###Answer D
-Sample program (not including extensions):
+In most languages, you'd need a return line. In Juila, functions automatically return the last value they touch, so Julia functions don't usually have a return line.
+<code>
+function listpoints(A, x1, x2)
+  A = vcat(A, [x1 x2])
+  A = sortrows(A)
+    # `return A` would go here, but Julia doesn't need it
+end
 
-    function compound(P)
-        n = 0  # starting the counter at 0
-        while P < 1000000
-            P = 1.05P  # calculation for new value of P
-            n = n + 1  # incrementing the counter
-        end
-        println(n)  # prints the number of iterations
-    end
+A = listpoints([-5 75], 1, 183)
+A = listpoints(A, 7, 291)
+A = listpoints(A, -1.88, 1479)
+A = listpoints(A, 4.12, 494.840)
+A = listpoints(A, 2.91, 1040.92)
+A = listpoints(A, 5.33, 1040.92)
+println(A)
+</code>
 """, "Answer", false)
 
-ans108E = Revealable("""
+ans208E = Revealable("""
 ###Answer E
-Example code:
+9 points: [-5.0 75.0 / -3.122 919.98 / -1.88 360.961 / -0.63 919.98 / 1.0 183.0 / 2.91 1040.92 / 4.12 494.84 / 5.33 1040.92 / 7.0 291.0]
 
-    function calcgame(x)
-        n = 0
-        while x != 1
-            if x%2 == 0
-                x = x/2
-                n = n + 1
-            else 
-                x = 3x + 1
-                n = n + 1
-            end
-        end
-        println(n)
-    end
+11 points: [-5.0 75.0 / -3.122 919.98 / -1.88 360.961 / -0.63 919.98 / 1.0 183.0 / 2.12 688.95 / 2.91 335.403 / 3.69 687.3715 / 4.12 494.84 / 5.33 1040.92 / 7.0 291.0]
 """, "Answer", false)
 
-ans108F = Revealable("""
-###Answer F
-Example code:
+ext208 = Revealable("""
+###Extension Program
 
-    for i in 1:20
-        calcgame(i)
+I split this program into multiple functions, which is a good idea when programs get complex and hard to read. Plus, I call `augment` multiple times. Having that code in a sub-function means that I don't have to rewrite it over and over.
+
+<code>
+    # pre-defined function
+g(x) =  -x^4 + 4x^3 + 30x^2 - 50x + 200 # function value here 
+
+    # this function will be called later to find intersection points of a line with slope m through (x1, y1) and a line with slope -m through (x2, y2)
+function augment(A, maxslope, x1, y1, x2, y2)  # must be in order, left point first.
+    ycross = (maxslope*(x2 - x1) + (y1 + y2))/2
+    xcross = (ycross - y1)/maxslope + x1
+    A = vcat(A, [xcross ycross])
+end
+
+function sawtooth(f, maxslope, left, right)  # function, maximum slope, left and right boundaries only 
+    A = [left f(left); (left + right)/2 f((left + right)/2); right f(right)]
+    A = augment(A, maxslope, A[1,1], A[1,2], A[2, 1], A[2,2])
+    A = augment(A, maxslope, A[2,1], A[2,2], A[3,1], A[3,2])
+    A = sortrows(A)
+    for n = 1:5
+        loc = findmax(A[:, 2])[2]  # returns the index of the highest number in the 2nd column of A
+        A[loc, 2] = f(A[loc])
+        A = augment(A, maxslope, A[loc-1, 1], A[loc-1, 2], A[loc, 1], A[loc, 2])
+        A = augment(A, maxslope, A[loc, 1], A[loc, 2], A[loc+1, 1], A[loc+1, 2])
+        A = sortrows(A)
     end
-""", "Answer", false)
+    println(A)
+end
 
-ans108G = Revealable("""
-###Answer G
-My version of the program has an interesting feature that you may or may not have come up with on their own: a variable called `primeness`, which is set to `true` unless/until the number divides evenly. There are lots of different ways to deal with the issue of how to report `n` as prime. As long as the program has output in words that tells whether the number is prime, consider yourself correct. Nevertheless, the idea of a binary variable is a useful one, so if you struggled, you might want go back and modify your program.
-
-For an extension to the extension, list out the factors of the non-prime numbers. For an extension, list out the factors as factor pairs rather than an ordered list.
-
-    function prime(n)
-        primeness = true  # assumes the number is prime until proven otherwise
-        test = 2  # starting with 2 as the divisor
-        while test <= sqrt(n)  # ending when we get over the square root of n
-            if n % test == 0  # if no remainder, then...
-                primeness = false  # the number is not prime.
-            end
-            test = test + 1  # increments the divisor by 1 - there are fancier ways
-        end
-        if primeness  # here we see the `primeness` variable used to generate an output
-            println(\"\$n is prime.\")
-        else 
-            println(\"\$n is not prime.\")
-        end
-    end
-
+sawtooth(g, 450, -5, 7)
+</code>
 """, "Answer", false)
 
 #############
@@ -609,7 +612,7 @@ For an extension to the extension, list out the factors of the non-prime numbers
 #############
 
 
-ans109A = Revealable("""
+ans209A = Revealable("""
 ###Answer A
 I chose to use a `for` loop on this, but a `while` loop with a counter would work perfectly well also.
 
