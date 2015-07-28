@@ -236,7 +236,7 @@ function findmin(f, leftbound, rightbound)  # Function `f` will need to be pre-l
     while rightbound - leftbound > .0001  # This tolerance can be adjusted as needed. Or, add a new defined variable `tolerance`.
         slope = (f(rightbound) - f(leftbound))/(rightbound - leftbound)
         if slope < 0
-                leftbound = leftbound + (rightbound - leftbound)/3  # here's that /3 -- modify as needed
+                leftbound = leftbound + (rightbound - leftbound)/3  # here's that /3 - modify as needed
         elseif slope > 0
                 rightbound = rightbound - (rightbound - leftbound)/3
         else  # In the special case where the slopes are equal it marches both endpoints in. 
@@ -340,66 +340,170 @@ end
 </code>
 """, "Answer", false)
 
+ans206C = Revealable("""
+###Answer C
+<code>
+function findmin(f, leftbound, rightbound)  # Function `f` will need to be entered below. Leftbound and rightbound are your interval endpoints; see note above.
+    while rightbound - leftbound > .0001  # This tolerance is arbitrary and can be adjusted as needed. Or, add a new defined variable `tolerance`
+        slope = (f(rightbound) - f(leftbound))/(rightbound - leftbound)
+        if slope > 0
+            leftbound = leftbound + (rightbound - leftbound)/3
+            # The division by 3 above and below is arbitrary and aggressive.
+            # If you get an infinite loop you may want to adjust the step lower, say /4 or /10.
+            # This will make the algorithm relatively slower but also less likely to overshoot the minimum.
+        elseif slope < 0
+            rightbound = rightbound - (rightbound - leftbound)/3
+        else  # In the special case where the slopes are equal it marches both endpoints in.
+            leftbound = leftbound + (rightbound + leftbound)/3
+            rightbound = rightbound - (rightbound + leftbound)/3
+        end
+    end
+    println(\"\$leftbound, \$rightbound\")  # Note that the response is the boundaries, from which you can probably estimate the minimum; if not, adjust the tolerance above.
+end
+</code>
+""", "Answer", false)
+
+ans206D = Revealable("""
+###Answer D
+The minima are at -0.421 and 2.256
+The maximum is at 0.790.
+
+What you're really doing here is testing your code&mdash;if your answers don't agree (and you correctly entered __-__f(x) when trying to make the program do the opposite of what it was built to do), then there is something wrong with at least one of your programs! If the answers all agree, then there is probably nothing wrong with your programs.
+""", "Answer", false)
+
+
 #############
 # Lesson 07 #
 #############
 
-ans107A = Revealable("""
+ans207A = Revealable("""
 ###Answer A
-```
-function Abs(x)
-    if x < 0
-        println(\"The absolute value is \$(-x)\")
-    else
-        println(\"The absolute value is \$x\")
+<code>
+function ybasedint(f)
+    step = 2  # totally arbitrary.
+    testpos = 0
+    testneg = 0
+    while -1000000 < f(testpos) < 1000000  # also totally arbitrary.
+        testpos = testpos + step
     end
+    while -1000 < f(testneg) < 1000
+        testneg = testneg - step
+    end
+    println(testneg)
+    println(testpos)
 end
-```
+</code>
 """, "Answer", false)
 
-ans107B = Revealable("""
+ans207B = Revealable("""
 ###Answer B
-```
-function grade(x)
-    p = round(x/28*100,2)  # Converting points to percent, rounding to 2 decimal places
-    if p >= 90
-        println(\"Congratulations! You got an A, \$p%!\")
-    elseif p >= 70
-        println(\"You passed your essay with \$p%!\")
-    else
-        println(\"Please see Mrs. Crabapple for help raising your \$p%.\")
+<code>
+f(x) = x^4 + 35x^3 - 1062x^2 - 8336x + 47840  # the function analyzed
+
+function gridsearch(f, a, b)  #f is the function, a and b the endpoints of the interval in order
+    int = b - a 
+    int = int/5  # divides interval into 50 subintervals
+    test = a  # everything start with a. Test is the point we're currently testing...
+    low = f(a)  # low is the record low value so far
+    save = a  # save is the x-value corresponding to the record low
+    while test < b  # this loop will run until we've tested all the points from a to b
+        if f(test)<low  # if the y-value is lower than the current lowest,
+            low = f(test)  # then this loop replaces the current (save, low) with the new (save, low)
+            save = test
+        end
+    test = test + int  # moving on to the next point
     end
+    println(\"seed with x = \$save\")
 end
-```
+</code>
+""", "Answer", false)
+
+ans207C = Revealable("""
+###Answer C
+The main reason to do this is it's kind of nice to have one program that does everything rather than having to transfer by hand, but when I combined mine I noticed how glad I was that my code was documented.
+
+It looks so simple, but it is truly a pain in the butt. Since you wrote the three earlier programs in separate sittings, you probably have different variables for the same thing in all the different programs. You will have to unify like variables under a common name and separate variables that you accidentally named the same thing but are different. You will also have to maintain attention to the order of interval endpoints if any of the programs require them to be in numerical order.
+
+Other than that, it's just a matter of deleting the `function` and `end` commands from the top and bottom of each individual program, then putting a great big `function` and `end` to bracket the whole thing.
+<code>
+function globalmin(f, a, b)  # f is the function, a and b the endpoints of the interval in order
+    # This composite function combines a grid search, a 3-point interval, and a slope-based minimization program to find a global minimum.
+    
+    # the first part of the program is a grid search to determine a good starting point.
+    int = b - a
+    int = int/50  # divides interval into 50 subintervals
+    test = a  # everything starts with a. Test is the point we're currently testing...
+    low = f(a)  # low is the record low value so far
+    save = a  # save is the x-value corresponding to the record low
+    while test < b  # this loop will run until we've tested all the points from a to b
+        if f(test)<low  # if the y-value is lower than the current lowest,
+        low = f(test)  # then this loop replaces the current (save, low) with the new (save, low)
+        save = test  # save will return the location of the lowest point
+    end
+    test = test + int  # moving on to the next point
+  end
+
+    # the next part of the program is a 3-point interval search, using "save" as the seed point, the location of the record low from the grid search
+    int = int/10  # initial interval is 1/10 the previous interval
+    a = save + int  # first test point is 1 interval unit from the starting point
+    if f(a) > f(save)  # this loop checks direction of motion to ensure we're heading to a minimum
+        int = -int
+        a = save + int
+    end
+    b = a + int
+    while f(b) < f(a)
+        save = a  # stepping the interval along
+        a = b
+        b = b + int
+        int = b - save  # this increases the interval width in a Fibonacci pattern.
+    end
+  
+    # finally, the last part of the program minimizes in the interval [save, a].
+    left = min(b, save)
+    right = max(b, save)
+        phi = (-1+(5)^(1/2))/2  # phi, the golden ratio, used for sectioning below.
+        int = right - left
+        while int > 0.00001  # tolerance, change as needed
+            subdiv = phi * int
+            lefttest = right - subdiv  # this line and the next create two points within the interval...
+            righttest = left + subdiv
+            if f(lefttest) < f(righttest)  # ...while this loop tests the interior points in the function and shifts the interval endpoints inward accordingly.
+            right = righttest
+        else
+            left = lefttest
+        end
+        int = right - left
+    end
+    println(\"\$left, \$right\")
+end
+</code>
 """, "Answer", false)
 
 #############
 # Lesson 08 #
 #############
 
-defIteration = Revealable("""
-__Iteration__ is when the same procedure is repeated multiple times.
+slope = Revealable("""
+The math here can get ugly. Some ways to make it less ugly:
+1. Enter the function `f(x)` into Julia and use that to evaluate y-values.
+2. Use point-slope form for your linear equations.
+3, Continue to use point-slope form when solving. The slopes of adjacent lines are opposite so the x-values will cancel nicely every time.
+""", "Hints for Easier Calculations", false)
 
+hint208A = Revealable("""
+The math here can get ugly. Some ways to make it less ugly:
+1. Enter the function `f(x)` into Julia and use that to evaluate y-values.
+2. Use point-slope form for your linear equations.
+3. Continue to use point-slope form when solving. The slopes of adjacent lines are opposite so the x-values will cancel nicely every time.
+""", "Hints for Easier Calculations", false)
 
-Some examples were long division, the Fibonacci numbers, prime numbers, and the calculator game. Some of these used recursion as well, but not all of them.
-""", "Definition", false)
-
-ext1081 = Revealable("""
-You would change it to `function Sum(a,b)`, and modify the \"for\" line to `for x in a:b`.
-""", "Extension Answer", false)
-
-ext1082 = Revealable("""
-Change it to `println(\"The sum is \$S\"`
-""", "Extension Answer", false)
-
-ans108A = Revealable("""
+ans208A = Revealable("""
 ###Answer A
-Sample code:
-```
-for x in -6:6
-    println(4x^2 - 12)
-end
-```
+1. (-5, 75), (1, 183), (7, 291)
+
+2. y - 75 = 450(x + 5); y - 183 = -450(x - 1); y - 183 = 450(x - 1); y - 291 = -450(x - 7)
+
+3. (-1.88, 1479), (4.12, 1587)
 """, "Answer", false)
 
 ans108B = Revealable("""
@@ -489,7 +593,7 @@ For an extension to the extension, list out the factors of the non-prime numbers
             if n % test == 0  # if no remainder, then...
                 primeness = false  # the number is not prime.
             end
-            test = test + 1  # increments the divisor by 1 -- there are fancier ways
+            test = test + 1  # increments the divisor by 1 - there are fancier ways
         end
         if primeness  # here we see the `primeness` variable used to generate an output
             println(\"\$n is prime.\")
@@ -543,7 +647,7 @@ ans109C = Revealable("""
         n = length(v)  # so I know where to stop in my for loop later
         sum = 0  # seeding 0 for the current sum 
         for x in 1:n  # repeats for each element of v
-            sum = sum + (v[x])^2  # augments sum with the value of the next term, squared -- Pythagorean Theorem
+            sum = sum + (v[x])^2  # augments sum with the value of the next term, squared - Pythagorean Theorem
         end
         mag = sqrt(sum)  # finishes with square root of the sum of squares, to find magnitude
         v = v/mag  # replaces old vector v with unitized elements
