@@ -611,7 +611,6 @@ sawtooth(g, 450, -5, 7)
 # Lesson 09 #
 #############
 
-
 ans209A = Revealable("""
 ###Answer A
 I chose to use a `for` loop on this, but a `while` loop with a counter would work perfectly well also.
@@ -661,7 +660,7 @@ f(a, b) = a^2 + 5*b^2
 function brute4(f, a, b)
     A = [a b; a+.1 b; a-.1 b; a b+.1; a b-.1]  # for brute force, I think using arrays is pretty slick.
     vals = [ ]
-    for n = 1:5
+    for n in 1:5
         vals = vcat(vals, f(A[n], A[n+5]))  # builds a column array with successive values of points
     end
     loc = findmin(vals)[2]  # returns the location of the maximum value of vals (findmin(vals) alone will give a string of (value, location))
@@ -693,7 +692,7 @@ function brute4min(f, a, b)
     while loc != 1  # stops the loop when the location of the ideal is position 1 (the original point)
         A = [a b; a+step b; a-step b; a b+step; a b-step]  # array stores all 5 points to test.
         vals = [ ]
-        for n = 1:5
+        for n in 1:5
             vals = vcat(vals, f(A[n], A[n+5]))  # builds a column array with successive values of points
         end
         loc = findmin(vals)[2]  # returns the location of the maximum value of vals (findmin(vals) alone will give a string of (value, location))
@@ -717,20 +716,20 @@ ans210D = Revealable("""
 <code>
 function brute4min(f, a, b)
     step = 1
-    for n = 1:8
-    loc = 7  # could be anything other than 1 as a seed, I just like 7
-    while loc != 1  # stops the loop when the location of the ideal is position 1 (the original point)
-        A = [a b; a+step b; a-step b; a b+step; a b-step]  # array stores all 5 points to test.
-        vals = [ ]
-        for n = 1:5
-            vals = vcat(vals, f(A[n], A[n+5]))  # builds a column array with successive values of points
-        end
-        loc = findmin(vals)[2]  # returns the location of the maximum value of vals (findmin(vals) alone will give a string of (value, location))
-        a = A[loc]
-        b = A[loc + 5] # taking advantage of fixed length of A at 5 to index directly rather than row, column
+    for n in 1:8
+        loc = 7  # could be anything other than 1 as a seed, I just like 7
+        while loc != 1  # stops the loop when the location of the ideal is position 1 (the original point)
+            A = [a b; a+step b; a-step b; a b+step; a b-step]  # array stores all 5 points to test.
+            vals = [ ]
+            for n in 1:5
+                vals = vcat(vals, f(A[n], A[n+5]))  # builds a column array with successive values of points
+            end
+            loc = findmin(vals)[2]  # returns the location of the maximum value of vals (findmin(vals) alone will give a string of (value, location))
+            a = A[loc]
+            b = A[loc + 5] # taking advantage of fixed length of A at 5 to index directly rather than row, column
         end
         step = step/10
-            println(\"x1 = \$a and x2 = \$b\")  # note that this will print out each successive result, not just a final one; move this down if all you want is final
+        println(\"x1 = \$a and x2 = \$b\")  # note that this will print out each successive result, not just a final one; move this down if all you want is final
     end
 end
 </code>
@@ -748,8 +747,8 @@ function gridsearch(f, a, b, c, d)
     int2 = (d-c)/5  # same for x2
     min = f(a, c)
     A = [a c]  # seeds (a, c) as initial minimum point
-    for x in {a + int1*n for n = 0:5}  # array of 6 evenly spaced points from a to b
-        for y in {c + int2*n for n = 0:5}  # nested, 6 evenly spaced points from c to d
+    for x in {a + int1*n for n in 0:5}  # array of 6 evenly spaced points from a to b
+        for y in {c + int2*n for n in 0:5}  # nested, 6 evenly spaced points from c to d
             test = f(x, y)
             if test < min  # if the function value here is lower than the current min, replaces it and location
                 min = test
@@ -787,4 +786,174 @@ end
 </code>
 """, "Answer", false)
 
+#############
+# Lesson 11 #
+#############
 
+ans211A = Revealable("""
+###Answer A
+All improvement should be in the direction of the minimum, (3, -1).
+
+For my code, I chose to use arrays rather than if/else replacement, but either one should work.
+<code>
+f(a, b) = (a-3)^2 + (b+1)^2
+
+function hjbegin(f, a, b)
+    S = [a a+.1 a-.1]  # establishes an array S with our test points on x1
+    A = [ ]  # seeds an empty set A
+    for n in 1:3 
+        A = vcat(A, f(S[n], b))  # builds A with function values of each point in S. 
+    end
+    c = S[findmin(A)[2]]  # assigns the name "c" to the coordinate of S with the lowest function value
+    A = [ ]  # resets A as empty
+    T = [b b+.1 b-.1]  # establishes T with test points on x2
+    for n in 1:3 
+        A = vcat(A, f(c, T[n]))  # builds A with function values of T.   
+    end
+    d = T[findmin(A)[2]]  # assigns the name "d" to the coordinate of T with the lowest function value
+    println(\"\$a, \$b\")
+    println(\"\$c, \$d\")
+    println(\"\$(c-a), \$(d-b)\")  # returns the vector between the original and improved point
+end
+</code>
+""", "Answer", false)
+
+
+ans211B = Revealable("""
+###Answer B
+You should get something very close to the true minimum at (3, -1).
+<code>
+f(a, b) = (a-3)^2 + (b+1)^2
+
+function vectorsearch(f, a, b, x, y)  # a and b are coordinates of the starting point; x, y is vector found by hjbegin
+    while f(a + x, b + y) < f(a, b)
+        a = a + x 
+        b = b + y 
+    end
+    println(\"\$a, \$b\")
+end
+</code>
+""", "Answer", false)
+
+
+ans211C = Revealable("""
+###Answer C
+Answers should converge towards (0.7315ish, -0.3658ish).
+
+If you have the written steps from the first part, you should see the same results from the combined code without the need to switch between two programs.
+<code>
+function hj(f, a, b) # function and starting point
+    int = .1 
+    S = [a a+int a-int]  # establishes an array S with our test points on x1. 
+    A = [ ]  # seeds an empty set A
+    for n in 1:3 
+        A = vcat(A, f(S[n], b))  # builds A with function values of each point in S. 
+    end
+    c = S[findmin(A)[2]]  # assigns the name `c` to the coordinate of S with the lowest function value
+    A = [ ]  # resets A as empty
+    T = [b b+int b-int]  # establishes T with test points on x2
+    for n in 1:3 
+        A = vcat(A, f(c, T[n]))  # builds A with function values of T.   
+    end
+    d = T[findmin(A)[2]]  # assigns the name `d` to the coordinate of T with the lowest function value
+    vectorx = c - a 
+    vectory = d - b
+    while f(c + vectorx, d + vectory) < f(c, d)
+        c = c + vectorx
+        d = d + vectory
+    end
+    println(\"\$c, \$d\")
+end
+</code>
+""", "Answer", false)
+
+
+ans211D = Revealable("""
+###Answer D
+Answers should approach (0.7314ish, -0.3657ish)
+<code>
+function hj(f, a, b) # function and starting point
+    int = .1 
+    vectorx = 100  # could be any nonzero, just being careful here
+    vectory = 100
+    while vectorx != 0 && vectory != 0
+        S = [a a+int a-int]  # establishes an array S with our test points on x1. 
+        A = [ ]  # seeds an empty set A
+        for n in 1:3 
+            A = vcat(A, f(S[n], b))  # builds A with function values of each point in S. 
+        end
+        c = S[findmin(A)[2]]  # assigns the name `c` to the coordinate of S with the lowest function value
+        A = [ ]  # resets A as empty
+        T = [b b+int b-int]  # establishes T with test points on x2
+        for n in 1:3 
+            A = vcat(A, f(c, T[n]))  # builds A with function values of T.   
+        end
+        d = T[findmin(A)[2]]  # assigns the name `d` to the coordinate of T with the lowest function value
+        vectorx = c - a 
+        vectory = d - b
+        while f(c + vectorx, d + vectory) < f(c, d)
+            c = c + vectorx
+            d = d + vectory
+        end
+        a = c 
+        b = d
+    end
+    println(\"\$a, \$b\")
+end
+</code>
+""", "Answer", false)
+
+
+ans211E = Revealable("""
+###Answer E
+Answers should approach (0.731404, -0.365702).
+<code>
+f(a, b) = (a+b)^2 + (sin(a+2))^2  + b^2 + 10
+
+function hj(f, a, b) # function and starting point
+    int = 1 
+    for n in 1:7  # this will end up with an interval of 0.000001.
+        vectorx = 100  # could be any nonzero, just being careful
+        vectory = 100
+        while vectorx != 0 && vectory != 0
+            S = [a a+int a-int]  # establishes an array S with our test points on x1. 
+            A = [ ]  # seeds an empty set A
+            for n in 1:3 
+                A = vcat(A, f(S[n], b))  # builds A with function values of each point in S. 
+            end
+            c = S[findmin(A)[2]]  # assigns the name `c` to the coordinate of S with the lowest function value
+            A = [ ]  # resets A as empty
+            T = [b b+int b-int]  # establishes T with test points on x2
+            for n in 1:3 
+                A = vcat(A, f(c, T[n])  # builds A with function values of T.   
+            end
+            d = T[findmin(A)[2]]  # assigns the name `d` to the coordinate of T with the lowest function value
+            vectorx = c - a 
+            vectory = d - b
+            while f(c + vectorx, d + vectory) < f(c, d)
+                c = c + vectorx
+                d = d + vectory
+            end
+            a = c 
+            b = d   
+        end
+        int = int/10
+    end
+    println(\"\$a, \$b\")
+end
+</code>
+""", "Answer", false)
+
+#############
+# Lesson 12 #
+#############
+
+
+#############
+# Lesson 13 #
+#############
+
+
+#############
+# Lesson 14 #
+#############
