@@ -986,7 +986,9 @@ ans212D = Revealable("""
 
 ans212E = Revealable("""
 ###Answer E
-Okay, I cheated a little. I have two subprograms with the same name (`fibmin`) but different inputs. Julia can handle it! (Google \"Julia multiple dispatch\” if you want to know more.) Depending on which arguments I pass in, Julia chooses the correct `fibmin` function. Maybe you came up with a more elegant way.
+Okay, I cheated a little. I have two subprograms with the same name (`fibmin`) but different inputs. Julia can handle it! (Google \"Julia multiple dispatch\" if you want to know more.) Depending on which arguments I pass in, Julia chooses the correct `fibmin` function.
+
+Maybe you came up with a more elegant way.
 <code>
 function fibmin(f, a, b, dim)  # input: function, two variables, and which dimension to minimize
     phi = (-1+(5)^(1/2))/2
@@ -1033,7 +1035,6 @@ function fibmin(f)  # input: function
     (maxlim + minlim)/2  # return minimum x-value
 end
 
-
 function cyclic(f, a, b)  # f is a function in 2 variables; (a, b) is the seed point 
     q = 20  # any high number will do
     f1 = 0 
@@ -1053,15 +1054,94 @@ end
 </code>
 """, "Answer", false)
 
-
-
-
-
 #############
 # Lesson 13 #
 #############
 
+hint213A = Revealable("""
+###Hint A
+In each case, it's mostly a matter of switching \"&lt;\" with \"&gt;\".
+
+No solution is given for this problem. Solving it is entirely up to you!
+""", "Hint", false)
+
+ans213B = Revealable("""
+###Answer B
+1. For my Hooke-Jeeves, not much would change because I used arrays. If they went with multiple variables instead of arrays, it will require a lot more work here because the number of variables goes up quickly with the number of dimensions. Otherwise the algorithm is the same: test a bunch of points, find the best one, form a vector from the original, push along that vector until it stops minimizing, then repeat, shrinking the interval as needed.
+
+2. In my program, I'd have to change my first `fibmin` function to allow more variables, and I'd need to modify the part where I check which dimension is being minimized. Other than that not much would change: once you minimize each variable, you form a vector and minimize that (it will still be an equation in 1 variable, a), then repeat.
+""", "Answer", false)
+
+ans213C = Revealable("""
+###Answer C
+1. For my Hooke-Jeeves, not much would change because I used arrays. If they went with multiple variables instead of arrays, it will require a lot more work here because the number of variables goes up quickly with the number of dimensions. Otherwise the algorithm is the same: test a bunch of points, find the best one, form a vector from the original, push along that vector until it stops minimizing, then repeat, shrinking the interval as needed.
+
+2. In my program, I'd have to change my first `fibmin` function to allow more variables, and I'd need to modify the part where I check which dimension is being minimized. Other than that not much would change: once you minimize each variable, you form a vector and minimize that (it will still be an equation in 1 variable, a), then repeat.
+""", "Answer", false)
 
 #############
 # Lesson 14 #
 #############
+
+ans214A = Revealable("""
+###Answer A
+Answers will vary, of course. 
+1. should use `rand()`
+2. should use `40 + 5*rand()`
+3. should use `randn()`
+4. should use `20 + 4.2*randn()`
+""", "Answer", false)
+
+ans214B = Revealable("""
+###Answer B
+Somewhere in the 10-13 range, more or less, would be typical, but on one trial you could get almost anything.
+""", "Answer", false)
+
+ans214C = Revealable("""
+###Answer C
+Answers will vary, of course. I got 11.58; 11.83; 11.79; 11.75. 
+
+The actual average appears to be around 11.8, ish. If you wrote your answers with more than 2 decimal places, DON'T!!!! This method is not that accurate and it is irresponsible to report results as if it is.
+<code>
+function travel(n)
+    total = 0
+    for x in 1:n
+        a = 1 + 3&#42;rand() + .8 + .35&#42;randn() + .5 + 1.5&#42;rand() + 4 + .1&#42;randn() + .25 + 3 + .8&#42;randn()
+        total = total + a
+    end
+    average = total/n 
+    println(average)
+end
+
+travel(20)
+</code>
+""", "Answer", false)
+
+ans214D = Revealable("""
+###Answer D
+Answers will vary. For my five trials I got 14.878, 14.619, 14.711, 14.628, and 14.812. I would guess the actual average to be around 14.7 hours.
+<code>
+function travel(n)
+    total = 0
+    for x in 1:n
+        a = (1 + 3&#42;rand() )
+        if a >= 2
+            a = a + 1.2 + .6&#42;rand()
+        else
+            a = a + .8 + .35&#42;randn()
+        end
+        a = a + .8 + .35&#42;randn() + .5 + 1.5&#42;rand() + 4 + .1&#42;randn() + .25
+        if a > 9 
+            a = a + 5.1 + 1.9&#42;randn()
+        else
+            a = a + 3 + .8&#42;randn()
+        end
+        total = total + a 
+    end
+    average = total/n 
+    println(average)
+end
+
+travel(500)
+</code>
+""", "Answer", false)
