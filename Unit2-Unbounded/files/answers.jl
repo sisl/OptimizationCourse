@@ -533,17 +533,17 @@ ans208C = Revealable("""
 These two have the same y-value. Neither has the current high y-value which is (-1.88, 1479), but if two were ever tied you would just pick one and run with it. Tradition says left first.
 """, "Answer", false)
 
-step = [Revealable("""
+steps208 = [Revealable("""
 <img src=\"files/2-8/step1.png\" width=300 />
-""", "=", true), Revealable("""
+""", "", true), Revealable("""
 <img src=\"files/2-8/step2.png\" width=300 />
-""", "=", true), Revealable("""
+""", "", true), Revealable("""
 <img src=\"files/2-8/step3.png\" width=300 />
-""", "=", true), Revealable("""
+""", "", true), Revealable("""
 <img src=\"files/2-8/step4.png\" width=300 />
-""", "=", true), Revealable("""
+""", "", true), Revealable("""
 <img src=\"files/2-8/step5.png\" width=300 />
-""", "=", true)]
+""", "", true)]
 
 ans208D = Revealable("""
 ###Answer D
@@ -632,7 +632,7 @@ end
 ```
 """, "Answer", false)
 
-ans109B = Revealable("""
+ans209B = Revealable("""
 ###Answer B
 
     function vector(s, t)
@@ -644,50 +644,147 @@ ans109B = Revealable("""
 ```
 """, "Answer", false)
 
-ans109C = Revealable("""
-###Answer C
-    function unitize(v)
-        n = length(v)  # so I know where to stop in my for loop later
-        sum = 0  # seeding 0 for the current sum 
-        for x in 1:n  # repeats for each element of v
-            sum = sum + (v[x])^2  # augments sum with the value of the next term, squared - Pythagorean Theorem
-        end
-        mag = sqrt(sum)  # finishes with square root of the sum of squares, to find magnitude
-        v = v/mag  # replaces old vector v with unitized elements
-        println(\"The unitized vector is \$v\")
-    end
-""", "Answer", false)
-
-ans109D = Revealable("""
-###Answer D
-    function Dot(a, b)
-        n = length(a)  # finds the length of a for my loop later
-        products = []  # preloads products as the empty set
-        for x in 1:n  # stops when we run out of elements to multiply.
-                k = a[x] * b[x]  # multiplies each term in order...
-                push!(products, k)  # ...and pushes that onto the end of products
-            end
-        println(\"The dot product is \$sum(products)\")  # then reports the sum of products 
-    end
-""", "Answer", false)
-
 #############
 # Lesson 10 #
 #############
 
-ans110 = Revealable("""
-###Sample Program:
+ans210A = Revealable("""
+###Answer A
+1. 134, 4, 21
+2. Make sure you are getting a visual of what this does: it evaluates a function at a given point, then a smidgen above, a smidgen below, a smidgen right, and a smidgen left, then minimizes those values. The answers are: (3, 4.9); (1.9, 0); (-4, -0.9)
 
-    f(x) = x^2 - 4x  # function can be modified to whatever
+There are a lot of different ways to accomplish this task. Mine is below. 
 
-    function secant(f, a, b)
-        while abs(b - a) > 0.00001  # more accurate is fine. Note absolute value is important for distance!
-                                    # Also could use f(b) < 0.00001.
-            m = (f(a) - f(b))/(a - b)  # made a variable for slope to simplify next line
-            x = -f(a)/m + a  # calculating the x-intercept
-            a = b  # redefining a and b to include the old b and the x-intercept x
-            b = x 
-        end  # loop ends when tolerance is reached
-        println(b)  # print the value of b (the last x-intercept found).
+<code>
+f(a, b) = a^2 + 5*b^2
+
+function brute4(f, a, b)
+    A = [a b; a+.1 b; a-.1 b; a b+.1; a b-.1]  # for brute force, I think using arrays is pretty slick.
+    vals = [ ]
+    for n = 1:5
+        vals = vcat(vals, f(A[n], A[n+5]))  # builds a column array with successive values of points
     end
+    loc = findmin(vals)[2]  # returns the location of the maximum value of vals (findmin(vals) alone will give a string of (value, location))
+    println(\"x1 at \$(A[loc]) and x2 at \$(A[loc + 5])\")
+end
+</code>
 """, "Answer", false)
+
+steps210 = [Revealable("""
+<img src=\"files/2-10/step1.png\" width=300 />
+""", "", true), Revealable("""
+<img src=\"files/2-10/step2.png\" width=300 />
+""", "", true), Revealable("""
+<img src=\"files/2-10/step3.png\" width=300 />
+""", "", true), Revealable("""
+<img src=\"files/2-10/step4.png\" width=300 />
+""", "", true)]
+
+ans210B = Revealable("""
+###Answer B
+The first practice function should narrow down to the origin; the second to (4, -3).
+
+Again, multiple ways to do this. 
+<code>
+f(a, b) = a^2 + 5*b^2
+
+function brute4min(f, a, b)
+    loc = 7  # could be anything other than 1 as a seed, I just like 7
+    while loc != 1  # stops the loop when the location of the ideal is position 1 (the original point)
+        A = [a b; a+step b; a-step b; a b+step; a b-step]  # array stores all 5 points to test.
+        vals = [ ]
+        for n = 1:5
+            vals = vcat(vals, f(A[n], A[n+5]))  # builds a column array with successive values of points
+        end
+        loc = findmin(vals)[2]  # returns the location of the maximum value of vals (findmin(vals) alone will give a string of (value, location))
+        a = A[loc]
+        b = A[loc + 5] # taking advantage of fixed length of A at 5 to index directly rather than row, column
+        end
+        step = step/10        
+    end
+    println(\"x1 = \$(round(a, 3)) and x2 = \$(round(b, 3))\")  # rounding to 3 decimal places
+end
+</code>
+""", "Answer", false)
+
+ans210C = Revealable("""
+###Answer C
+Answers should approach approximately (0.7313..., -0.3656...).
+""", "Answer", false)
+
+ans210D = Revealable("""
+###Answer D
+<code>
+function brute4min(f, a, b)
+    step = 1
+    for n = 1:8
+    loc = 7  # could be anything other than 1 as a seed, I just like 7
+    while loc != 1  # stops the loop when the location of the ideal is position 1 (the original point)
+        A = [a b; a+step b; a-step b; a b+step; a b-step]  # array stores all 5 points to test.
+        vals = [ ]
+        for n = 1:5
+            vals = vcat(vals, f(A[n], A[n+5]))  # builds a column array with successive values of points
+        end
+        loc = findmin(vals)[2]  # returns the location of the maximum value of vals (findmin(vals) alone will give a string of (value, location))
+        a = A[loc]
+        b = A[loc + 5] # taking advantage of fixed length of A at 5 to index directly rather than row, column
+        end
+        step = step/10
+            println(\"x1 = \$a and x2 = \$b\")  # note that this will print out each successive result, not just a final one; move this down if all you want is final
+    end
+end
+</code>
+""", "Answer", false)
+
+ans210E = Revealable("""
+###Answer E
+
+The actual minimum occurs at (1, 1). My version of this code came up with a starting point of (-0.6, -0.6). This was close enough to give the actual minimum using the previous program.
+<code>
+f(a, b) = 100*(a - b)^2 + (1-b)^2
+
+function gridsearch(f, a, b, c, d)
+    int1 = (b-a)/5  # splits the x1 interval into 5 sections, 6 total points 
+    int2 = (d-c)/5  # same for x2
+    min = f(a, c)
+    A = [a c]  # seeds (a, c) as initial minimum point
+    for x in {a + int1*n for n = 0:5}  # array of 6 evenly spaced points from a to b
+        for y in {c + int2*n for n = 0:5}  # nested, 6 evenly spaced points from c to d
+            test = f(x, y)
+            if test < min  # if the function value here is lower than the current min, replaces it and location
+                min = test
+                A = [x y]
+            end
+        end
+    end
+    println(\"x1 = \$(A[1]), x2 = \$(A[2])\")  # prints the location of the lowest value
+end
+</code>
+""", "Answer", false)
+
+ext210 = Revealable("""
+###Sample Answer
+<code>
+function brute4min(f, a, b, c)
+    step = 1
+    for n = 1:8
+        loc = 7  # could be anything other than 1 as a seed, I just like 7
+        while loc != 1  # stops the loop when the location of the ideal is position 1 (the original point)
+            A = [a b c; a+step b c; a-step b c; a b+step c; a b-step c; a b c+step; a b c-step  # add c and steps of c into A
+            vals = [ ]
+            for n = 1:5
+            vals = vcat(vals, f(A[n], A[n+7], A[n+14]))  # builds a column array with successive values of points. A has 7 rows
+        end
+            loc = findmin(vals)[2]  # returns location of maximum value of vals (loc alone will give a string of (value, location))
+            a = A[loc]
+            b = A[loc + 7] # A's length is fixed at 7, so we can index directly
+            c = A[loc + 14]
+        end
+        step = step/10
+        println(\"x1 = \$a, x2 = \$b, x3 = \$c\")  # now prints out all 3 variables
+    end
+end
+</code>
+""", "Answer", false)
+
+
