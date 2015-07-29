@@ -948,6 +948,123 @@ end
 # Lesson 12 #
 #############
 
+xsection = Revealable("""
+You should be able to identify stuff that looks like parabolas in both vertical cross-sections down the middle. The horizontal cross-sections are ellipses. 
+
+This function is f(x<sub>1</sub>, x<sub>2</sub>) = (x<sub>1</sub>)<sup>2</sup> + 2(x<sub>2</sub>)<sup>2</sup>. If you're familiar with conic sections, you should be able to see the elliptical equation in the variables. 
+""", "You might see...", false)
+
+ans212A = Revealable("""
+###Answer A
+1. f(x<sub>1</sub>, -1) = (x<sub>1</sub> - 3)<sup>2</sup> + 16; or, f(x) = (x - 3)<sup>2</sup> + 16. 
+2. minimized at x = 3. (If you've studied quadratics, you knew this&mdash;the function is a parabola in vertex form.)
+3. f(3, x<sub>2</sub>) = 0 + (x<sub>2</sub> + 5)<sup>2</sup>; or, f(x) = (x + 5)<sup>2</sup>. Minimized at -5; again, you knew this.
+The answer, (3, -5), is the minimum of this function. This happened here because it's a very simple function, but it won't always.
+""", "Answer", false)
+
+ans212B = Revealable("""
+###Answer B
+(-1, .5), function value = 3.25 at original, 0.5 at new. It's a solid improvement but still not a minimum over the entire function.
+
+The vector from (0.5, 1) to (-1, 0.5) is &lt;-1.5, -0.5&gt;.
+""", "Answer", false)
+
+ans212C = Revealable("""
+###Answer C
+1. The new point is (-1-1.5a, .5 -.5a)
+2. The raw version is f(x<sub>1</sub>, x<sub>2</sub>) = (-1 - 1.5a)<sup>2</sup> + 2(.5 - .5a)<sup>2</sup> + 2(-1 - 1.5a)(.5 - .5a). If you simplified, you would get f = 4.25a<sup>2</sup> + 1.5a + .5.
+
+Notice in Part 2: the new function is a function in one variable, and therefore *can be minimized*. 
+""", "Answer", false)
+
+ans212D = Revealable("""
+###Answer D
+1. a = -0.17647.
+2. Since the new point was (-1 - 1.5a, .5 - .5a), plugging in a = -0.17647 yields (-0.7353, 0.5882).
+3. f(-0.7353, 0.5882) = 0.3676.
+""", "Answer", false)
+
+ans212E = Revealable("""
+###Answer E
+This program contains 3 separate minimizers. Sorry. There is definitely a more elegant solution that reuses code, probably with a subprogram. I hope you found a better way!
+<code>
+function cyclic(f, a, b)  # f is a function in 2 variables, (a, b) is the seed point 
+    q = 20  # any high number will do
+    f1 = 0 
+    f2 = 20
+    while abs(f1 - f2) > 0.0001  # tolerance for final answer
+        # fibmin loop 1 starts here
+        phi = (-1+(5)^(1/2))/2  # phi, the golden ratio, used for sectioning below.
+        maxlim = 10  # interval endpoints, change as needed
+        minlim = -10
+        int = maxlim - minlim
+        while int > 0.000001  # tolerance, change as needed
+            subdiv = phi*int
+            lefttest = maxlim - subdiv  # this line and the next create two points within the interval...
+            righttest = minlim + subdiv
+            if f(lefttest, b) < f(righttest, b)  # ...while this loop tests the interior points in the function and shifts the interval endpoints inward accordingly.
+                maxlim = righttest
+            else
+                minlim = lefttest
+            end
+            int = maxlim - minlim
+        end
+        c = (maxlim + minlim)/2
+        # fibmin loop 1 ends here
+  
+        # fibmin loop 2 starts here
+        maxlim = 10  # interval endpoints, change as needed
+        minlim = -10
+        int = maxlim - minlim
+        while int > 0.000001  # tolerance, change as needed
+            subdiv = phi*int
+            lefttest = maxlim - subdiv  # this line and the next create two points within the interval...
+            righttest = minlim + subdiv
+            if f(c, lefttest) < f(c, righttest)  # ...while this loop tests the interior points in the function and shifts the interval endpoints inward accordingly.
+                maxlim = righttest
+            else
+                minlim = lefttest
+            end
+            int = maxlim - minlim
+        end
+        d = (maxlim + minlim)/2
+        # fibmin loop 2 ends here
+      
+        g(x) = f(c + (c-a)*x, d + (d-b)*x)  # redefining f(x) as a single-variable function composed of vector translation from (a,b) beyond (c,d).
+      
+        # fibmin loop 3 starts here
+        maxlim = 10  # interval endpoints, change as needed
+        minlim = -10
+        int = maxlim - minlim
+        while int > 0.000001  # tolerance, change as needed
+            subdiv = phi*int
+            lefttest = maxlim - subdiv  # this line and the next create two points within the interval...
+            righttest = minlim + subdiv
+            if g(lefttest) < g(righttest)  # ...while this loop tests the interior points in the function and shifts the interval endpoints inward accordingly.
+                maxlim = righttest
+            else
+                minlim = lefttest
+            end
+            int = maxlim - minlim
+        end
+        q = (maxlim + minlim)/2
+        # fibmin loop 3 ends here
+      
+        f1 = f(a, b)
+        a = c + (c-a)*q
+        b = d + (d-b)*q
+        f2 = f(a,b)
+      
+    end
+  
+  println(\"x1 = \$a, x2 = \$b, value = \$(f(a, b))\")
+end
+</code>
+""", "Answer", false)
+
+
+
+
 
 #############
 # Lesson 13 #
