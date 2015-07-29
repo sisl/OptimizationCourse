@@ -986,78 +986,69 @@ ans212D = Revealable("""
 
 ans212E = Revealable("""
 ###Answer E
-This program contains 3 separate minimizers. Sorry. There is definitely a more elegant solution that reuses code, probably with a subprogram. I hope you found a better way!
+Okay, I cheated a little. I have two subprograms with the same name (`fibmin`) but different inputs. Julia can handle it! (Google \"Julia multiple dispatch\” if you want to know more.) Depending on which arguments I pass in, Julia chooses the correct `fibmin` function. Maybe you came up with a more elegant way.
 <code>
-function cyclic(f, a, b)  # f is a function in 2 variables, (a, b) is the seed point 
+function fibmin(f, a, b, dim)  # input: function, two variables, and which dimension to minimize
+    phi = (-1+(5)^(1/2))/2
+    maxlim = 10  # interval endpoints, change as needed
+    minlim = -10
+    tolerance = 0.000001  # change as needed
+    int = maxlim - minlim
+    while int > tolerance
+        subdiv = phi*int
+        lefttest = maxlim - subdiv  # these two lines create two points within the interval
+        righttest = minlim + subdiv
+        if dim == 1  # minimize dimension variable #1 (a)?
+            moverightbound = f(lefttest, b) < f(righttest, b)
+            else  # if not, minimize dimension variable #2 (b)
+            moverightbound = f(a, lefttest) < f(a, righttest)
+        end
+        if moverightbound  # loop shifts interval boundaries
+            maxlim = righttest
+        else
+            minlim = lefttest
+        end
+        int = maxlim - minlim
+    end
+    (maxlim + minlim)/2  # return value of minimized variable
+end
+
+function fibmin(f)  # input: function
+    phi = (-1+(5)^(1/2))/2
+    maxlim = 10  # interval endpoints, change as needed
+    minlim = -10
+    tolerance = 0.000001  # change as needed
+    int = maxlim - minlim
+    while int > tolerance
+        subdiv = phi*int
+        lefttest = maxlim - subdiv  # create two points within the interval
+        righttest = minlim + subdiv
+        if f(lefttest) < f(righttest)  # loop shifts interval boundaries
+            maxlim = righttest
+        else
+            minlim = lefttest
+        end
+        int = maxlim - minlim
+    end
+    (maxlim + minlim)/2  # return minimum x-value
+end
+
+
+function cyclic(f, a, b)  # f is a function in 2 variables; (a, b) is the seed point 
     q = 20  # any high number will do
     f1 = 0 
     f2 = 20
     while abs(f1 - f2) > 0.0001  # tolerance for final answer
-        # fibmin loop 1 starts here
-        phi = (-1+(5)^(1/2))/2  # phi, the golden ratio, used for sectioning below.
-        maxlim = 10  # interval endpoints, change as needed
-        minlim = -10
-        int = maxlim - minlim
-        while int > 0.000001  # tolerance, change as needed
-            subdiv = phi*int
-            lefttest = maxlim - subdiv  # this line and the next create two points within the interval...
-            righttest = minlim + subdiv
-            if f(lefttest, b) < f(righttest, b)  # ...while this loop tests the interior points in the function and shifts the interval endpoints inward accordingly.
-                maxlim = righttest
-            else
-                minlim = lefttest
-            end
-            int = maxlim - minlim
-        end
-        c = (maxlim + minlim)/2
-        # fibmin loop 1 ends here
-  
-        # fibmin loop 2 starts here
-        maxlim = 10  # interval endpoints, change as needed
-        minlim = -10
-        int = maxlim - minlim
-        while int > 0.000001  # tolerance, change as needed
-            subdiv = phi*int
-            lefttest = maxlim - subdiv  # this line and the next create two points within the interval...
-            righttest = minlim + subdiv
-            if f(c, lefttest) < f(c, righttest)  # ...while this loop tests the interior points in the function and shifts the interval endpoints inward accordingly.
-                maxlim = righttest
-            else
-                minlim = lefttest
-            end
-            int = maxlim - minlim
-        end
-        d = (maxlim + minlim)/2
-        # fibmin loop 2 ends here
-      
-        g(x) = f(c + (c-a)*x, d + (d-b)*x)  # redefining f(x) as a single-variable function composed of vector translation from (a,b) beyond (c,d).
-      
-        # fibmin loop 3 starts here
-        maxlim = 10  # interval endpoints, change as needed
-        minlim = -10
-        int = maxlim - minlim
-        while int > 0.000001  # tolerance, change as needed
-            subdiv = phi*int
-            lefttest = maxlim - subdiv  # this line and the next create two points within the interval...
-            righttest = minlim + subdiv
-            if g(lefttest) < g(righttest)  # ...while this loop tests the interior points in the function and shifts the interval endpoints inward accordingly.
-                maxlim = righttest
-            else
-                minlim = lefttest
-            end
-            int = maxlim - minlim
-        end
-        q = (maxlim + minlim)/2
-        # fibmin loop 3 ends here
-      
+        c = fibmin(f, a, b, 1)  # minimize a
+        d = fibmin(f, c, b, 2)  # minimize b
+        g(x) = f(c + (c-a)*x, d + (d-b)*x)  # g is single-variable function of vector from (a,b) beyond (c,d).
+        q = fibmin(g)  # minimize g(x) (to find the scalar)
         f1 = f(a, b)
         a = c + (c-a)*q
         b = d + (d-b)*q
         f2 = f(a,b)
-      
     end
-  
-  println(\"x1 = \$a, x2 = \$b, value = \$(f(a, b))\")
+    println(\"x1 = \$a, x2 = \$b, value = \$(f(a, b))\")
 end
 </code>
 """, "Answer", false)
