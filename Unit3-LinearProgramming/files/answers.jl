@@ -242,31 +242,55 @@ end
 # Lesson 04 #
 #############
 
-ans105A = Revealable("""
+ans304A = Revealable("""
 ###Answer A
-1. In order from left to right: (3.9, 18.21), (4, 19), (4.1, 19.81). Increases right, decreases left.
-
-2. (1, 15), (2, 17), (3, 35). Increases right, decreases left
-
-3. (-0.5, 4.61), (0, 3), (0.5, 1.65). Increases left, decreases right.
+1. 3x<sub>1</sub> + 5<sub>2</sub> + x<sub>3</sub> = 12
+2. 2x<sub>1</sub> - 4<sub>2</sub> + x<sub>3</sub> + x<sub>4</sub> = 200
+3. 6x<sub>1</sub> + <sub>2</sub> - x<sub>3</sub> = 150
+4. -3x<sub>1</sub> + 2<sub>2</sub> + x<sub>3</sub> = 120,000
+5. x<sub>1</sub> + 5<sub>2</sub> + 2x<sub>3</sub> - 8x<sub>4</sub> + x<sub>5</sub> - x<sub>5</sub> = 13.8
+6. x<sub>1</sub> - 2<sub>2</sub> + x<sub>3</sub> = 0
 """, "Answer", false)
 
-ans105B = Revealable("""
+ans304B = Revealable("""
 ###Answer B
-1. Points should be: (0, 0) (0.6, -2.04) (1.2, -3.36) (1.8, -3.96) (2.4, -3.84). The interval/answer is bolded.
-
-2. (2, -4) (2.5, -6.125) This is going the wrong direction; change step to -0.5. [If you didn't pay attention, you got the minimum, around 3.] Complete answer: (2, -4) (1.5, -1.375) (1, 1) (.5, 2.375) (0, 2)
+1. -3x<sub>1</sub> - 12x<sub>2</sub> + f = 0
+2. -4x<sub>1</sub> + x<sub>2</sub> + f = 0
+3. First, it becomes maximize f = -2x<sub>1</sub> - x<sub>2</sub>, then 2x<sub>1</sub> + x<sub>2</sub> + f = 0
 """, "Answer", false)
 
-ans105C = Revealable("""
+ans304C = Revealable("""
 ###Answer C
-Answers will vary greatly depending on starting \$x\$, starting \$h\$, and how you increment \$h\$ (Fibonacci numbers are only a suggestion).
+Objective Function: Maximize -50x<sub>1</sub> - 20x<sub>2</sub> - 42x<sub>3</sub> + f = 0
 
-Make sure you are beginning with a small \$h\$ (at most 0.5). It will ramp up fairly quickly as you increase its value.
+Constraints:
 
-1. The local maximum is at \$x = -8.6852\$. Note that this cubic is unbounded on both left and right so if you choose a starting \$x\$ greater than 12 or so, your numbers will fly off to infinity.
+3x<sub>1</sub> + 2x<sub>2</sub> - x<sub>3</sub> + x<sub>4</sub> = 100
 
-2. This function has a few local minima past -12, but as long as you choose an \$x\$-value greater than -11 or so, you should reach the absolute minimum at around \$x = 2.75172\$.
+2x<sub>1</sub> + x<sub>2</sub> + 4x<sub>3</sub> + x<sub>5</sub> = 80
+
+The main thing, of course, is the different names for the two slack variables.
+""", "Answer", false)
+
+ans304D = Revealable("""
+###Answer D
+    [ 3    2   -1  1  0  0  100
+      2    1    4  0  1  0   80
+    -50  -20  -42  0  0  1    0]
+
+Yes, this in standard maximum form.
+""", "Answer", false)
+
+ans304E = Revealable("""
+###Answer E
+The third constraint is the tricky one. \"At least 3 times as many chairs as desks\" translates to c &gt; 3d, or c - 3d &gt; 0. To be in standard max, this must instead be written 3d - c < 0.
+
+The initial tableau will be this, or the equivalent with the first two columns switched.
+
+        [  5    2  1  0  0  0  22
+           2    1  0  1  0  0  10
+           3   -1  0  0  1  0   0
+        -400 -100  0  0  0  1   0]
 """, "Answer", false)
 
 #############
