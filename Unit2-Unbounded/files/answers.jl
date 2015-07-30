@@ -1145,3 +1145,83 @@ end
 travel(500)
 </code>
 """, "Answer", false)
+
+#############
+# Lesson 15 #
+#############
+
+ans215A = Revealable("""
+###Answer A
+All of the arrows will be equals signs.
+
+You may not have seen this yet, but `and` translates to `&&` (line 4)
+
+`while` loop stays the same (but needs an `end` command).
+
+`if` loops stay the same (but need an `end`); `then` is unnecessary.
+
+`return` (last line) may become `println` or it could stay `return`.
+
+Whole thing can be enclosed in a `function`/`end` command.
+""", "Answer", false)
+
+binary215 = Revealable("""
+###Binary Numbers
+101 in binary = 5 in decimal
+
+1010 in binary = 10 in decimal
+""", "Answers", false)
+
+ans215B = Revealable("""
+###Answer B
+1. The values are:
+    * A: a = 7, b = 13, c = 1
+    * B: a = 2, b = 2, c = 9
+    * C: a = 11, b = 8, c = 10
+    * D: a = 11, b = 4, c = 7.
+
+2. In order from highest to lowest: A has fitness 19; C has fitness 9; D has fitness 8; B has fitness -5.
+""", "Answer", false)
+
+ans215C = Revealable("""
+###Answer C
+Answers will vary here. You should have four individuals grouped into two pairs; individuals may be repeated but not within a pair. 
+
+This process of weighting the probabilities is simplified, but basically equivalent to what might be actually used.
+""", "Answer", false)
+
+ans215D1 = Revealable("""
+###Answer D1
+Your answers are totally different from mine at this point. You should generate a separate number for each pair; it might end up being the same number.
+""", "Answer", false)
+
+ans215D2 = Revealable("""
+###Answer D2
+Although I got rid of the -5, otherwise my children were markedly inferior to the parent generation when I ran this! It happens! That's why it takes a lot of repetition... and a larger population. Which is why it requires computers.
+""", "Answer", false)
+
+ans215E = Revealable("""
+My third generation was a huge improvement; my fourth, not so much. 
+Here are the fitness ranks of my generations, if you're curious:<br clear="all">
+I: 19, 9, 8, -5<br clear="all">
+II: 13, 10, 3, 1<br clear="all">
+III: 20, 15, 14, 10<br clear="all">
+IV: 28, 12, 11, -5<br clear="all">
+
+Then I got hooked...<br clear="all">
+V: 21, 16, 12, 4<br clear="all">
+VI: 23, 21, 16, 6<br clear="all">
+VII: 21, 21, 21, 6<br clear="all">
+
+
+One thing I noticed while getting hooked is that I wrote a program that made an array out of `rand(12)` and returned the location of anything less than 1/12, which saved some time. If you're curious, continue your own iterations with computer support. Depending on your programming experience, writing an entire program might take more time than doing it by hand.
+
+VIII: 24, 23, 21, 19.<br clear="all">
+I stopped here because it was lunchtime. The optimum solution is 1111 / 1111 / 0000 = 30. It's clear that successive generations are approaching the optimum, and also getting more uniform (though mutation keeps it interesting). Cool stuff.
+""", "Answer", false)
+
+
+
+
+
+
