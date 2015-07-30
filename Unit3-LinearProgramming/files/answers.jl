@@ -26,7 +26,7 @@ function ans301B()
     \n
     \nlabor(exp, inexp) = 15exp + 10inexp
     \nsupervisor(exp, inexp) = exp + 2inexp
-    \nGadfly.plot((labor == 1200) | (supervisor == 120), 0, 120, 0, 120)", "Answer", false)
+    \nGadfly.plot((labor == 1200) | (supervisor == 120), 0, 120, 0, 120)")
     Gadfly.plot((labor == 1200) | (supervisor == 120), 0, 120, 0, 120)
 end
 
@@ -123,31 +123,119 @@ Remember how painful it is to solve systems of equations by hand? Getting a comp
 # Lesson 03 #
 #############
 
-ans105A = Revealable("""
+ans303A = Revealable("""
 ###Answer A
-1. In order from left to right: (3.9, 18.21), (4, 19), (4.1, 19.81). Increases right, decreases left.
+Instead of using \"3,\" use \"A[1, 1].\" It'll save work later.
 
-2. (1, 15), (2, 17), (3, 35). Increases right, decreases left
+```A = float64([3 1 -2; 2 -2 5])```
 
-3. (-0.5, 4.61), (0, 3), (0.5, 1.65). Increases left, decreases right.
+First operation: ```A[1, :] = [A[1, :] / A[1, 1]]``` with result `[1 1/3 -2/3; 2 -2 5]`<br>
+Second operation: ```A[2, :] = [A[2, 1] \* A[1, :] - A[2, :]]```   with result `[1 1/3  -2/3; 0 -2.67 -6.33]`
+
+You can also use `vcat` for these and it will work just fine. The language is a lot nicer looking but it takes more lines.
 """, "Answer", false)
 
-ans105B = Revealable("""
+ans303B = Revealable("""
 ###Answer B
-1. Points should be: (0, 0) (0.6, -2.04) (1.2, -3.36) (1.8, -3.96) (2.4, -3.84). The interval/answer is bolded.
+If tested on the example equations, you should get x<sub>2</sub> = 0.105, x<sub>1</sub> = 1.842
 
-2. (2, -4) (2.5, -6.125) This is going the wrong direction; change step to -0.5. [If you didn't pay attention, you got the minimum, around 3.] Complete answer: (2, -4) (1.5, -1.375) (1, 1) (.5, 2.375) (0, 2)
+In my function below, I did not make the first row, first column number 1 because I didn't figure many people would; if you chose to, congratulations! It will save time in the solving step and has uses later.
+<code>
+function gauss1(A)
+    A = float64(A)  # convert from int to float
+    A[2,:] = A[1,:] \\\* A[2,1] / A[1,1] - A[2,:] 
+    println(A)
+    x2 = A[2,3]/A[2,2]
+    println(\"x2 = \$x2\")
+    x1 = (A[1,3] - A[1,2] \* x2) / A[1,1]
+    println(\"x1 = \$x1\")
+end
+</code>
 """, "Answer", false)
 
-ans105C = Revealable("""
+rre303 = Revealable("""
+It's clear why this is the idea form when you translate the matrix back into a system of equations:
+
+    x1 = a
+    x2 = b
+
+That's the solution to the system!
+""", "Why is this the ideal form?", false) 
+
+ans303C = Revealable("""
 ###Answer C
-Answers will vary greatly depending on starting \$x\$, starting \$h\$, and how you increment \$h\$ (Fibonacci numbers are only a suggestion).
+<code>
+function gauss2(A)
+    A = float64(A)
+    A[1,:] = A[1,:] / A[1,1]   
+    A[2,:] = A[2,1] \\\* A[1,:] - A[2,:]
+    A[2,:] = A[2,:] / A[2,2]
+    A[1,:] = A[1,:] - A[1,2] \\\* A[2,:]
+    B = A[:, 3]
+    println(A)
+    println(B)
+end
+</code>
+""", "Answer", false)
 
-Make sure you are beginning with a small \$h\$ (at most 0.5). It will ramp up fairly quickly as you increase its value.
+ans303D = Revealable("""
+###Answer D
+<code>
+function gauss3(A)
+    A = float64(A)
+    A[1,:] = A[1,:] / A[1,1]
+    A[2,:] = A[1,:] \\\* A[2,1] - A[2,:]
+    A[3,:] = A[1,:] \\\* A[3,1] - A[3,:]     
+    A[2,:] = A[2,:] / A[2,2]
+    A[1,:] = A[2,:] \\\* A[1,2] - A[1,:]
+    A[3,:] = A[2,:] \\\* A[3,2] - A[3,:]
+    A[3,:] = A[3,:] / A[3,3]
+    A[1,:] = A[3,:] \\\* A[1,3] - A[1,:]
+    A[2,:] = A[3,:] \\\* A[2,3] - A[2,:]
+    B = A[:,4]
+    println(B)
+end
+</code>
+""", "Answer", false)
 
-1. The local maximum is at \$x = -8.6852\$. Note that this cubic is unbounded on both left and right so if you choose a starting \$x\$ greater than 12 or so, your numbers will fly off to infinity.
+ans303E = Revealable("""
+###Answer E
+Note the need for two nested `for` loops, one to cycle through the rows and one for the actual pivoting process.
+<code>
+function gauss4(A)
+    A = float64(A)
+    for n in 1:3
+        A[n,:] = A[n,:] / A[n,n]
+        for r in 1:3
+            if r != n
+                A[r,:] = A[n,:] \\\* A[r, n] - A[r,:]
+            end
+        end
+    end
+    B = A[:, 4]
+    println(B)
+end
+</code>
+""", "Answer", false)
 
-2. This function has a few local minima past -12, but as long as you choose an \$x\$-value greater than -11 or so, you should reach the absolute minimum at around \$x = 2.75172\$.
+ans303F = Revealable("""
+###Answer F
+<code>
+function gauss(A)
+    A = float64(A)
+    k = size(A, 1)
+    for n in 1:k
+        A[n,:] = A[n,:] / A[n, n]
+        for r in 1:3
+            if r != n
+                A[r,:] = A[n,:] \\\* A[r, n] - A[r,:]
+            end
+        end
+    end
+    B = A[:, k+1]
+    println(B)
+end
+</code>
 """, "Answer", false)
 
 #############
