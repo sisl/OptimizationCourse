@@ -64,31 +64,59 @@ ans301E = Revealable("""
 # Lesson 02 #
 #############
 
-ans105A = Revealable("""
+dims302 = Revealable("""
+The first two are \"square,\" the first 2x2 and the second 3x3. The third matrix is 3x2, the fourth one a \"row\" matrix at 1x3, and the fifth one a \"column\" matrix at 3x1.
+""", "What are the dimensions of the matrices above?", false)
+
+ans302A = Revealable("""
 ###Answer A
-1. In order from left to right: (3.9, 18.21), (4, 19), (4.1, 19.81). Increases right, decreases left.
+1.
+```
+[ 10 -12
+  -9  17 ]
+  ```
+<br clear="all" />
 
-2. (1, 15), (2, 17), (3, 35). Increases right, decreases left
-
-3. (-0.5, 4.61), (0, 3), (0.5, 1.65). Increases left, decreases right.
+2.
+```
+[ 3  2 -1 | 14
+  2 -2  5 | 22
+ -1  1 -2 | -5]
+ ```
 """, "Answer", false)
 
-ans105B = Revealable("""
+ans302B = Revealable("""
 ###Answer B
-1. Points should be: (0, 0) (0.6, -2.04) (1.2, -3.36) (1.8, -3.96) (2.4, -3.84). The interval/answer is bolded.
 
-2. (2, -4) (2.5, -6.125) This is going the wrong direction; change step to -0.5. [If you didn't pay attention, you got the minimum, around 3.] Complete answer: (2, -4) (1.5, -1.375) (1, 1) (.5, 2.375) (0, 2)
+1. [-8 7; 3 -1]
+
+2. [15 -37; -21 58]
+
+3. [2 7; 7 71] Multiplying matrices is not commutative!
+
+4. [3 -5; 2 7] 
+
+5. [3 -5; 2 7] Hey, the answers to 4 and 5 are the same! Both problems involve the *identity matrix*, which we'll talk about soon.
 """, "Answer", false)
 
-ans105C = Revealable("""
+ans302C = Revealable("""
 ###Answer C
-Answers will vary greatly depending on starting \$x\$, starting \$h\$, and how you increment \$h\$ (Fibonacci numbers are only a suggestion).
+This is the system of equations:
 
-Make sure you are beginning with a small \$h\$ (at most 0.5). It will ramp up fairly quickly as you increase its value.
+4x<sub>1</sub> - 2x<sub>2</sub> + x<sub>3</sub> = 21
 
-1. The local maximum is at \$x = -8.6852\$. Note that this cubic is unbounded on both left and right so if you choose a starting \$x\$ greater than 12 or so, your numbers will fly off to infinity.
+3x<sub>1</sub> - x<sub>3</sub> = 12
 
-2. This function has a few local minima past -12, but as long as you choose an \$x\$-value greater than -11 or so, you should reach the absolute minimum at around \$x = 2.75172\$.
+-2x<sub>1</sub> + x<sub>2</sub> + 3x<sub>3</sub> = 14
+""", "Answer", false)
+
+ans302D = Revealable("""
+###Answer D
+1. [.09 .16 -.09; .55 -.29 .45; -.09 .09 .09]
+2. Yikes! Giant error! This has no inverse. Any matrix with a determinant of 0 is not invertible, but that's not really important here, it's just cool.
+3. This is kind of a lot at once. First, you need to translate the coefficient matrix into a matrix A (being careful to correctly place 0's), then abbreviate this system as AX = B, then use inverses to find X = A<sup>-1</sup>B. At this point, it's a Julia problem. The answer is 2, 0 , -1, 5.
+
+Remember how painful it is to solve systems of equations by hand? Getting a computer to do it for you is a HUGE time-saver. Plus, computers don't forget negative signs or lose track of what step they're on.
 """, "Answer", false)
 
 #############
