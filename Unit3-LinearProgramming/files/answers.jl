@@ -354,6 +354,9 @@ function pivot(A, r, c)
             if A[n, ncols] < 0  # test to fix answer-column negatives
                     A[n, :] = -A[n, :] 
             end
+            if A[nrows, ncols-1] < 0  # answer column in the last row can't be negative
+                A[nrows, :] = -A[nrows, :]
+            end
         end
     end
     println(A)
@@ -367,15 +370,18 @@ ans305E =  Revealable("""
 function pivot(A, r, c)
     nrows = size(A, 1)
     ncols = size(A, 2)
-    for n in 1:nrows 
+    for n in 1:nrows
         if n != r
             A[n, :] = A[n, c] \\\* A[r, :] - A[r, c] \\\* A[n, :]
-            if A[n, ncols] < 0 
-                A[n, :] = -A[n, :]
+            if A[n, ncols] < 0  # test to fix answer-column negatives
+                    A[n, :] = -A[n, :] 
+            end
+            if A[nrows, ncols-1] < 0  # answer column in the last row can't be negative
+                A[nrows, :] = -A[nrows, :]
             end
         end
     end
-    return(A)  # `return(A)` not necessary; could just have `A`
+    A  # return A, no `return` statement needed in Julia
 end
 
 A = [15 10 1 0 0 1200; 1 2 0 1 0 120; -10 -9 0 0 1 0]
@@ -390,32 +396,43 @@ println(A)
 # Lesson 06 #
 #############
 
-ans106A = Revealable("""
+ans306A = Revealable("""
 ###Answer A
-Sample code:
-```
-f(x) = x^2 + 2x - 7
-g(a,b) = (f(a) - f(b))/(a-b)  # Careful with parentheses here!
-g(3,5)
-g(-2, 7)
-```
+1. From the first tableau, the most negative indicator is in the first column. Eliminate the -2, then choose the 5. Pivot will be position [3, 1].
 
+2. From the second tableau, the most negative indicator is in column 2. Above it, 50/12 is slightly more than 4, so 2 is the pivot. Position [2, 2].
 """, "Answer", false)
 
-ans106B = Revealable("""
+ans306B = Revealable("""
 ###Answer B
-Sample Program, heavily documented as usual:
-```
-function info(a, b)
-    m = b/a  # the slope, rise/run
-    midx = a/2  # x-coordinate of the midpoint
-    midy = b/2  # y-coordinate of the midpoint
-    dist = (a^2 + b^2)^(1/2)  # distance, using the Pythagorean Theorem
-    println(\"The slope from the origin is \$m\")
-    println(\"The midpoint is (\$midx, \$midy)\")
-    println(\"The distance is \$dist units\")
-end
-```
+1. Complete; x<sub>1</sub> = 60 and x<sub>3</sub> = 500, f = 1200.
+2. Neither. In column 2, the row 1 and row 2 numbers have the same value; pivot around the 20, position [1, 2].
+3. Unfeasible. There are no legal candidates in the column with the most negative indicator. 
+4. Complete; x<sub>1</sub> = 450 and x<sub>2</sub> = 100/3 or 33.33; f = 30.
+""", "Answer", false)
+
+ans306C = Revealable("""
+###Answer C
+Steps:
+1. Find smallest indicator.
+2. If it's greater than or equal to 0, end and report solution. 
+3. If it's less than 0, identify the column of the smallest indicator. 
+4. For each number in the column, if it's negative or 0 ignore it.
+5. If there are no legal candidates remaining, end and report this as an error (unfeasible).
+6. If there are legal candidates remaining, 
+    * for each row with a legal candidate,s divide the last column by the candidate.
+    * choose row with smallest value.
+7. Pivot around chosen candidate.
+8. Repeat.
+""", "Answer", false)
+
+ans306D = Revealable("""
+###Answer D
+The first pivot is at [3, 1].
+
+The second pivot is at [1, 2]. 
+
+The solution is x<sub>2</sub> = 6, x<sub>1</sub> = 2, f = 1400. In context, the carpenter should build 2 desks and 6 chairs for a profit of \$1400 (per week!). 
 """, "Answer", false)
 
 #############
