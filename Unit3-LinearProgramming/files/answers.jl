@@ -487,135 +487,55 @@ Just to be safe I tested (77, 112), but it failed the \"space\" constraint.
 # Lesson 08 #
 #############
 
-defIteration = Revealable("""
-__Iteration__ is when the same procedure is repeated multiple times.
-
-
-Some examples were long division, the Fibonacci numbers, prime numbers, and the calculator game. Some of these used recursion as well, but not all of them.
-""", "Definition", false)
-
-ext1081 = Revealable("""
-You would change it to `function Sum(a,b)`, and modify the \"for\" line to `for x in a:b`.
-""", "Extension Answer", false)
-
-ext1082 = Revealable("""
-Change it to `println(\"The sum is \$S\"`
-""", "Extension Answer", false)
-
-ans108A = Revealable("""
+ans308A = Revealable("""
 ###Answer A
-Sample code:
-```
-for x in -6:6
-    println(4x^2 - 12)
-end
-```
+Original matrix:
+
+    [3 1 5 15
+     2 4 2 20
+     4 2 5  0]
+
+Transposed and converted to dual standard max:
+
+    [3    2   1  0  0  0  4
+     1    4   0  1  0  0  2
+     5    2   0  0  1  0  5
+    -15 -20   0  0  0  1  0]
 """, "Answer", false)
 
-ans108B = Revealable("""
+ans308B = Revealable("""
 ###Answer B
-Sample code:
-```
-x = 20
-for n in 1:12
-    println(x)
-    x = sqrt(x)
-end
-```
+1. Originally [0 0 0 280 160 72 1360]<br>
+After dividing by 72: [0 0 0 3.89 2.22 1 18.89]
+
+2. This is actually the hard part; there are 2 slack variables because there were only two equations. Both these slack variables are 0. Then x<sub>1</sub> is also 0, x<sub>2</sub> is 3.89, x<sub>3</sub> is 2.22, and the value of f is 18.89.
 """, "Answer", false)
 
-ans108C = Revealable("""
+ans308C = Revealable("""
 ###Answer C
-It has to be a function, otherwise getting the first two numbers in the output is a real pain.
+Constraints:
 
-    function Fibo(x)    
-        println(1)  # first term
-        println(1)  # second term
-        a = 1  # seed numbers...
-        b = 1
-        for n = 1:x
-            c = a + b
-            println(c)
-            a = b  # replacement of variables...
-            b = c
-        end
-    end
+9s + 12f &ge; 50<br>
+3s + 6f &ge; 36
 
-`fibo(13)` should end with 610.
-""", "Answer", false)
+Minimize:
 
-ans108D = Revealable("""
-###Answer D
-Sample program (not including extensions):
+70s + 100f
 
-    function compound(P)
-        n = 0  # starting the counter at 0
-        while P < 1000000
-            P = 1.05P  # calculation for new value of P
-            n = n + 1  # incrementing the counter
-        end
-        println(n)  # prints the number of iterations
-    end
-""", "Answer", false)
+Initializes as [9 3 1 0 0 70; 12 6 0 1 0 100; -50 -36 0 0 1 0]
 
-ans108E = Revealable("""
-###Answer E
-Example code:
+After pivoting, the final row (after division) is [22 0 0 6 1 600]
 
-    function calcgame(x)
-        n = 0
-        while x != 1
-            if x%2 == 0
-                x = x/2
-                n = n + 1
-            else 
-                x = 3x + 1
-                n = n + 1
-            end
-        end
-        println(n)
-    end
-""", "Answer", false)
+The first slack variable is 22, the second 0. Number of shelves is 0, number of file cabinets is 6 for a cost of \$600.
 
-ans108F = Revealable("""
-###Answer F
-Example code:
-
-    for i in 1:20
-        calcgame(i)
-    end
-""", "Answer", false)
-
-ans108G = Revealable("""
-###Answer G
-My version of the program has an interesting feature that you may or may not have come up with on their own: a variable called `primeness`, which is set to `true` unless/until the number divides evenly. There are lots of different ways to deal with the issue of how to report `n` as prime. As long as the program has output in words that tells whether the number is prime, consider yourself correct. Nevertheless, the idea of a binary variable is a useful one, so if you struggled, you might want go back and modify your program.
-
-For an extension to the extension, list out the factors of the non-prime numbers. For an extension, list out the factors as factor pairs rather than an ordered list.
-
-    function prime(n)
-        primeness = true  # assumes the number is prime until proven otherwise
-        test = 2  # starting with 2 as the divisor
-        while test <= sqrt(n)  # ending when we get over the square root of n
-            if n % test == 0  # if no remainder, then...
-                primeness = false  # the number is not prime.
-            end
-            test = test + 1  # increments the divisor by 1 -- there are fancier ways
-        end
-        if primeness  # here we see the `primeness` variable used to generate an output
-            println(\"\$n is prime.\")
-        else 
-            println(\"\$n is not prime.\")
-        end
-    end
-
+The manager should order 6 file cabinets and no shelves. There will be 22 cubic feet of extra storage space but all the work area is used. Savings might be achieved by asking workers to put some of the junk they keep on their work area into the storage space instead....
 """, "Answer", false)
 
 #############
 # Lesson 09 #
 #############
 
-
-ans109A = Revealable("""
+ans309A = Revealable("""
 ###Answer A
 I chose to use a `for` loop on this, but a `while` loop with a counter would work perfectly well also.
 
@@ -635,7 +555,7 @@ end
 ```
 """, "Answer", false)
 
-ans109B = Revealable("""
+ans309B = Revealable("""
 ###Answer B
 
     function vector(s, t)
@@ -647,7 +567,7 @@ ans109B = Revealable("""
 ```
 """, "Answer", false)
 
-ans109C = Revealable("""
+ans309C = Revealable("""
 ###Answer C
     function unitize(v)
         n = length(v)  # so I know where to stop in my for loop later
@@ -661,7 +581,7 @@ ans109C = Revealable("""
     end
 """, "Answer", false)
 
-ans109D = Revealable("""
+ans309D = Revealable("""
 ###Answer D
     function Dot(a, b)
         n = length(a)  # finds the length of a for my loop later
@@ -671,26 +591,5 @@ ans109D = Revealable("""
                 push!(products, k)  # ...and pushes that onto the end of products
             end
         println(\"The dot product is \$sum(products)\")  # then reports the sum of products 
-    end
-""", "Answer", false)
-
-#############
-# Lesson 10 #
-#############
-
-ans110 = Revealable("""
-###Sample Program:
-
-    f(x) = x^2 - 4x  # function can be modified to whatever
-
-    function secant(f, a, b)
-        while abs(b - a) > 0.00001  # more accurate is fine. Note absolute value is important for distance!
-                                    # Also could use f(b) < 0.00001.
-            m = (f(a) - f(b))/(a - b)  # made a variable for slope to simplify next line
-            x = -f(a)/m + a  # calculating the x-intercept
-            a = b  # redefining a and b to include the old b and the x-intercept x
-            b = x 
-        end  # loop ends when tolerance is reached
-        println(b)  # print the value of b (the last x-intercept found).
     end
 """, "Answer", false)
