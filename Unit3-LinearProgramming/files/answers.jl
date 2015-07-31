@@ -439,33 +439,48 @@ The solution is x<sub>2</sub> = 6, x<sub>1</sub> = 2, f = 1400. In context, the 
 # Lesson 07 #
 #############
 
-ans107A = Revealable("""
+ans307A = Revealable("""
 ###Answer A
-```
-function Abs(x)
-    if x < 0
-        println(\"The absolute value is \$(-x)\")
-    else
-        println(\"The absolute value is \$x\")
-    end
-end
-```
+Translating words to constraints is the hardest part!
+* The VARIABLES are number of servings of lemonade (`L`), number of servings of slushy (`S`).
+* The CONSTRAINTS are amount of ice and amount of lemonade powder. The ice constraint can be written as: 1`L` + 2`S` &le; 120; the powder constraint is 3`L` + 2`S` &le; 192. 
+
+I used `L` as x<sub>1</sub> and `S` as x<sub>2</sub>. It's fine if you switched them, but then your first two columns will be switched and all pivots different.
+
+* Initial tableau: [1 2 1 0 0 120; 3 2 0 1 0 192; -4 -3 0 0 1 0]. Pivot around [2, 1].
+* After first pivot, tableau: [0 4 3 -1 0 168; 3 2 0 1 0 192; 0 -1 0 4 3 768].  Pivot around [1, 2]. 
+* Solution tableau: [0 4 3 -1 0 168; 12 0 -6 6 0 432; 0 0 3 15 12 3240].
+
+The club should make 36 lemonades and 42 slushies for a total profit of \$270.
+
+There are no inactive constraints; they will use all their ice and all their lemonade powder. Just from a business point of view, they should probably raise their prices. 
 """, "Answer", false)
 
-ans107B = Revealable("""
+ans307B = Revealable("""
 ###Answer B
-```
-function grade(x)
-    p = round(x/28*100,2)  # Converting points to percent, rounding to 2 decimal places
-    if p >= 90
-        println(\"Congratulations! You got an A, \$p%!\")
-    elseif p >= 70
-        println(\"You passed your essay with \$p%!\")
-    else
-        println(\"Please see Mrs. Crabapple for help raising your \$p%.\")
-    end
-end
-```
+I used x<sub>1</sub> = number of chickens; x<sub>2</sub> = number of goats; x<sub>3</sub> = number of pigs; x<sub>4</sub> = number of cows.
+
+This is a huge matrix.
+1. Initial: [1 2 2 4 1 0 0 0 600; 2 1 2 10 0 1 0 0 1200; 0 2 2 5 0 0 1 0 800; -10 -35 -40 -350 0 0 0 1 0]. Pivot around [1, 3].
+
+2. Then: [1 2 2 4 1 0 0 0 600; 2 -2 0 12 -2 2 0 0 1200; -2 0 0 2 -2 0 2 0 400; 20 10 0 -540 40 0 0 2 24000]. Pivot around [2, 4]
+
+3. Then: [4 32 24 0 20 -8 0 0 2400; 2 -2 0 12 -2 2 0 0 1200; -28 4 0 0 -20 -4 24 0 2400; 1320 -960 0 0 -600 1080 0 24 936000]. Pivot around [1, 2]
+
+4. Final: [4 32 24 0 20 -8 0 0 2400; 72 0 48 384 -24 48 0 0 43200; -912 0 -96 0 -720 -96 768 0 67200; 46080 0 23040 0 0 26880 768 32256000].
+
+The initial answer is 75 goats and 112.5 cows for a profit of \$42000. That's probably a close-enough answer, but you can't raise half a cow. If you want a perfectly maximized answer, you can do the process described below.
+
+The active constraints are space and food. The slack variable, x<sub>7</sub>, was 87.5 on the constraint of veterinary service. This means he will be using \$87.50, on average per month, less veterinary service than he's paying for. He might look for a lighter contract, or just hang on to the current one to be safe, since the average is not a guarantee that any given month will not cost more. 
+
+####What Do We Do With Half a Cow?
+If you want to work further with the 112.5 cows, start at the point (75, 112.5). Nearby lattice points are (74, 112), (74, 113), (75, 112), (75, 113), (76, 112), and (76, 113). You can eliminate (74, 112) because it clearly won't be better than (75, 112); and (75, 113) and (76, 113) will clearly violate the constraint if (75, 112.5) was on it. First test the remaining points in the constraints, then objective function:
+* (74, 113) fails the \"food\" constraint
+* (75, 112) passes all constraints, objective function = 41825
+* (76, 112) passes all constraints, objective function = 41860.
+The actual best point is therefore (76, 112), 76 goats and 112 cows.
+
+Just to be safe I tested (77, 112), but it failed the \"space\" constraint. 
 """, "Answer", false)
 
 #############
