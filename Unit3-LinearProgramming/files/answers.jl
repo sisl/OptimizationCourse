@@ -286,43 +286,105 @@ ans304E = Revealable("""
 The third constraint is the tricky one. \"At least 3 times as many chairs as desks\" translates to c &gt; 3d, or c - 3d &gt; 0. To be in standard max, this must instead be written 3d - c < 0.
 
 The initial tableau will be this, or the equivalent with the first two columns switched.
-
-        [  5    2  1  0  0  0  22
-           2    1  0  1  0  0  10
-           3   -1  0  0  1  0   0
-        -400 -100  0  0  0  1   0]
+```
+    [  5    2  1  0  0  0  22
+       2    1  0  1  0  0  10
+       3   -1  0  0  1  0   0
+    -400 -100  0  0  0  1   0]
+```
 """, "Answer", false)
 
 #############
 # Lesson 05 #
 #############
 
-ans105A = Revealable("""
+ans305A = Revealable("""
 ###Answer A
-1. In order from left to right: (3.9, 18.21), (4, 19), (4.1, 19.81). Increases right, decreases left.
+x<sub>1</sub> = 6
 
-2. (1, 15), (2, 17), (3, 35). Increases right, decreases left
+x<sub>3</sub> = 13/3 or 4 1/3
 
-3. (-0.5, 4.61), (0, 3), (0.5, 1.65). Increases left, decreases right.
+x<sub>5</sub> = 21/5 or 4.2
+
+f = 200/14 or 14.286
 """, "Answer", false)
 
-ans105B = Revealable("""
+ans305B = Revealable("""
 ###Answer B
-1. Points should be: (0, 0) (0.6, -2.04) (1.2, -3.36) (1.8, -3.96) (2.4, -3.84). The interval/answer is bolded.
+A typical operation might look like this:
+    ```A[2, :] = A[2, :] - 2*A[1, :]```
 
-2. (2, -4) (2.5, -6.125) This is going the wrong direction; change step to -0.5. [If you didn't pay attention, you got the minimum, around 3.] Complete answer: (2, -4) (1.5, -1.375) (1, 1) (.5, 2.375) (0, 2)
+The answer is
+```
+    [1  0  3 -1  0  240
+     0  3 -6  3  0  720
+     0  0  3  3  3  5040]
+```
+ 
+Solutions are x<sub>1</sub> = 240, x<sub>2</sub> = 240, f = 1680.
 """, "Answer", false)
 
-ans105C = Revealable("""
+ans305C = Revealable("""
 ###Answer C
-Answers will vary greatly depending on starting \$x\$, starting \$h\$, and how you increment \$h\$ (Fibonacci numbers are only a suggestion).
+After first pivot: 
+```
+    [15  10   1   0  0  1200
+      0  20  -1  15  0  600
+      0  -7   2   0  3  2400]
+```
 
-Make sure you are beginning with a small \$h\$ (at most 0.5). It will ramp up fairly quickly as you increase its value.
-
-1. The local maximum is at \$x = -8.6852\$. Note that this cubic is unbounded on both left and right so if you choose a starting \$x\$ greater than 12 or so, your numbers will fly off to infinity.
-
-2. This function has a few local minima past -12, but as long as you choose an \$x\$-value greater than -11 or so, you should reach the absolute minimum at around \$x = 2.75172\$.
+After second pivot/final tableau:
+```
+    [30   0   3  -15  0  1800
+      0  20  -1   15  0   600
+      0   0  33  105 60 52200]
+```
+Answers: x<sub>1</sub> = 60, x<sub>2</sub> = 30, f = 870. Not shockingly, it's the same answer we got graphically. 
 """, "Answer", false)
+
+ans305D =  Revealable("""
+###Answer D
+<code>
+function pivot(A, r, c)
+    nrows = size(A, 1)
+    ncols = size(A, 2)
+    for n in 1:nrows
+        if n != r
+            A[n, :] = A[n, c] \\\* A[r, :] - A[r, c] \\\* A[n, :]
+            if A[n, ncols] < 0  # test to fix answer-column negatives
+                    A[n, :] = -A[n, :] 
+            end
+        end
+    end
+    println(A)
+end
+</code>
+""", "Answer", false)
+
+ans305E =  Revealable("""
+###Answer E
+<code>
+function pivot(A, r, c)
+    nrows = size(A, 1)
+    ncols = size(A, 2)
+    for n in 1:nrows 
+        if n != r
+            A[n, :] = A[n, c] \\\* A[r, :] - A[r, c] \\\* A[n, :]
+            if A[n, ncols] < 0 
+                A[n, :] = -A[n, :]
+            end
+        end
+    end
+    return(A)  # `return(A)` not necessary; could just have `A`
+end
+
+A = [15 10 1 0 0 1200; 1 2 0 1 0 120; -10 -9 0 0 1 0]
+A = pivot(A, 1, 1)
+A = pivot(A, 2, 2)
+println(A)
+</code>
+""", "Answer", false)
+
 
 #############
 # Lesson 06 #
