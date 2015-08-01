@@ -537,59 +537,86 @@ The manager should order 6 file cabinets and no shelves. There will be 22 cubic 
 
 ans309A = Revealable("""
 ###Answer A
-I chose to use a `for` loop on this, but a `while` loop with a counter would work perfectly well also.
+Nonstandard constraints are 1 and 3.
 
-```
-function fibstring(n)
-    fibs = [1, 1]  # preloading the array fibs and variables
-    a = 1
-    b = 1
-    for x in 1:(n - 2)  # since I already have 2 elements, for n elements total I need (n - 2) more elements.
-            c = a + b  # finding the next term...
-            a = b  # ...and redefining the other variables 
-            b = c 
-            push!(fibs, c)  # finally tack c on the end of fibs; this step could have been earlier
-    end
-    println(fibs)  # at the end, print out the final list
-end
-```
+All together, the constraints are 
+* 4x<sub>1</sub> + 5x<sub>2</sub> + x<sub>3</sub>\\\* = 240
+* 2x<sub>1</sub> + x<sub>2</sub> + x<sub>4</sub> = 90 (standard)
+* x<sub>1</sub> + 3x<sub>2</sub> - x<sub>5</sub> + x<sub>6</sub>\\\* = 120
+
+First matrix (before subtraction step) is
+
+        [4  5  1* 0  0  0  0 240
+         2  1  0  1  0  0  0  90
+         1  3  0  0 -1  1  0 120
+         0  0  1  0  0  1  1   0]
+
+ Column order may vary.
+
+After subtraction step, the initial tableau becomes:
+
+        [4  5  1* 0  0  0  0  240
+         2  1  0  1  0  0  0   90
+         1  3  0  0 -1  1  0  120
+        -5 -8  0  0  1  0  1 -360]
 """, "Answer", false)
 
 ans309B = Revealable("""
 ###Answer B
+        [7  0   3*  0   5  -5   0  120
+         0  0 -15  21 -18  18   0  450
+         0  21 -3   0 -12  12*  0  720
+         0  0  21   0   0  21  21    0]
 
-    function vector(s, t)
-        vec = t - s
-        println (\"The vector from s to t is \$vec\")
-        v = s + 1.5 * vec
-        println(\"The new point v is \$v\")
-    end
-```
+You might have switched columns.
 """, "Answer", false)
 
 ans309C = Revealable("""
 ###Answer C
-    function unitize(v)
-        n = length(v)  # so I know where to stop in my for loop later
-        sum = 0  # seeding 0 for the current sum 
-        for x in 1:n  # repeats for each element of v
-            sum = sum + (v[x])^2  # augments sum with the value of the next term, squared -- Pythagorean Theorem
-        end
-        mag = sqrt(sum)  # finishes with square root of the sum of squares, to find magnitude
-        v = v/mag  # replaces old vector v with unitized elements
-        println(\"The unitized vector is \$v\")
-    end
+Initial tableau (after replacing objective row and deleting artificial variable columns):
+
+        [ 7   0   0   5  0 120
+          0   0  21 -18  0 450
+          0  21   0 -12  0 720
+        -10 -20   0   0  1   0]
+
+After pivoting three times, the solution is 
+x<sub>1</sub> = 0 and x<sub>2</sub> = 48; the slack variables x<sub>3</sub> = 42 and x<sub>4</sub> = 24.
+
+The maximum value is 960.
 """, "Answer", false)
 
 ans309D = Revealable("""
 ###Answer D
-    function Dot(a, b)
-        n = length(a)  # finds the length of a for my loop later
-        products = []  # preloads products as the empty set
-        for x in 1:n  # stops when we run out of elements to multiply.
-                k = a[x] * b[x]  # multiplies each term in order...
-                push!(products, k)  # ...and pushes that onto the end of products
-            end
-        println(\"The dot product is \$sum(products)\")  # then reports the sum of products 
-    end
+tableau before phase 1 subtraction step:
+
+        [2  4  1  1  0  0  0 20
+         3  1  5  0 -1  1  0 10 
+         0  0  0  0  0  1  1  0]
+
+phase 1 tableau:
+
+        [2  4  1  1  0  0  0  20
+         3  1  5  0 -1  1  0  10
+        -3 -1 -5  0  1  0  1 -10]
+
+after 1 pivot/final phase 1 tableau:
+
+        [7 19  0  5  1  0 90
+         3  1  5  0 -1  0 10
+         0  0  0  0  0  5  0]
+
+phase 2 tableau:
+
+        [ 7  19   0   5   1   0  90
+          3   1   5   0  -1   0  10
+        -15 -10 -20   0   0   1   0]
+
+After 3 pivots/final tableau:
+
+        [   35    95     0    25   5    0    450
+          4750  9500  2375  2375   0    0  47500
+         59375 166250    0 47500   0 2375 950000]
+
+Maximum value of 400 when x<sub>3</sub> = 20; slack variable x<sub>5</sub> = 90.
 """, "Answer", false)
