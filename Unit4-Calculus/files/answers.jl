@@ -39,105 +39,77 @@ end
 </code>
 """, "Answer", false)
 
-
 #############
 # Lesson 02 #
 #############
 
+proof402 = Revealable("""
+###Proving the Shortcut
+The proof, though complex, isn't really that bad if you use a couple of tricks. First, center the interval at 0 which will not change the value of the integral. Then, multiply the interval width by 2/(b-a), which will scale the endpoints to -1 and 1. We'll have to scale it back later by multiplying by (b-a)/2. So now, the three given points can be written (-1, L) (0, M) and (1, R). Building the quadratics and solving the system is fairly simple; you will get 1st coefficient = R &ndash; M &ndash; (R-L)/2, 2nd = (R-L)/2, 3rd = M.
+
+Integrating from -1 to 1 is a little hairy with all the variables, but not that bad because things cancel; simplifying is fairly nice, and after multiplying by (b-a)/2 to unscale it to its original size, you will get the formula above. 
+""", "Oh yeah? Prove it!", false)
+
 ans402A = Revealable("""
 ###Answer A
+1. 41.33 in both cases.
+2. The three points will be (-1, 9), (2,30) and (5, 87). The integral of 2x<sup>2</sup> + 5x + 12 from -1 to 5 gives 216. Simpson's Rule yields 1 * (9 + 120 + 87) = 216.
+3. Both answers are identical at -4.67.
 
-<p>In unit 1, of course, you did this by hand. </p>
-
-<p>It's a lot easier if you just keep the original x as one of the endpoints and only march the other endpoint, instead of marching both endpoints. This will work but will yield a very wide interval in some cases. If you do this and finish early, modify your program so that both endpoints march along.</p>
-
-<p>Here's my version:</p>
-<code>
-f(x) = x^2 - 4x  # this function is just to test, it can be changed
-
-function threept(f, x, int)  # f is above, x is the given start value, int is the interval (may be large, around 0.5)
-    a = x + int  # finding first point location
-    if f(a) > f(x)  # testing to see if the function is decreasing and...
-        int = -int  # ...reversing direction if not
-        a = x + int 
-    end
-    b = a + int  # another step in same direction
-    while f(b) < f(a)  # this loop will run until f(b) is greater than f(a), ie an increase
-        x = a  # reassigning variables here... this is what marches the entire interval along.
-        a = b 
-        b = b + int 
-    end
-    println(\"\$x, \$(f(x))\")  #prints the three points in order found
-    println(\"\$a, \$(f(a))\")
-    println(\"\$b, \$(f(b))\")
-end
-</code>
 """, "Answer", false)
 
 ans402B = Revealable("""
 ###Answer B
-
-The value of h controls two things: first, how accurate your interval is; and second, how many iterations are run. This was discussed in the previous unit: h too large and your interval could be inaccurate (or you might skip over it); h too small and your iteration count goes through the roof. 
-
-Here's my program with the counter thrown in:
-
-<code>
-function threept(f, x, int)
-    a = x + int
-    if f(a) > f(x)
-        int = -int 
-        a = x + int 
-    end
-    b = a + int 
-    iter = 0
-    while f(b) < f(a)
-        x = a 
-        a = b 
-        b = b + int 
-        iter = iter + 1
-    end
-    println(\"\$x, \$(f(x))\")
-    println(\"\$a, \$(f(a))\")
-    println(\"\$b, \$(f(b))\")
-    println(iter)
-end
-</code>
+1. Integral = 168; Simpson's = (-3, -9), (4, 12) and (11, 33) for 14 / 6 \\\* (-9 + 48 + 33) = 168.0. 
+2. Integral = 37.333; Simpson's = (4, 2) (10, 3.1623) (16, 4) for 2 \\\* (2 + 12.6491 + 4) = 37.298. 
+3. Integral = 1; Simpson's = (0, 1), (&pi;/4, .7071), (&pi;/2, 0) for &pi;/12 \\\* (1 + 2.8284 + 0) = 1.002
+4. Integral = 145.6949; Simpson's = (1, 2.718) (3, 20.0855) (5, 148.4132) for 4 / 6 \\\* (2.718 + 80.3421 + 148.4132) = 154.3158.
 """, "Answer", false)
 
 ans402C = Revealable("""
 ###Answer C
+Come up with your own definition of \"acceptable error.\" Sometimes the audience will dictate that, but sometimes it's just up to the designer (that's you!).
 
-The first attempt is fairly straightforward, and the second a little harder.
-
-For the first, a line just before the end of the `while` loop saying `h = 1.5h` will suffice.
-
-For the second, one option is to create a bunch of new variables for the intervals. This is ugly but sufficient.
-
-A much more elegant trick is to notice that the sum of the last two intervals is merely the difference between the first and third current points. In my code, the three points were named `x`, `a`, `b`; so I added a line just before the end of the `while` loop saying `h = b - x`.  
-
-My final code, with counter:
+I found that interval width 4 (original) gave 154.315726...; width 2 gave 146.417113...; width 1 gave 145.7439987. I wasn't happy until around 0.05; 0.01 was extremely accurate. (At that point I wondered how accurate just doing a Riemann sum would be, but it was not as accurate.)
 
 <code>
-function threept(f, x, int)
-    a = x + int
-    if f(a) > f(x)
-        int = -int 
-        a = x + int 
-    end
-    b = a + int 
-    iter = 0
-    while f(b) < f(a)
-        x = a 
-        a = b 
-        b = b + int 
-        iter = iter + 1
-        int = b - x  # new line creating Fibonacci incrementation of interval width
-    end
-    println(\"\$x, \$(f(x))\")
-    println(\"\$a, \$(f(a))\")
-    println(\"\$b, \$(f(b))\")
-    println(iter)
+function simpson(f, a, b)
+    m = (a + b) / 2 
+    integral = (b - a) / 6 * (f(a) + 4*f(m) +f(b))  # calculate and return integral
 end
+
+b = 0
+for k in (1:.01:4.99)
+    b = b + simpson(f, k, k + .01)
+end
+println(b)
+</code>
+""", "Answer", false)
+
+ans402D = Revealable("""
+###Answer D
+This is a bit tricky because you really do need a whole number of intervals, and they really should be evenly spaced (though this is actually not necessary), and the width could be anything. 
+
+My solution is to divide `w` by 0.01 (which is my desired interval width), then round to the nearest whole number, then divide `w` again by that whole number to get the width of each interval. Rounding to a whole number can be accomplished using `round(k, 0)`.
+""", "Answer", false)
+
+ans402E = Revealable("""
+###Answer E
+<code>
+function simpson(f, a, b)
+    integral = 0  # seed initial value for sum later
+    k = round((b-a)/.01, 0)  # determine how many intervals are required to get interval width of ~0.01
+    step = (b-a)/k  # create the step value using width / number of intervals
+    for n in a:step:(b-step)  # build sub-intervals with left endpt n and right endpt (n + step), width = step
+        m = n + (step/2)  # midpoint 
+        add = step / 6 * (f(n) + 4*f(m) + f(n+step))  # simpson's rule on subinterval
+        integral = integral + add  # accumulate on integral here 
+    end
+    println(integral)
+end
+
+f(x) = e^x 
+simpson(f, 1, 5)
 </code>
 """, "Answer", false)
 
