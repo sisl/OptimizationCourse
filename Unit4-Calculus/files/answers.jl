@@ -117,44 +117,37 @@ simpson(f, 1, 5)
 # Lesson 03 #
 #############
 
-passwords = Revealable("""
-Intelligence that can be (and is) applied to this procedure includes:
-* testing the most common passwords, like *Password123*
-* testing dictionary words instead of random strings of numbers
-* testing numbers related to dates, like year numbers or month-day combinations
-* testing user information (usually publicly available on Facebook) like their pet's or spouse's name, their birthday or anniversary. 
-
-If you want to get into a moral lesson here, the obvious conclusion is you want to make your password immune to this sort of intelligence by avoiding common passwords, actual words, actual dates, or personal information.)
-""", "More on Passwords and Brute Force", false)
-
 ans403A = Revealable("""
-###Sample Answer
+###Answer A
+My fractional answer was 67917414/24012432, which came out to:
 
+        2.828427124749...
 
-Because this program is awful, you won't use it again. The purpose is to:
-1. show you how to do a brute-force-type program in case you ever need to
-2. solidify the idea of a minimum value and some of the programming concepts behind finding it; and 
-3. show you how improvement-y the improvements are in the next few lessons.
+compared to
+
+        2.828427124746...
+""", "Answer", false)
+
+ans403B = Revealable("""
+###Answer B
+This has no hope of being more accurate than Newton's Method by hand, because we're using numerical derivatives which are very limited in accuracy. But it will be a lot faster.
 
 <code>
-f(x) = x^2 - 4x  # could be anything
-
-function brute(f, int, a, b)  # f = predefined function, interval (very small, like .001), a = left endpoint, b = right endpoint
-    low = f(a)  # defining variables; starting with the left endpoint a
-    test = a 
-    loc = a
-    while test < b  # will test all numbers between a and b
-            if f(test) < low  # this check runs if the test point is lower than the previous low value
-                low = f(test)  # and replaces the old low with the new low
-                loc = test  # then records its location for later
-            else  # if the test point is higher, nothing happens
-            end
-        test = test + int  # moves on to the next test point
+function Newt2(f, a)
+    x = a
+    h = 0.00000001  # arbitrary, but won't work if h is too small (or too large!)
+    for n in 1:5
+        d = (f(x+h) - f(x-h)) / (2h)  # using secant method for slope
+        d = round(d, 5)  # arbitrary rounding to 5 digits to account for the error provided by h not being precisely zero. If you change h, change this.
+        xnew = x - f(x)/d
+        x = xnew 
+        println(x)  # place here to show successive approximation, below to show only answer
     end
-    println(\"minimum at x = \$loc with y-value = \$low\")  # after getting to b, prints the record low and its location
 end
-</code>
 
+f(x) = x^2 - 8
+Newt2(f, 3)
+</code>
 """, "Answer", false)
 
 #############
