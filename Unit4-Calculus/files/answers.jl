@@ -272,48 +272,144 @@ end
 # Lesson 05 #
 #############
 
-
-
 ans405A = Revealable("""
 ###Answer A
+Decreasing from -&infin; to -1.366; increasing from -1.366 to 0.366; decreasing from 0.366 to 1; increasing from 1 to &infin;. Equals 0 at -1.366, 0.366 and 1.
 
-One of the tricky things about this task is how much to narrow the interval. I used thirds in my program for speed and convenience, though I worried that thirds might be overly aggressive. There's a possibility that the minimum would occur in the outer third and if I skip over it, I'll end up with an infinite loop in my program. Fortunately infinite loops are easy to identify, and then I would just change my /3 to /4 or /10 or something and repeat.
+I used my Newton program to find the zeroes, of course!
+""", "Answer", false)
 
-How did you choose to narrow the interval, and why? 
+ans405B = Revealable("""
+###Answer B
+Depending on whether you used second derivatives = 0 to find where derivatives were maximized in the previous lesson, this might be super easy or super difficult.
+
 <code>
-function findmin(f, leftbound, rightbound)  # Function `f` will need to be pre-loaded. 
-    while rightbound - leftbound > .0001  # This tolerance can be adjusted as needed. Or, add a new defined variable `tolerance`.
-        slope = (f(rightbound) - f(leftbound))/(rightbound - leftbound)
-        if slope < 0
-                leftbound = leftbound + (rightbound - leftbound)/3  # here's that /3 - modify as needed
-        elseif slope > 0
-                rightbound = rightbound - (rightbound - leftbound)/3
-        else  # In the special case where the slopes are equal it marches both endpoints in. 
-            leftbound = leftbound + (rightbound + leftbound)/3 
-            rightbound = rightbound - (rightbound + leftbound)/3
+using Calculus
+
+function incdec(f, a, b)
+    check = {}  # list of points where derivative switches value is currently empty
+    int = (b-a)/100  # 100 is arbitrary, raise/lower as needed to divide the interval into test points
+    for n in a:int:(b-int)
+        if sign(f'(n)) != sign(f'(n + int))  # seeking points where the first derivative switches value
+            push!(check, n)  # create list of left hand points where deriv changes value
         end
     end
-    println(\"\$leftbound, \$rightbound\")  # Prints the boundaries, from which you can estimate the location of the minimum
+    for n in 1:length(check)
+        l = check[n]
+        r = l + int
+        while abs(r - l) > 0.00001  # use secants to zoom in on this interval's zero
+             m = (f'(r) - f'(l))/(r-l)
+             xint = l - f'(l)/m
+             r = l
+             l = xint
+             check[n] = xint  # replace each number in check with the accurate value
+         end
+    end
+    if length(check) == 0
+        if f'(a) > 0
+            println(\"f(x) is always increasing on this interval\")
+        elseif f'(a) < 0
+            println(\"f(x) is always decreasing on this interval\")
+        end
+    elseif length(check) == 1
+        if f'(a) > 0
+            println(\"f(x) increases until x = \$(check[1]), then decreases after\")
+        elseif f'(a) < 0
+            println(\"f(x) decreases until x = \$(check[1]), then increases after\")
+        end
+    else
+        if f'(a) > 0
+            println(\"f(x) increases until \$(check[1])\")
+        else
+            println(\"f(x) decreases until \$(check[1])\")
+        end
+        for n = 1:(length(check)-1)
+            if f'((check[n] + check[n+1])/2) > 0
+                println(\"f(x) increases between \$(check[n]) and \$(check[n+1])\")
+            else
+                println(\"f(x) decreases between \$(check[n]) and \$(check[n+1])\")
+            end
+        end
+        if f'(b) > 0
+            println(\"f(x) increases after \$(check[end])\")
+        else
+            println(\"f(x) decreases after \$(check[end])\")
+        end
+    end
 end
 </code>
 """, "Answer", false)
 
-ans105B = Revealable("""
-###Answer B
-1. Points should be: (0, 0) (0.6, -2.04) (1.2, -3.36) (1.8, -3.96) (2.4, -3.84). The interval/answer is bolded.
+ans405C = Revealable("""
+###Answer C
+This should be as simple as changing all instances of `f'(x)` from problem 2 into `f''(x)`, and all instances of \"increasing/decreasing\" to \"concave up/concave down.\" However, it may turn into a nice object lesson in what is often referred to in programming as the \"copy/paste\" bug, in which one instance is missed and the whole program fails because of it!
 
-2. (2, -4) (2.5, -6.125) This is going the wrong direction; change step to -0.5. [If you didn't pay attention, you got the minimum, around 3.] Complete answer: (2, -4) (1.5, -1.375) (1, 1) (.5, 2.375) (0, 2)
+I'm sure there is a more elegant way to handle all those `println` statements.
+
+<code>
+using Calculus
+
+function concavity(f, a, b)
+    check = {}  # list of points where derivative switches value is currently empty
+    int = (b-a)/100  # 100 is arbitrary, raise/lower as needed. Divides the interval into 100 test points
+    for n in a:int:(b-int)
+        if sign(f''(n)) != sign(f''(n + int))  # seek points where the first deriv switches value
+            push!(check, n) #create list of left hand points where deriv changes value
+        end
+    end
+    for n in 1:length(check)
+        l = check[n]
+        r = l + int
+        while abs(r - l) > 0.00001  # use secants to zoom in on the actual zero on this interval
+            m = (f''(r) - f''(l))/(r-l)
+            xint = l - f''(l)/m
+            r = l
+            l = xint
+            check[n] = xint  # replace each number in check with the accurate value
+        end
+    end
+    if length(check) == 0
+        if f''(a) > 0
+            println(\"f(x) is always concave up on this interval\")
+        elseif f''(a) < 0
+            println(\"f(x) is always concave down on this interval\")
+        end
+    elseif length(check) == 1
+        if f''(a) > 0
+            println(\"f(x) is concave up until x = \$(check[1]), then concave up after\")
+        elseif f''(a) < 0
+            println(\"f(x) is concave down until x = \$(check[1]), then concave up after\")
+        end
+    else
+        if f''(a) > 0
+            println(\"f(x) is concave up until x = \$(check[1])\")
+        else
+            println(\"f(x) is concave down until x = \$(check[1])\")
+        end
+        for n = 1:(length(check)-1)
+            if f''((check[n] + check[n+1])/2) > 0
+                println(\"f(x) is concave up between \$(check[n]) and \$(check[n+1])\")
+            else
+                println(\"f(x) is concave down between \$(check[n]) and \$(check[n+1])\")
+            end
+        end
+        if f''(b) > 0
+            println(\"f(x) is concave up after \$(check[end])\")
+        else
+            println(\"f(x) is concave down after \$(check[end])\")
+        end
+    end
+end
+</code>
 """, "Answer", false)
 
-ans105C = Revealable("""
-###Answer C
-Answers will vary greatly depending on starting \$x\$, starting \$h\$, and how you increment \$h\$ (Fibonacci numbers are only a suggestion).
+ans405D = Revealable("""
+###Answer D
+Critical points are (-6., 3.394), (1.916, 54.126) and (5.434, -70).
 
-Make sure you are beginning with a small \$h\$ (at most 0.5). It will ramp up fairly quickly as you increase its value.
+Inflection points have x-values at 0.5 and 4.
 
-1. The local maximum is at \$x = -8.6852\$. Note that this cubic is unbounded on both left and right so if you choose a starting \$x\$ greater than 12 or so, your numbers will fly off to infinity.
-
-2. This function has a few local minima past -12, but as long as you choose an \$x\$-value greater than -11 or so, you should reach the absolute minimum at around \$x = 2.75172\$.
+Graph is classic W-shaped graph of a positive 4th degree function; dec-inc-dec-inc; cu cd cu.
 """, "Answer", false)
 
 #############
