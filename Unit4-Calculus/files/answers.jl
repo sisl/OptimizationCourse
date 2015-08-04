@@ -458,113 +458,6 @@ end
 """, "Answer", false)
 
 #############
-# Lesson 07 #
-#############
-
-ans407A = Revealable("""
-###Answer A
-<code>
-function ybasedint(f)
-    step = 2  # totally arbitrary.
-    testpos = 0
-    testneg = 0
-    while -1000000 < f(testpos) < 1000000  # also totally arbitrary.
-        testpos = testpos + step
-    end
-    while -1000 < f(testneg) < 1000
-        testneg = testneg - step
-    end
-    println(testneg)
-    println(testpos)
-end
-</code>
-""", "Answer", false)
-
-ans407B = Revealable("""
-###Answer B
-<code>
-f(x) = x^4 + 35x^3 - 1062x^2 - 8336x + 47840  # the function analyzed
-
-function gridsearch(f, a, b)  #f is the function, a and b the endpoints of the interval in order
-    int = b - a 
-    int = int/5  # divides interval into 50 subintervals
-    test = a  # everything start with a. Test is the point we're currently testing...
-    low = f(a)  # low is the record low value so far
-    save = a  # save is the x-value corresponding to the record low
-    while test < b  # this loop will run until we've tested all the points from a to b
-        if f(test)<low  # if the y-value is lower than the current lowest,
-            low = f(test)  # then this loop replaces the current (save, low) with the new (save, low)
-            save = test
-        end
-    test = test + int  # moving on to the next point
-    end
-    println(\"seed with x = \$save\")
-end
-</code>
-""", "Answer", false)
-
-ans407C = Revealable("""
-###Answer C
-The main reason to do this is it's kind of nice to have one program that does everything rather than having to transfer by hand, but when I combined mine I noticed how glad I was that my code was documented.
-
-It looks so simple, but it is truly a pain in the butt. Since you wrote the three earlier programs in separate sittings, you probably have different variables for the same thing in all the different programs. You will have to unify like variables under a common name and separate variables that you accidentally named the same thing but are different. You will also have to maintain attention to the order of interval endpoints if any of the programs require them to be in numerical order.
-
-Other than that, it's just a matter of deleting the `function` and `end` commands from the top and bottom of each individual program, then putting a great big `function` and `end` to bracket the whole thing.
-<code>
-function globalmin(f, a, b)  # f is the function, a and b the endpoints of the interval in order
-    # This composite function combines a grid search, a 3-point interval, and a slope-based minimization program to find a global minimum.
-    
-    # the first part of the program is a grid search to determine a good starting point.
-    int = b - a
-    int = int/50  # divides interval into 50 subintervals
-    test = a  # everything starts with a. Test is the point we're currently testing...
-    low = f(a)  # low is the record low value so far
-    save = a  # save is the x-value corresponding to the record low
-    while test < b  # this loop will run until we've tested all the points from a to b
-        if f(test)<low  # if the y-value is lower than the current lowest,
-        low = f(test)  # then this loop replaces the current (save, low) with the new (save, low)
-        save = test  # save will return the location of the lowest point
-    end
-    test = test + int  # moving on to the next point
-  end
-
-    # the next part of the program is a 3-point interval search, using "save" as the seed point, the location of the record low from the grid search
-    int = int/10  # initial interval is 1/10 the previous interval
-    a = save + int  # first test point is 1 interval unit from the starting point
-    if f(a) > f(save)  # this loop checks direction of motion to ensure we're heading to a minimum
-        int = -int
-        a = save + int
-    end
-    b = a + int
-    while f(b) < f(a)
-        save = a  # stepping the interval along
-        a = b
-        b = b + int
-        int = b - save  # this increases the interval width in a Fibonacci pattern.
-    end
-  
-    # finally, the last part of the program minimizes in the interval [save, a].
-    left = min(b, save)
-    right = max(b, save)
-        phi = (-1+(5)^(1/2))/2  # phi, the golden ratio, used for sectioning below.
-        int = right - left
-        while int > 0.00001  # tolerance, change as needed
-            subdiv = phi \\\* int
-            lefttest = right - subdiv  # this line and the next create two points within the interval...
-            righttest = left + subdiv
-            if f(lefttest) < f(righttest)  # ...while this loop tests the interior points in the function and shifts the interval endpoints inward accordingly.
-            right = righttest
-        else
-            left = lefttest
-        end
-        int = right - left
-    end
-    println(\"\$left, \$right\")
-end
-</code>
-""", "Answer", false)
-
-#############
 # Lesson 10 #
 #############
 
@@ -770,6 +663,74 @@ function conjgrad(f, x1, x2)  # x1 and x2 are values of the initial point
         v2 = v2 + s\\\*v1  # replace temporary motion vector with post-nudged motion vector
         v1 = v2  # rename v2 as v1 for the benefit of the loop
         println(\"\$x1, \$x2\")
+    end
+end
+</code>
+""", "Answer", false)
+
+#############
+# Lesson 11 #
+#############
+ans413A = Revealable("""
+###Answer A
+* Use the positive gradient as the direction vector rather than the negative gradient
+* Use a maximization program instead of a minimization program for maximizing f(a)
+""", "Answer", false)
+
+ans413B = Revealable("""
+###Answer B
+Here's my old gridsearch program. It helped a little, but not much; it recommended that I start at (1, 1) instead of (0, 0), which got me to (1.988, 0.994) after 20 iterations.
+
+<code>
+function gridsearch(f, a, b, c, d)
+    int1 = (b-a)/5  # splits the x1 interval into 5 sections, 6 total points 
+    int2 = (d-c)/5  # same for x2
+    min = f(a, c)
+    A = [a c]  # seeds (a, c) as initial minimum point
+    for x in {a + int1\\\*n for n in 0:5}  # array of 6 evenly spaced points from a to b
+        for y in {c + int2\\\*n for n in 0:5}  # nested, 6 evenly spaced points from c to d
+            test = f(x, y)
+            if test < min  # if the function value is lower than the current min, replace it and location
+                min = test
+                A = [x y]
+            end
+        end
+    end
+    println(\"x1 = \$(A[1]), x2 = \$(A[2])\")  # prints the location of the lowest value
+end
+</code>
+""", "Answer", false)
+
+ans413C = Revealable("""
+###Answer C
+1. You should get close to the actual minimum at z = 2, y = 4, x = 0
+
+2. This was kind of mean. Although with the simple functions we've been using as examples it seems \"easier\" to use calculus to minimize, it can get really ugly really fast. At some point the programs take over.
+
+Anyway:
+
+gradient = [10x + 6z - 12     2y - 4z    6x - 4y + 14z - 12]
+
+This system of equations does, indeed, equal 0 at (0, 4, 2).
+
+Hessian: [10  0  6; 0  2  -4; 6 -4 14]. Eigenvalues are all positive, confirming that it is positive definite/concave up, therefore (0, 4, 2) is a minimum. Yuck!!!
+
+My 3d program here:
+<code>
+function conjgrad3(f, x1, x2, x3)  # x1 through x3 are values of the initial point
+    g = gradient(x -> f(x[1], x[2], x[3]))
+    v1 = -g([x1, x2, x3]  # returns the negative gradient as motion vector v
+    for n in 1:20
+        test(a) = f((x1 + a\\\*v1[1]), (x2 + a\\\*v1[2]), (x3 + a\\\*v[3]))  # cross section of f in direction of vector v/scalar a
+        a = fibmin(test, -10, 10) # scalar a shouldn't be too big, esp as vector v is not normalized
+        x1 = x1 + a\\\*v1[1] # forms new point from old + scalar\\\*vector
+        x2 = x2 + a\\\*v1[2]
+        x3 = x3 + a\\\*v1[3]
+        v2 = -g([x1, x2, x3])  # neg gradient at new point becomes temp motion vector (pre-nudge)
+        s = dot(v2,v2)/dot(v1,v1)  # calculate scalar/nudge factor s
+        v2 = v2 + s\\\*v1  # replace temporary motion vector with post-nudged motion vector
+        v1 = v2  # rename v2 as v1 for the benefit of the loop
+        println(\"\$x1, \$x2, \$x3\")
     end
 end
 </code>
