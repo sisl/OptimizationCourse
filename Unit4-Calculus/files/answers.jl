@@ -197,29 +197,73 @@ Correct answer:
 You may be upset about the fact that you were made to write these programs when they were already written (and written better, at least in my case). I think the fact that someone already did write those programs is proof that it's a legitimate pursuit. It's important to know how it's done. People get paid to do this kind of work; someone had to write the program for graphing calculators after all. As soon as another language gets invented, someone will have to program derivatives for it, unless John Myles White gets there first, too.
 """, "Answer", false)
 
+sawtooth = [Revealable("""
+<img src=\"files/4-4/st1.png\" width=100 align=\"left\" />
+Step 1: Draw lines of slope m from the function at the midpoint and endpoints of the interval.
+""", "Answer", true),
+
+Revealable("""
+<img src=\"files/4-4/st1.png\" width=100 align=\"left\" />
+Step 2: Find the intersection points of the lines.
+""", "Answer", true),
+
+Revealable("""
+<img src=\"files/4-4/st3.png\" width=100 align=\"left\" />
+Step 3: Find the highest y-value among the intersection points.
+""", "Answer", true),
+
+Revealable("""
+<img src=\"files/4-4/st4.png\" width=100 align=\"left\" />
+Step 4: Draw lines of slope &plusmn;m from the function at the y-value corresponding to that x-value.
+""", "Answer", true),
+
+Revealable("""
+<img src=\"files/4-4/st4.png\" width=100 align=\"left\" />
+Step 5: Repeat steps 2 through 5 until you have a good enough answer.
+""", "Answer", true)]
+
+
 ans404B = Revealable("""
 ###Answer B
-This code does not shorten calculations using the golden ratio property, but you could!
+1. This derives to 15x<sup>2</sup> + 4x. The maximum will occur either at the endpoints or where the derivative of this equals zero (i.e., where the second derivative equals 0). The second derivative is 30x + 4, which equals 0 at -2/15. The slope (derivative) at each point is: (-2, 52); (-2/15, -2.67); (5, 395). Limiting slope is 395.
+
+2. This derives to 12x^<sup>3</sup> - 4x, second derivative 36x<sup>2</sup> - 4. The second derivative is 0 at &plusmn;1/3, with slopes &plusmn;0.88. The endpoints have slopes of &plusmn;0.5, so the limiting slope is 0.88.
+""", "Answer", false)
+
+ans404C = Revealable("""
+###Answer C
+There ought to be a way to use symbolic differentiation too, but I could not figure out how to turn a variable storing a string into a string literal so I could pass it into the `differentiate` function in the Julia `Calculus` package.
+
+If that sentence makes zero sense to you, don't worry. Here's a program that works using numerical differentiation:
 
 <code>
-function fibmin(eq, minlim, maxlim, epsilon)  # equation must be pre-loaded; epsilon is an arbitrary error tolerance.
-    phi = (-1+(5)^(1/2))/2  # phi, the golden ratio, used for sectioning below.
-        int = maxlim - minlim
-        iteration = 0  # keeping track of iterations out of curiosity, not necessary.
-        while int > epsilon
-            subdiv = phi * int
-            lefttest = maxlim - subdiv  # this line and the next create two points within the interval...
-            righttest = minlim + subdiv
-                if eq(lefttest) < eq(righttest)  # this loop tests the interior points and shifts the endpoints inward accordingly
-                    maxlim = righttest
-                else
-                    minlim = lefttest
-                end
-            int = maxlim - minlim
-            iteration = iteration + 1
+using Calculus
+function sawprep(f, a, b)
+    check = {}  # list of points where second derivative switches value is currently empty
+    int = (b-a)/20  # 20 is arbitrary, raise as needed. Divide interval into 20 test points
+    test = [a b]
+    test = float64(test)
+    for n in a:int:(b-int)
+        if sign(f''(n)) != sign(f''(n + int))
+            push!(check, n)  # create list of left hand points where 2nd deriv changes value
         end
-    println(\"\$minlim, \$maxlim\")
-    println(iteration)
+    end
+    for n in 1:length(check)
+        l = check[n]
+        r = l + int
+        while abs(r - l) > 0.001
+             m = (f''(r) - f''(l))/(r-l)
+             xint = l - f''(l)/m
+             r = l
+             l = xint
+         end
+         test = hcat(test, l)
+     end
+    println(\"x values for testing: \$test\")
+    for n in 1:length(test)
+        test[n] = abs(f'(test[n]))
+    end
+    println(maximum(test))
 end
 </code>
 """, "Answer", false)
