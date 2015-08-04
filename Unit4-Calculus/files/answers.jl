@@ -565,131 +565,62 @@ end
 """, "Answer", false)
 
 #############
-# Lesson 08 #
+# Lesson 10 #
 #############
 
-slope = Revealable("""
-##Curved Functions and Slope
-__Slope__ is a term used to describe the steepness of straight lines. 
-<img src=\"files/2-8/slopes.png\" width=400 />
-
-But even curved functions have *steepness*.
-<img src=\"files/2-8/function.png\" width=400 />
-
-In this diagram, the steepest part of the curve is steeper than the yellow line, and shallower than the red line, and about the same as the green line.
-<img src=\"files/2-8/redgreenyellowslopes.png\" width=400 />
-""", "Slope Review", false)
-
-hint408A = Revealable("""
-The math here can get ugly. Some ways to make it less ugly:
-1. Enter the function `f(x)` into Julia and use that to evaluate y-values.
-2. Use point-slope form for your linear equations.
-3. Continue to use point-slope form when solving. The slopes of adjacent lines are opposite so the x-values will cancel nicely every time.
-""", "Hints for Easier Calculations", false)
-
-ans408A = Revealable("""
+ans410A = Revealable("""
 ###Answer A
-1. (-5, 75), (1, 183), (7, 291)
+1. 2
 
-2. y - 75 = 450(x + 5); y - 183 = -450(x - 1); y - 183 = 450(x - 1); y - 291 = -450(x - 7)
+2. 19
 
-3. (-1.88, 1479), (4.12, 1587)
+3. 1
 """, "Answer", false)
 
-ans408B = Revealable("""
+ans410B = Revealable("""
 ###Answer B
-Very subtle note here: Because of the nature of the method, the left hand point will always reach forward with a positive slope m, towards the right hand point which reaches back with a negative slope -m. The equations are written with the assumption that (x1, y1) are the left hand point and (x2, y2) are the right hand point. Therefore order is important when calling the program.
-<code>
-function intersect(x1, y1, x2, y2)
-    m = 450
-    ycross = (m*(x2 - x1) + (y1 + y2))/2
-    xcross = (ycross - y1)/m + x1
-    println(\"x = \$xcross\")
-    println(\"y = \$ycross\")
-end
-</code>
+1. 7 and -5
+
+2. 2.5i &plusmn; 2.40i  (no real eigenvalues, both imaginary)
+
+3. 2.30, 2, and -1.30
 """, "Answer", false)
 
-ans408C = Revealable("""
+ans410C = Revealable("""
 ###Answer C
-1. On the function, (4.12, 494.840ish)
-2. Two new points: (2.9065, 1040.9199) and (5.3335, 1040.9199)
+1. 1.99 and 72.01; concave up
 
-These two have the same y-value. Neither has the current high y-value which is (-1.88, 1479), but if two were ever tied you would just pick one and run with it. Tradition says left first.
+2. -12 and -6; concave down
+
+3. at (1, -1) -6 and 2; saddle point. At (1, 0) -2 and 0; inconclusive
 """, "Answer", false)
 
-steps408 = [Revealable("""
-<img src=\"files/2-8/step1.png\" width=300 />
-""", "", true), Revealable("""
-<img src=\"files/2-8/step2.png\" width=300 />
-""", "", true), Revealable("""
-<img src=\"files/2-8/step3.png\" width=300 />
-""", "", true), Revealable("""
-<img src=\"files/2-8/step4.png\" width=300 />
-""", "", true), Revealable("""
-<img src=\"files/2-8/step5.png\" width=300 />
-""", "", true)]
-
-ans408D = Revealable("""
+ans410D = Revealable("""
 ###Answer D
-In most languages, you'd need a return line. In Juila, functions automatically return the last value they touch, so Julia functions don't usually have a return line.
-<code>
-function listpoints(A, x1, x2)
-  A = vcat(A, [x1 x2])
-  A = sortrows(A)
-    # `return A` would go here, but Julia doesn't need it
-end
+Hessian is [6x  -1; -1  12y]
+1. saddle
 
-A = listpoints([-5 75], 1, 183)
-A = listpoints(A, 7, 291)
-A = listpoints(A, -1.88, 1479)
-A = listpoints(A, 4.12, 494.840)
-A = listpoints(A, 2.91, 1040.92)
-A = listpoints(A, 5.33, 1040.92)
-println(A)
-</code>
+2. concave up
+
+3. saddle
+
+4. saddle
+
+5. concave down
 """, "Answer", false)
 
-ans408E = Revealable("""
+ans410E = Revealable("""
 ###Answer E
-9 points: [-5.0 75.0 / -3.122 919.98 / -1.88 360.961 / -0.63 919.98 / 1.0 183.0 / 2.91 1040.92 / 4.12 494.84 / 5.33 1040.92 / 7.0 291.0]
+1. gradient [4 - 2x  2 - 6y], critical point (2, 1/3)
 
-11 points: [-5.0 75.0 / -3.122 919.98 / -1.88 360.961 / -0.63 919.98 / 1.0 183.0 / 2.12 688.95 / 2.91 335.403 / 3.69 687.3715 / 4.12 494.84 / 5.33 1040.92 / 7.0 291.0]
+2. Hessian [-2 0; 0 -6], eigenvalues negative therefore concave down. The critical point is a maximum.
 """, "Answer", false)
 
-ext408 = Revealable("""
-###Extension Program
+ans410F = Revealable("""
+###Answer F
+1. gradient [4x<sup>3</sup> - y   2y - x]. Critical points at (0, 0) and (sqrt(1/8), sqrt(1/32) or (0.35355, 0.17678)
 
-I split this program into multiple functions, which is a good idea when programs get complex and hard to read. Plus, I call `augment` multiple times. Having that code in a sub-function means that I don't have to rewrite it over and over.
-
-<code>
-    # pre-defined function
-g(x) =  -x^4 + 4x^3 + 30x^2 - 50x + 400 # function value here 
-
-    # this function will be called later to find intersection points of a line with slope m through (x1, y1) and a line with slope -m through (x2, y2)
-function augment(A, maxslope, x1, y1, x2, y2)  # must be in order, left point first.
-    ycross = (maxslope*(x2 - x1) + (y1 + y2))/2
-    xcross = (ycross - y1)/maxslope + x1
-    A = vcat(A, [xcross ycross])
-end
-
-function sawtooth(f, maxslope, left, right)  # function, maximum slope, left and right boundaries only 
-    A = [left f(left); (left + right)/2 f((left + right)/2); right f(right)]
-    A = augment(A, maxslope, A[1,1], A[1,2], A[2, 1], A[2,2])
-    A = augment(A, maxslope, A[2,1], A[2,2], A[3,1], A[3,2])
-    A = sortrows(A)
-    for n = 1:5
-        loc = findmax(A[:, 2])[2]  # returns the index of the highest number in the 2nd column of A
-        A[loc, 2] = f(A[loc])
-        A = augment(A, maxslope, A[loc-1, 1], A[loc-1, 2], A[loc, 1], A[loc, 2])
-        A = augment(A, maxslope, A[loc, 1], A[loc, 2], A[loc+1, 1], A[loc+1, 2])
-        A = sortrows(A)
-    end
-    println(A)
-end
-
-sawtooth(g, 450, -5, 7)
-</code>
+2.  Hessian [12x<sup>2</sup>  -1 ; -1  2]. (0, 0) is a saddle point, (0.35355, 0.17678) is concave up so this critical point is a minimum.
 """, "Answer", false)
 
 #############
