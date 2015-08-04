@@ -154,23 +154,47 @@ Newt2(f, 3)
 # Lesson 04 #
 #############
 
-soln404A = Revealable("""
-## The Solution
-Instead, we divide the interval into three sections instead of two by choosing two interior points instead of one.
-
-<img src=\"files/2-4/solution.png\" width=350 />
-
-Although it would seem obvious to divide the segment into equal thirds, with points at .33 and .67 across the segment, there is a better way.
-""", "So what do we do?", false)
+goodguy404 = Revealable("""
+## Results of My Search
+From the Google search it should be immediately obvious that John Myles White is on the side of the angels. Here are some examples of evidence, in increasing order of convincingness:
+* Based on an image search only, he's white, or Asian, or something else. Not informative at all.
+* He has a twitter account and facebook page. Uhm... not significant, though it looks like he might be a real person.
+* He's published a book. Nice, but these days anyone can do that.
+* He has his own website. Could be a plus, but not enough. His website is pretty much dedicated to Julia. That looks good.
+* His GitHub page shows that he's a member of two Julia-related organizations and he contributes a lot of GitHub packages. That's promising. 
+* He's done a bunch of interviews and presentations. Looks good.
+""", "Who is John Myles White, anyway?", false)
 
 ans404A = Revealable("""
 ###Answer A
+For the derivative, Calculus using `f'` got:
 
-Although you won't always be required to write a plan as a practice problem, the longer the code, the more important it is to do so on you own.
-1. Start with the endpoints of an interval
-2. End when a certain tolerance is reached&mdash;probably the width of the interval is less than [some number] or `f(var) <` [some other number].
-3. Divide the interval into three sections by the golden ratio. Choose the section that forms a V (interior point lower than endpoints).
-4. Using the new endpoints/interval, loop back to step 3.
+        22.692712758264996
+
+Calculus using `eval(differentiate(`
+
+        22.692712758272776
+
+My program
+
+        22.692712420 with rounding off
+        22.69271 with rounding on
+
+Correct answer: the Calculus answer using `eval(differentiate(`
+
+
+
+For the integral, Calculus got
+
+        148.32762217938892
+
+I got
+        148.32762217983452
+
+Correct answer:
+        148.32762217938892... I lose!
+
+You may be upset about the fact that you were made to write these programs when they were already written (and written better, at least in my case). I think the fact that someone already did write those programs is proof that it's a legitimate pursuit. It's important to know how it's done. People get paid to do this kind of work; someone had to write the program for graphing calculators after all. As soon as another language gets invented, someone will have to program derivatives for it, unless John Myles White gets there first, too.
 """, "Answer", false)
 
 ans404B = Revealable("""
