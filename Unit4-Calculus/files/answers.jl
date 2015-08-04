@@ -75,7 +75,7 @@ I found that interval width 4 (original) gave 154.315726...; width 2 gave 146.41
 <code>
 function simpson(f, a, b)
     m = (a + b) / 2 
-    integral = (b - a) / 6 * (f(a) + 4*f(m) +f(b))  # calculate and return integral
+    integral = (b - a) / 6 \\\* (f(a) + 4*f(m) +f(b))  # calculate and return integral
 end
 
 b = 0
@@ -102,7 +102,7 @@ function simpson(f, a, b)
     step = (b-a)/k  # create the step value using width / number of intervals
     for n in a:step:(b-step)  # build sub-intervals with left endpt n and right endpt (n + step), width = step
         m = n + (step/2)  # midpoint 
-        add = step / 6 * (f(n) + 4*f(m) + f(n+step))  # simpson's rule on subinterval
+        add = step / 6 \\\* (f(n) + 4*f(m) + f(n+step))  # simpson's rule on subinterval
         integral = integral + add  # accumulate on integral here 
     end
     println(integral)
@@ -549,7 +549,7 @@ function globalmin(f, a, b)  # f is the function, a and b the endpoints of the i
         phi = (-1+(5)^(1/2))/2  # phi, the golden ratio, used for sectioning below.
         int = right - left
         while int > 0.00001  # tolerance, change as needed
-            subdiv = phi * int
+            subdiv = phi \\\* int
             lefttest = right - subdiv  # this line and the next create two points within the interval...
             righttest = left + subdiv
             if f(lefttest) < f(righttest)  # ...while this loop tests the interior points in the function and shifts the interval endpoints inward accordingly.
@@ -624,37 +624,153 @@ ans410F = Revealable("""
 """, "Answer", false)
 
 #############
-# Lesson 09 #
+# Lesson 11 #
 #############
 
-ans409A = Revealable("""
+ans411A = Revealable("""
 ###Answer A
-I chose to use a `for` loop on this, but a `while` loop with a counter would work perfectly well also.
-
-```
-function fibstring(n)
-    fibs = [1, 1]  # preloading the array fibs and variables
-    a = 1
-    b = 1
-    for x in 1:(n - 2)  # since I already have 2 elements, for n elements total I need (n - 2) more elements.
-            c = a + b  # finding the next term...
-            a = b  # ...and redefining the other variables 
-            b = c 
-            push!(fibs, c)  # finally tack c on the end of fibs; this step could have been earlier
-    end
-    println(fibs)  # at the end, print out the final list
-end
-```
+1. gradient [-65  32], eigenvalues 33.048 and -29.048
+2. gradient [3  9  17], eigenvalues -12.966, 12.043, and 0.922
 """, "Answer", false)
 
-ans409B = Revealable("""
+ans411B = Revealable("""
 ###Answer B
+1. [20  47]
+2. f(a) = (10 - 2a)<sup>2</sup> + 2(12 - 47a)<sup>2</sup> - (12 - 47a)
+""", "Answer", false)
 
-    function vector(s, t)
-        vec = t - s
-        println (\"The vector from s to t is \$vec\")
-        v = s + 1.5 * vec
-        println(\"The new point v is \$v\")
+ans411C = Revealable("""
+###Answer C
+1. a = 0.2707
+2. New point = (4.5849, -0.7256)
+""", "Answer", false)
+
+ans411D = Revealable("""
+###Answer D
+1. From (4.5849, -0.7256), vector = <-9.17, 3.90>, a = 0.434, new point (0.610, 0.966)
+2. From (0.610, 0.966), vector = <-1.22, -2.86>, a = .271, new point (0.2795, 0.1905)
+""", "Answer", false)
+
+ans411E = Revealable("""
+###Answer E
+For 5 iterations, I got a final point (0.0170, 0.2464).
+
+For 10 iterations, I got (0.000, 0.2500), which is the minimum.
+
+<code>
+using Calculus
+
+function fibmin(eq, minlim, maxlim)  # equation entered below; minlim and maxlim bracket desired minimum value
+    phi = (-1+(5)^(1/2))/2  # phi, the golden ratio, used for sectioning below.
+    int = maxlim - minlim
+    while int > 0.00001  # tolerance, change as needed
+        subdiv = phi \\\* int
+        lefttest = maxlim - subdiv  # this line and the next create two points within the interval...
+        righttest = minlim + subdiv
+        if eq(lefttest) < eq(righttest)  # tests interior points in `eq` and shifts the interval endpts inward
+            maxlim = righttest
+        else
+            minlim = lefttest
+        end
+        int = maxlim - minlim
     end
-```
+    return((maxlim + minlim) / 2)
+end
+
+function steepdesc(f, x1, x2)  # x1 and x2 are values of the initial point
+    for n in 1:5
+        g = gradient(x -> f(x[1], x[2]))
+        v = -g([x1, x2])  # returns the negative gradient as motion vector v
+        test(a) = f((x1 + a\\\*v[1]), (x2 + a\\\*v[2]))  # cross section of function in direction of vector v/scalar a
+        a = fibmin(test, -10, 10) # scalar a shouldn't be too big, esp as vector v is not normalized
+        x1 = x1 + a\\\*v[1]  # forms new point from old + scalar \\\* vector
+        x2 = x2 + a\\\*v[2]
+        println(\"\$x1, \$x2\")
+    end
+ end
+</code>
+""", "Answer", false)
+
+ans411F = Revealable("""
+###Answer F
+This one is frustrating! 
+
+The actual minimum is at (2, 1), but even after 100 iterations it didn't get there. I got to (1.926, 0.963) and threw in the towel.
+""", "Answer", false)
+
+#############
+# Lesson 11 #
+#############
+
+ans412A = Revealable("""
+###Answer A
+Careful with the subscripts!
+
+It ends up not mattering if you use v or g because the elements end up squared/positive anyway.
+
+s<sub>1</sub> = 0.022; 
+s<sub>2</sub> = 0.0386
+""", "Answer", false)
+
+ans412B = Revealable("""
+###Answer B
+(1.8097, 0.0935)
+
+You could use the steepest-descent program from the last section and run one iteration, or just peel off the first iteration; or you could work by hand using gradients, vectors, and minimization.
+
+The gradient here is [3.432, 0.308], vector is <-3.432, -0.308>.
+""", "Answer", false)
+
+ans412C = Revealable("""
+###Answer C
+Scalar multiplier s = 0.00152; new vector = <-3.4452, -0.173926>
+""", "Answer", false)
+
+ans412D = Revealable("""
+###Answer D
+Should get very close to the true minimum at (0, 0), with some rounding error.
+
+With quadratic functions of n variables, the conjugate gradient method will always converge within n iterations. In this case, there were 2 variables and it took 2 iterations to find the minimum.
+""", "Answer", false)
+
+ans412E = Revealable("""
+###Answer E
+Still slow to converge, but at least after 100 I was at (1.993, 0.997)
+
+<code>
+using Calculus
+
+function fibmin(eq, minlim, maxlim)  # equation entered below; minlim and maxlim bracket the minimum value
+    phi = (-1+(5)^(1/2))/2  # phi, the golden ratio, used for sectioning below.
+    int = maxlim - minlim
+    while int > 0.00001  # tolerance, change as needed
+        subdiv = phi \\\* int
+        lefttest = maxlim - subdiv  # create two test points within the interval
+        righttest = minlim + subdiv
+            if eq(lefttest) < eq(righttest)  # test the interior points in the function and shifts the interval endpoints inward accordingly.
+                maxlim = righttest
+            else
+                minlim = lefttest
+            end
+        int = maxlim - minlim
+    end
+    return((maxlim + minlim)/2)
+end
+
+function conjgrad(f, x1, x2)  # x1 and x2 are values of the initial point
+    g = gradient(x -> f(x[1], x[2]))
+    v1 = -g([x1, x2])  # return negative gradient as motion vector v
+    for n in 1:20
+        test(a) = f((x1 + a\\\*v1[1]), (x2 + a\\\*v1[2]))  # cross section of f in direction of vector v/scalar a
+        a = fibmin(test, -10, 10) # scalar a shouldn't be too big, esp as vector v is not normalized
+        x1 = x1 + a\\\*v1[1] # form new point from old + scalar*vector
+        x2 = x2 + a\\\*v1[2]
+        v2 = -g([x1, x2])  # negative gradient at new point becomes temporary motion vector (pre-nudge)
+        s = dot(v2, v2) / dot(v1, v1)  # calculate scalar/nudge factor s
+        v2 = v2 + s\\\*v1  # replace temporary motion vector with post-nudged motion vector
+        v1 = v2  # rename v2 as v1 for the benefit of the loop
+        println(\"\$x1, \$x2\")
+    end
+end
+</code>
 """, "Answer", false)
