@@ -330,5 +330,59 @@ Minimize T(x) = (x-8)<sup>2</sup> + r\\\*max(0, 10-x)<sup>2</sup>
 Should give 10.
 """, "Answer", false)
 
+#############
+# Lesson 07 #
+#############
+
+ans507A = Revealable("""
+###Answer A
+Answers should approach 5. However, there is a good chance (depending how you wrote their program) that Julia will hang. This will happen if your initial step size is significantly larger than the current value of 1/r, which will send your program over the asymptote and then downwards forever and ever.
+
+I had to modify my program so that the initial step size became a user input instead of standard at 0.1. Then I decreased the step size with increasing values of r. 
+""", "Answer", false)
+
+ans507B = Revealable("""
+###Answer B
+Becomes T(x) = (x - 12)<sup>2</sup> - 1/r(x-10)
+
+Answers should approach 10.
+<code>
+function intpen(f, B, a)
+    r = 1
+    for n in 1:10
+        T(x) = f(x) + (1/r)\\\*B(x)
+        a = stepmin(T, a, 1/(10\\\*r))
+        r = 10 \\\* r
+        println(a)
+    end
+    return(a)
+end
+</code>
+""", "Answer", false)
+
+ans507C = Revealable("""
+###Answer C
+Becomes
+minimize T(x) = 0.8x<sup>2</sup> - 2<sup>x</sup> - 1/r(x - 4)
+
+You should get 0.707, which is a local minimum but not the global minimum (which occurs at the boundary, 4).
+
+For initial point 2 you should get 3, then for initial point 3, you will get the correct answer of x = 4. 
+In 1. the penalty is too large, which causes the minimum at 4 to be caught up in the asymptote and dragged upward to the point where it is no longer even a local minimum. In 2. the smaller penalty corrects the graph, which now shows 4 as the lowest solution in the feasible region, but the initial point 2 is too far away, sinking us into the local minimum at 0.707. The initial point 3 is close enough to find the true minimum.
+""", "Answer", false)
+
+ans507D = Revealable("""
+###Answer D
+Candidates are:
+* (-7, -50.15)
+* (11, 0.103)
+* (-1.8504, -12.92)
+* (4.931, -23.97)
+* (10.007, -6.523)
+
+Global minimum is at (-7, -50.15)
+""", "Answer", false)
+
+
 
 
