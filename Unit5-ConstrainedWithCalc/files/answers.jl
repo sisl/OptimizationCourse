@@ -257,3 +257,78 @@ Points, in order:<br /><br />
 (-.03013, .1224). At this point there isn't much improvement over the previous point, so this is close to the answer.
 """, "Answer", false)
 
+#############
+# Lesson 06 #
+#############
+
+ans506A = Revealable("""
+###Answer A
+1. P(x) = max(0, x - 12)<sup>2</sup>
+2. P(x) = max(0, x<sup>2</sup> - 200)<sup>2</sup>
+3. P(x) = max(0, 2x - 9)<sup>2</sup>
+4. P(x) = max(0, 9 - e<sup>2x+1</sup>)<sup>2</sup>
+5. P(x) = (4x<sup>2</sup> + 2<sup>x</sup> - 12)<sup>2</sup>
+""", "Answer", false)
+
+ans506B = Revealable("""
+###Answer B
+Here's mine:
+
+<code>
+using Calculus
+function stepmin(f, x)
+    int = 0.1
+    if f'(x) > 0
+        int = -.1
+    end
+    while f(x + int) < f(x)  # stops when function increases
+        x = x + int
+    end
+    int = int/10000  # adjusts the interval smaller but in same direction
+    while f(x + int) < f(x)
+        x = x + int
+    end
+    x  # instead of `return(x)`; does the same thing in Julia
+end
+</code>
+""", "Answer", false)
+
+ans506C = Revealable("""
+###Answer C
+Answers should converge on x = 5.
+""", "Answer", false)
+
+ans506D = Revealable("""
+###Answer D
+Becomes 
+
+Minimize T(x) = 0.8x<sup>2</sup> - 2<sup>x</sup> + max(0, x-4)<sup>2</sup>
+
+Should be at the boundary, 4; any starting point above 6.5 or so will send it way up for r = 10.
+
+I wrote a function:
+
+<code>
+function extpen(f, P, a)  # f: objective function, P: penalty function, a: initial value
+    r = 10
+    for n in 1:10
+       T(x) = f(x) + r\\\*P(x)
+       a = stepmin(T, a)  # change this to T, a, \_\_ for a GE constraint
+       println(a)
+       r = 10\\\*r
+    end
+end
+</code>
+""", "Answer", false)
+
+ans506E = Revealable("""
+###Answer E
+Becomes
+
+Minimize T(x) = (x-8)<sup>2</sup> + r\\\*max(0, 10-x)<sup>2</sup>
+
+Should give 10.
+""", "Answer", false)
+
+
+
