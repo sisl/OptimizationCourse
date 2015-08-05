@@ -60,3 +60,47 @@ ans502A = Revealable("""
 ###Answer A
 
 """, "Answer", false)
+
+#############
+# Lesson 03 #
+#############
+
+ans503A = Revealable("""
+###Answer A
+Answers will vary; examples are (-3, 0), (1, -9) and (-1, -9). The easiest thing, in this equation, is to set x<sub>2</sub> equal to whatever and solve for x<sub>1</sub>. You could also set x<sub>1</sub> equal to whatever, but then you'd have to square root, no big deal though.
+""", "Answer", false)
+
+ans503B = Revealable("""
+###Answer B
+1. Steepest descent vector &lt;-5, 6&gt;, constraint gradient [-12, 4], dot product is POSITIVE: steepest descent is not feasible.
+2. Steepest descent vector &lt;-2, 20&gt;, constraint gradient [8, -1], dot product is NEGATIVE: steepest descent is feasible.
+3. Steepest descent vector &lt;-18, 12sqrt(6)&gt;, constraint gradient [4, -2sqrt(6)], dot product is NEGATIVE: steepest descent is feasible.
+""", "Answer", false)
+
+ans503C = Revealable("""
+###Answer C
+1. This is the same scenario as practice problem B3. f(a) = (2-18a)\\\*(-sqrt(6) + 12sqrt(6)\\\*a)<sup>2</sup>
+2. Steepest descent vector &lt;-8, -2&gt; is feasible (constraint gradient [0 8]). f(a) = (4 - 8a)<sup>2</sup> + 2(.5-2a)<sup>2</sup>
+""", "Answer", false)
+
+ans503D = Revealable("""
+###Answer D
+1. constraint g(a) = (-sqrt(6) + 12sqrt(6)\\\*a) - ln(2 - 18a + 3) = 0 at a = 0.11905
+2. constraint g(a) = (.5 - 2a)^2 - (4 - 8a) +1 = 0 at a = 0.368034
+3. a has a minimum value of 0.
+""", "Answer", false)
+
+ans503E = Revealable("""
+###Answer E
+1. New point is (.5, 0) &mdash; in the interior.
+2. New point is (1.0557, -0.2361).
+""", "Answer", false)
+
+ans503F = Revealable("""
+###Answer F
+1. Gradient = 0, but the eigenvalues of the Hessian (0 and 0.5 &mdash; you might need some sreview here, I did!) are not both positive. The fact that one is 0 means that this is an indeterminate point. What happened is the objective function is similar to the 2D equation xy = 1, or y = 1/x, which is not differentiable at x = 0. The same problem occurs here.
+<br /><br />
+2. Gradient of f = [2x<sub>1</sub>  4x<sub>2</sub>], at the new point = [2.111, -0.944], steepest descent = &lt;-2.111, 0.944&gt;.<br /><br />
+Constraint gradient  = [-1  2x<sub>2</sub>], at the new point = [-1, -0.472].<br /><br />
+The dot product of the steepest descent vector and the constraint gradient is positive; therefore it is not feasible to continue moving in the direction of steepest descent.
+""", "Answer", false)
