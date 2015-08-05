@@ -104,3 +104,76 @@ ans503F = Revealable("""
 Constraint gradient  = [-1  2x<sub>2</sub>], at the new point = [-1, -0.472].<br /><br />
 The dot product of the steepest descent vector and the constraint gradient is positive; therefore it is not feasible to continue moving in the direction of steepest descent.
 """, "Answer", false)
+
+#############
+# Lesson 04 #
+#############
+
+ans504A = Revealable("""
+###Answer A
+1. (0.2425, -0.9701)
+2. (-3/5, -4/5)
+3. (0.208, -0.978)
+4. (0.841, 0.541)
+5. (-0.894, -0.448)
+
+<code>
+function normalize(v) 
+    mag = sqrt((v[1])^2 + (v[2])^2) 
+    v = v/mag 
+    return(v) 
+end
+</code>
+""", "Answer", false)
+
+phase2 = [
+Revealable("""<img src=\"files/5-4/p21.png\" width=150 />""", "", true), 
+Revealable("""<img src=\"files/5-4/p22.png\" width=150 />""", "", true),
+Revealable("""<img src=\"files/5-4/p23.png\" width=150 />""", "", true),
+Revealable("""<img src=\"files/5-4/p24.png\" width=150 />""", "", true)
+]
+
+ans504B = Revealable("""
+###Answer B
+1. gradient [-1 2x<sub>2</sub>], at this point [-1, -0.4722], so steepest descent is &lt;1, 0.4722&gt;. Normalized &lt;.904, 0.427&gt;, multiplied by 0.5 gives &lt;.4521, 0.2135&gt;, then added to the original point = (1.508, -0.023).<br />
+2. gradient [4x<sub>2</sub>  4x<sub>1</sub>], at this point [-12  4], so steepest descent is &lt;12, -4&gt;. Normalized &lt;0.949, -0.316&gt;, multiplied &lt;0.0949, -0.0316&gt;. Added to initial point gives (1.0949, -3.0316).
+""", "Answer", false)
+
+ans504C = Revealable("""
+###Answer C
+You might have noticed that your minimum f value pretty much always occurs at the maximum a value (on the constraint), which makes a lot of sense graphically: chances are very small now that the minimum f value will occur in the interior of the feasible region since we already passed through the interior in phase 1 and landed on a constraint. You can shortcut the \"minimizing f\" step as long as you are aware that it is a shortcut which, though rarely, risks returning a wrong answer in the event that there is an interior minimum quite close to the constraint boundary.
+
+1. Objective function gradient [2x<sub>1</sub>  4x<sub>2</sub>], at this point = [3.016  -0.092], so steepest descent vector = &lt;-3.016, 0.92&gt;<br />
+new point = (1.508 - 3.016a, -0.023 + 0.92a), max value of a = 0.16308, f minimized when a = 0.16308, new point = (1.016, 0.127)<br />
+2. Objective function gradient [5  2x<sub>2</sub>], at this point [5  -6.0632], so steepest descent vector = &lt;-5, 6.0632&gt;<br />
+  new point = (1.0949 - 5a, -3.0316 + 6.0632a), max value of a = 0.1496, f minimized when a = 0.1496, new point = 1.02, -2.941)<br />
+3. Both points are quite close to the originals, but not identical.
+""", "Answer", false)
+
+ans504D = Revealable("""
+###Answer D
+Gradient [2x<sub>1</sub>  2x<sub>2</sub>], here [4.2  4] steepest descent &lt;-4.2, -4&gt;, new point = (2.1 - 4.2a, 2 - 4a)
+
+g<sub>1</sub>(new) = 0 when a = 0.13253<br />
+g<sub>2</sub>(new) = 0 when a = 0.10333
+
+The second constraint will become active with max a = 0.10333.
+""", "Answer", false)
+
+
+pushingoff = [
+Revealable("""<img src=\"files/5-4/corner1.png\" width=125 align=\"left\" style=\"padding:0 1em 0 0\" />We can do this by pretending the point lies on both constraints, finding both steepest descent vectors, and normalizing both vectors.""", "", true),
+Revealable("""<img src=\"files/5-4/corner2.png\" width=125 align=\"left\" style=\"padding:0 1em 0 0\" />Then we can add the two vectors together...""", "", true),
+Revealable("""<img src=\"files/5-4/corner3.png\" width=125 align=\"left\" style=\"padding:0 1em 0 0\" />...and if we normalize that vector we will have the vector we want.""", "", true)
+]
+
+ans504E = Revealable("""
+###Answer E
+1. g<sub>1</sub>: &lt;-0.5545, 0.832&gt;, g<sub>2</sub>: &lt;0.7399, -0.673&gt;
+2. &lt;0.759, 0.651&gt;
+3. new point = (1.666, 1.5867) + 0.1\\\*&lt;0.759, 0.651&gt; = (1.7419, 1.6518)
+""", "Answer", false)
+
+
+
+
