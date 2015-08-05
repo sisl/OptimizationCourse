@@ -174,6 +174,86 @@ ans504E = Revealable("""
 3. new point = (1.666, 1.5867) + 0.1\\\*&lt;0.759, 0.651&gt; = (1.7419, 1.6518)
 """, "Answer", false)
 
+#############
+# Lesson 05 #
+#############
 
+ans505A = Revealable("""
+###Answer A
+'Helpful to graph the feasible region' is more on the order of necessary. I'm using fooplot and graphing the points as I go along to check my work. Julia has lots of graphing packages if you want to do it all in the notebook.<br /><br />
+Answers will vary depending on how much you push off in phase 2 and how many iterations you run.<br /><br />
+From (1, 3): steepest descent = &lt;4, -6&gt; is feasible (dot product with constraint gradient = -32)<br />
+new point = (1 + 4a, 3 - 6a), will impact g<sub>3</sub> at maximum a value of a = 0.3804<br />
+minimizing f results in a = 0.3804. **Make sure you minimize `f(a)` in phase 1!**<br />
+new point = (2.5214, 0.7177) on g<sub>3</sub>.<br /><br />
+From here, I used a couple of programs shown below (absent much documentation &mdash; sorry), in loops like `point = move(point)`, `point = edge(g, point)` to bump out and then move back to the edge. I didn't minimize `f` each time (shortcut! Oh no!). <br /><br />
+Progression of points:
+        edge                interior
+        (1, 3)              n/a (phase 1)
+        (2.5215, .7177)     (2.47696, 0.807233)
+        (2.53167, .722799)  (2.48687, 0.812206)
+        (2.54054, .727259)  (2.49553, 0.816555)
+        (2.54828, 0.73117)  etc...
+<br /><br />
+From here I put it into a for loop (`for n in 1:\_\_\_ / point = move(point) / point = edge(point) / println(point) / end`<br /><br />
+and watched it go until I got an answer:
+(2.601, 0.758)<br /><br />
+<code>
+using Calculus
 
+gradg = gradient(x->g(x[1], x[2]))
+gradf = gradient(x->f(x[1], x[2]))
+
+function normalize(v)
+    mag = sqrt((v[1])^2 + (v[2])^2)
+    v = v/mag
+    return(v)
+end
+
+function move(point)
+    point = point + 0.1 \\\* normalize(-gradg(point))
+    return(point)
+end
+
+function Newton(f::Function, x0, iter) # f::Function` makes Julia throw an error if you try to pass in anything else, like an integer; x0 is the seed point, if multiple zeroes Newton will find the closest to x0; iter is up to you but Newton works nicely around 6-7.
+    n = 0
+    while n < iter
+        y0 = f(x0)  # y value for the seed point
+        m0 = derivative(f)(x0)
+        x1 = x0 - y0/m0  # find the x-value where the tangent line crosses the x-axis
+        x0 = x1  # ...and make that the seed point for the next iteration
+        n = n + 1
+    end
+    return(x0)
+end
+
+function edge(g, point)
+    v = -gradf(point)
+    finda(a) = g(point[1] + v[1]\\\*a, point[2] + v[2]\\\*a)
+    a = Newton(finda, 0, 5)
+    point = [point[1] + v[1]\\\*a, point[2] + v[2]\\\*a]
+    return(point)
+end
+</code>
+""", "Answer", false)
+
+ans505B = Revealable("""
+###Answer B
+This one is more involved because it will near a corner.<br /><br />
+From (1,3) steepest descent is &lt;-2, -1&gt;, which is feasible with dot product -8. This will head towards g<sub>1</sub>. 
+However, although the limiting `a` is 0.75, the minimizing `a` is 0.625, which gives an interior point at (-0.25, 2.375).<br /><br />
+From (-0.25, 2.375) steepest descent is &lt;0.5, -1&gt; which heads towards g<sub>3</sub>. This time the limiting `a` = 2.153304 ends up being the minimizing `a`, forming a new point at (0.826652, 0.2217).<br /><br />
+Points, in order:<br /><br />
+
+        edge                interior
+        (1,3)               (-.25, 2.375) minimized f in interior here, phase 1 repeat
+        (.826652, 0.2217)   (.811464, .320535)
+        (.598406, 0.189255) (.585399, .288406)
+        (.447277, .170433)  (.338229, .158025)
+        ...
+
+<br /><br />
+(-.029729, 0.12245) At this point it gets really near the corner of g<sub>3</sub> and g<sub>1</sub>, so I found the next interior point which is still within the feasible region: (-.0381862, .222092) and checked that against both constraints. Indeed, the max `a` value goes with constraint g<sub>1</sub>, with an edge point of (-.0307, .1236). After some checking against the graph I greatly reduced my push-off value and got to a new point (back on g<sub>3</sub>):<br /><br />
+(-.03013, .1224). At this point there isn't much improvement over the previous point, so this is close to the answer.
+""", "Answer", false)
 
