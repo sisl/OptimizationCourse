@@ -38,11 +38,10 @@ Make sure you are beginning with a small \$h\$ (at most 0.5). It will ramp up fa
 ans106A = Revealable("""
 ###Answer A
 Your code might look different than mine. That's okay!
-<code>
-f(x) = x^2 + 2x - 7
-g(a,b) = (f(a) - f(b))/(a-b)  # Careful with parentheses here!
-g(3,5)
-g(-2, 7)
+1. `f(x) = x^2 + 2x - 7`
+2. `g(a,b) = (f(a) - f(b))/(a-b)`  Careful with parentheses here!
+3. g(3,5)
+4. g(-2, 7)
 </code>
 """, "Answer", false)
 
