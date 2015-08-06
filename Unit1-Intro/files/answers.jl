@@ -278,15 +278,17 @@ end
 
 ans109D = Revealable("""
 ###Answer D
+If you create an empty array without telling Julia what kind of objects you're going to put in it, you won't be able to increase the size of the array later. That's why I have the line `products = Number[]`. That tells Julia to save space for some Numbers in that array.
+
 <code>
 function Dot(a, b)
     n = length(a)  # find the length of a for my loop later
-    products = []  # preload products as the empty set
+    products = Number[]  # preload products as the empty set
     for x in 1:n  # stop when we run out of elements to multiply.
             k = a[x] \\\* b[x]  # multiply each term in order...
             push!(products, k)  # ...and push that onto the end of products
         end
-    println(\"The dot product is \$sum(products)\") 
+    println(\"The dot product is \$(sum(products))\") 
 end
 </code>
 """, "Answer", false)
