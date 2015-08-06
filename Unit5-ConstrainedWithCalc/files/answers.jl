@@ -383,6 +383,68 @@ Candidates are:
 Global minimum is at (-7, -50.15)
 """, "Answer", false)
 
+#############
+# Lesson 08 #
+#############
 
+ans508A = Revealable("""
+###Answer A
+There's some gray area here if you want to argue. The main thing is to argue rationally. 
+1. O
+2. C
+3. C
+4. O
+5. O
+6. C
+""", "Answer", false)
 
+ans508B = Revealable("""
+###Answer B
+Note that this is a maximization problem, slightly different from the minimization example. The region is the standard quadrilateral at the origin, with corner points (0, 0) (0, 5.2), (6, 4) and (8, 0). The point (8, 0), which is 8 tours and no mailings, is optimal for the number of applications with 80 applications and 32 donors. The point (6, 4) is optimal for donors with 48 donors and 68 applicants. (0, 0) and (0, 5.2) aren't much good for anything. 
+""", "Answer", false)
+
+ans508C = Revealable("""
+###Answer C
+The criterion space looks like a trapezoid, with one corner way down at the origin, and the highlighted segment connecting (32, 80) with (48, 68) in the upper right. (Your f<sub>1</sub> and f<sub>2</sub> values may be switched, but the edge will still be upper right.)
+""", "Answer", false)
+
+ans508D = Revealable("""
+###Answer D
+The slope is -3/4, so the whole-number solutions are: (donors, cost)<br />
+(32, 80) &mdash; the upper left corner point<br />
+(36, 77)<br />
+(40, 74)<br />
+(44, 71)<br />
+(48, 68)
+
+Fractional solutions might drop -1.5/2, or -1/1.333, or some other equivalent to -3/4.
+""", "Answer", false)
+
+ans508E = Revealable("""
+###Answer E
+1. Yes: 40 donors, 74 applicants
+2. No
+3. No
+4. No
+5. Yes: 36 donors, 77 applicants
+""", "Answer", false)
+
+ans508F = Revealable("""
+###Answer F
+1. orange
+2. purple
+3. blue. Although red is on the Pareto curve, a small increase in f<sub>2</sub> gives big decrease in f<sub>1</sub>.
+4. orange
+5. blue
+6. orange. Although red is on the Pareto curve, a small decrease in f<sub>1</sub> gives a big increase in f<sub>2</sub>.
+""", "Answer", false)
+
+#############
+# Lesson 09 #
+#############
+
+ans509A = Revealable("""
+###Answer A
+
+""", "Answer", false)
 
