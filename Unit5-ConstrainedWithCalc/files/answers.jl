@@ -445,6 +445,146 @@ ans508F = Revealable("""
 
 ans509A = Revealable("""
 ###Answer A
+The reasoning is more important than the answer.
+1. Action is important, but the past is also likely to be influential. This is not a suitable MDP scenario.
+2. Action is important, and if it knows its current state (speed, vehicles around it, etc.) the past shouldn't be vital. MDP could be used.
+3. Debatable. The guy has to choose red or black.  But really, mostly chance. It is, however, not past-dependent. I'd say not an MDP candidate.
+4. Action is important, and if he knows his current state (i.e., his location) he doesn't really need to know the past. MDP candidate.
+""", "Answer", false)
+
+
+ans509B = Revealable("""
+###Answer B
+Answers will vary; my states came out like this:
+1. A A A A B A A B B B, 6 points
+2. A B A B B A A A A B, 6 points
+3. A A B B A B A B A A, 6 points
+""", "Answer", false)
+
+
+ans509C = Revealable("""
+###Answer C
+For `x`, I got a bunch of wild swings, probably a higher overall average but ranging from mid 40s to low 60s. For `y`, I got a lot of mid-50s, fairly consistently.
+
+In my code, I chose to use `\"A\"` and `\"B\"` literally, rather than a proxy like `1` and `0`. The number proxy would probably be easier.
+<code>
+function actionx(x)
+    if x == \"A\"
+        if rand()<.6
+            return(\"A\")
+        else
+            return(\"B\")
+        end
+    elseif x == \"B\"
+        if rand()<.5
+            return(\"A\")
+        else
+            return(\"B\")
+        end
+    end
+ end
+
+function actiony(x)
+    if x == \"A\"
+        if rand()<.3
+            return(\"A\")
+        else
+            return(\"B\")
+        end
+    elseif x == \"B\"
+        if rand()<.8
+            return(\"A\")
+        else
+            return(\"B\")
+        end
+    end
+ end
+
+function repeater(x)
+    value = 0
+    for n in 1:100
+        x = actionx(x)
+        if x == \"A\"
+            value = value + 1
+        end
+    end
+    return(value)
+end
+</code>
 
 """, "Answer", false)
 
+
+ans509D = Revealable("""
+###Answer D
+.2, .7, 0, .6, .2, 8
+
+Given a current state (rows), one of the other states must result. But given a new state (columns), it could have come from any of the previous states in any combination.
+""", "Answer", false)
+
+
+ans509E = Revealable("""
+###Answer E
+1. action x
+2. action y
+3. I got consistent high 60s/low 70s.
+
+  There is certainly a more elegant way to solve this problem by combining `actionx` and `actiony` into one function, maybe using matrices. But this works!
+<code>
+function actionx(x)
+    if x == \"A\"
+        if rand()<.6
+            return(\"A\")
+        else
+            return(\"B\")
+        end
+    elseif x == \"B\"
+        if rand()<.5
+            return(\"A\")
+        else
+            return(\"B\")
+        end
+    end
+ end
+
+function actiony(x)
+    if x == \"A\"
+        if rand()<.3
+            return(\"A\")
+        else
+            return(\"B\")
+        end
+    elseif x == \"B\"
+        if rand()<.8
+            return(\"A\")
+        else
+            return(\"B\")
+        end
+    end
+ end
+
+function intelligent(x)
+    value = 0
+    for n in 1:100
+        if x == \"A\"
+            x = actionx(x)
+            value = value + 1
+        elseif x == \"B\"
+            x = actiony(x)
+        end
+    end
+    println(value)
+end
+</code>
+""", "Answer", false)
+
+
+ans509F = Revealable("""
+###Answer F
+1. Three is a challenge! I had to look it up. I won't give away the third, but there are a lot of possibilities. I'd be worried if their belief state wasn't something like: allergies 48%, cold 48%, <other> 2%. Make them fill in \"other\", even if they have to look it up too. It was educational.
+2. I personally don't like over-medicating my patients (maybe this is why I'm a math teacher) so my action would be to wait a week and do nothing.
+3. If they're still sneezing after waiting a week, my belief state would become: allergies 80%, cold 15%, <other> 5%.
+4. They could get really insightful here. I would ask a lot of questions trying to eliminate the \"other\" hypothesis and narrow it down to cold or allergies, and then I would try to narrow it between those (is it seasonal? what seasons? do you work with small children? is your family sick?). I would try more wait time which would hopefully give a cold time to pass on, and then see if allergy meds helped. If they did, then there's the answer. If they didn't, then I would conclude that while allergies are still possible they are much less probable. At some point \"cold\" and \"allergies\" would both be so improbable I'd have to look deeper into the \"other\" option and maybe expand my state possibilities beyond three.
+
+You gain a lot of insight into medicine by thinking of doctors as POMDP systems. Probably because they are.
+""", "Answer", false)
