@@ -138,7 +138,7 @@ ans108C = Revealable("""
 ###Answer C
 It has to be a function, otherwise getting the first two numbers in the output is a real pain.
 <code>
-function Fibo(x)    
+function fibo(x)    
     println(1)  # first term
     println(1)  # second term
     a = 1  # seed numbers...
