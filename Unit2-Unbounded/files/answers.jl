@@ -40,18 +40,18 @@ ans202A = Revealable("""
 f(x) = x^2 - 4x  # this function is just to test, it can be changed
 
 function threept(f, x, int)  # f is above, x is the given start value, int is the interval (may be large, around 0.5)
-    a = x + int  # finding first point location
-    if f(a) > f(x)  # testing to see if the function is decreasing and...
-        int = -int  # ...reversing direction if not
+    a = x + int  # find first point location
+    if f(a) > f(x)  # test to see if the function is decreasing and...
+        int = -int  # ...reverse direction if not
         a = x + int 
     end
     b = a + int  # another step in same direction
     while f(b) < f(a)  # this loop will run until f(b) is greater than f(a), ie an increase
-        x = a  # reassigning variables here... this is what marches the entire interval along.
+        x = a  # reassign variables here... this is what marches the entire interval along.
         a = b 
         b = b + int 
     end
-    println(\"\$x, \$(f(x))\")  #prints the three points in order found
+    println(\"\$x, \$(f(x))\")  #print the three points in order found
     println(\"\$a, \$(f(a))\")
     println(\"\$b, \$(f(b))\")
 end
@@ -115,7 +115,7 @@ function threept(f, x, int)
         a = b 
         b = b + int 
         iter = iter + 1
-        int = b - x  # new line creating Fibonacci incrementation of interval width
+        int = b - x  # new line: create Fibonacci incrementation of interval width
     end
     println(\"\$x, \$(f(x))\")
     println(\"\$a, \$(f(a))\")
@@ -159,7 +159,6 @@ function brute(f, int, a, b)  # f = predefined function, interval (very small, l
             if f(test) < low  # this check runs if the test point is lower than the previous low value
                 low = f(test)  # and replaces the old low with the new low
                 loc = test  # then records its location for later
-            else  # if the test point is higher, nothing happens
             end
         test = test + int  # moves on to the next test point
     end
