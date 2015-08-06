@@ -40,9 +40,8 @@ ans106A = Revealable("""
 Your code might look different than mine. That's okay!
 1. `f(x) = x^2 + 2x - 7`
 2. `g(a,b) = (f(a) - f(b))/(a-b)`  Careful with parentheses here!
-3. g(3,5)
-4. g(-2, 7)
-</code>
+3. `g(3,5)`
+4. `g(-2, 7)`
 """, "Answer", false)
 
 ans106B = Revealable("""
