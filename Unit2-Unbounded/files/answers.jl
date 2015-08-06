@@ -662,7 +662,7 @@ function brute4(f, a, b)
     for n in 1:5
         vals = vcat(vals, f(A[n], A[n+5]))  # builds a column array with successive values of points
     end
-    loc = findmin(vals)[2]  # returns the location of the maximum value of vals (findmin(vals) alone will give a string of (value, location))
+    loc = findmin(vals)[2]  # returns the location of the maximum value of vals (findmin(vals) alone will give a 1D array of (value, location))
     println(\"x1 at \$(A[loc]) and x2 at \$(A[loc + 5])\")
 end
 </code>
@@ -694,7 +694,7 @@ function brute4min(f, a, b)
         for n in 1:5
             vals = vcat(vals, f(A[n], A[n+5]))  # builds a column array with successive values of points
         end
-        loc = findmin(vals)[2]  # returns the location of the maximum value of vals (findmin(vals) alone will give a string of (value, location))
+        loc = findmin(vals)[2]  # returns the location of the maximum value of vals (findmin(vals) alone will give a 1D array of (value, location))
         a = A[loc]
         b = A[loc + 5] # taking advantage of fixed length of A at 5 to index directly rather than row, column
         end
@@ -723,7 +723,7 @@ function brute4min(f, a, b)
             for n in 1:5
                 vals = vcat(vals, f(A[n], A[n+5]))  # builds a column array with successive values of points
             end
-            loc = findmin(vals)[2]  # returns the location of the maximum value of vals (findmin(vals) alone will give a string of (value, location))
+            loc = findmin(vals)[2]  # returns the location of the maximum value of vals (findmin(vals) alone will give a 1D array of (value, location))
             a = A[loc]
             b = A[loc + 5] # taking advantage of fixed length of A at 5 to index directly rather than row, column
         end
@@ -773,7 +773,7 @@ function brute4min(f, a, b, c)
             for n = 1:5
             vals = vcat(vals, f(A[n], A[n+7], A[n+14]))  # builds a column array with successive values of points. A has 7 rows
         end
-            loc = findmin(vals)[2]  # returns location of maximum value of vals (loc alone will give a string of (value, location))
+            loc = findmin(vals)[2]  # returns location of maximum value of vals (loc alone will give a 1D array of (value, location))
             a = A[loc]
             b = A[loc + 7] # A's length is fixed at 7, so we can index directly
             c = A[loc + 14]
