@@ -129,16 +129,6 @@ end
 # Lesson 03 #
 #############
 
-passwords = Revealable("""
-Intelligence that can be (and is) applied to this procedure includes:
-* testing the most common passwords, like *Password123*
-* testing dictionary words instead of random strings of numbers
-* testing numbers related to dates, like year numbers or month-day combinations
-* testing user information (usually publicly available on Facebook) like their pet's or spouse's name, their birthday or anniversary. 
-
-If you want to get into a moral lesson here, the obvious conclusion is you want to make your password immune to this sort of intelligence by avoiding common passwords, actual words, actual dates, or personal information.)
-""", "More on Passwords and Brute Force", false)
-
 ans203A = Revealable("""
 ###Sample Answer
 
@@ -171,15 +161,6 @@ end
 #############
 # Lesson 04 #
 #############
-
-soln204A = Revealable("""
-## The Solution
-Instead, we divide the interval into three sections instead of two by choosing two interior points instead of one.
-
-<img src=\"files/2-4/solution.png\" width=350 />
-
-Although it would seem obvious to divide the segment into equal thirds, with points at .33 and .67 across the segment, there is a better way.
-""", "So what do we do?", false)
 
 ans204A = Revealable("""
 ###Answer A
@@ -248,35 +229,9 @@ end
 </code>
 """, "Answer", false)
 
-ans105B = Revealable("""
-###Answer B
-1. Points should be: (0, 0) (0.6, -2.04) (1.2, -3.36) (1.8, -3.96) (2.4, -3.84). The interval/answer is bolded.
-
-2. (2, -4) (2.5, -6.125) This is going the wrong direction; change step to -0.5. [If you didn't pay attention, you got the minimum, around 3.] Complete answer: (2, -4) (1.5, -1.375) (1, 1) (.5, 2.375) (0, 2)
-""", "Answer", false)
-
-ans105C = Revealable("""
-###Answer C
-Answers will vary greatly depending on starting \$x\$, starting \$h\$, and how you increment \$h\$ (Fibonacci numbers are only a suggestion).
-
-Make sure you are beginning with a small \$h\$ (at most 0.5). It will ramp up fairly quickly as you increase its value.
-
-1. The local maximum is at \$x = -8.6852\$. Note that this cubic is unbounded on both left and right so if you choose a starting \$x\$ greater than 12 or so, your numbers will fly off to infinity.
-
-2. This function has a few local minima past -12, but as long as you choose an \$x\$-value greater than -11 or so, you should reach the absolute minimum at around \$x = 2.75172\$.
-""", "Answer", false)
-
 #############
 # Lesson 06 #
 #############
-
-hint206A = Revealable("""
-Step 1: determine direction of *increase* (meaning, `f(x + h)` or `f(x - h)` is *higher*, not lower, than `f(x))`.
-
-Step 2: mark off intervals until the y-values *decrease* (meaning, `f(x + h)` is *lower* than `f(x))`.
-
-Step 3: does not change.
-""", "Just a few things...", false)
 
 ans206A = Revealable("""
 ###Answer A
@@ -303,16 +258,6 @@ function threeptmax(f, x, int) # f is the pre-loaded function (above), x is the 
 end
 </code>
 """, "Answer", false)
-
-hint206B = Revealable("""
-Step 1: The interval will now surround a *maximum*&mdash;easy because you now have a 3-point max program.
-
-Step 2: Does not change.
-
-Step 3: The endpoints of the chosen interval will now be *lower* than the midpoint.
-
-Step 4: Does not change.
-""", "Half the steps change.", false)
 
 ans206B = Revealable("""
 ###Answer B
@@ -482,25 +427,6 @@ end
 # Lesson 08 #
 #############
 
-slope = Revealable("""
-##Curved Functions and Slope
-__Slope__ is a term used to describe the steepness of straight lines. 
-<img src=\"files/2-8/slopes.png\" width=200 />
-
-But even curved functions have *steepness*.
-<img src=\"files/2-8/function.png\" width=200 />
-
-In this diagram, the steepest part of the curve is steeper than the yellow line, and shallower than the red line, and about the same as the green line.
-<img src=\"files/2-8/redgreenyellowslopes.png\" width=200 />
-""", "Slope Review", false)
-
-hint208A = Revealable("""
-The math here can get ugly. Some ways to make it less ugly:
-1. Enter the function `f(x)` into Julia and use that to evaluate y-values.
-2. Use point-slope form for your linear equations.
-3. Continue to use point-slope form when solving. The slopes of adjacent lines are opposite so the x-values will cancel nicely every time.
-""", "Hints for Easier Calculations", false)
-
 ans208A = Revealable("""
 ###Answer A
 1. (-5, 75), (1, 183), (7, 291)
@@ -531,18 +457,6 @@ ans208C = Revealable("""
 
 These two have the same y-value. Neither has the current high y-value which is (-1.88, 1479), but if two were ever tied you would just pick one and run with it. Tradition says left first.
 """, "Answer", false)
-
-steps208 = [Revealable("""
-<img src=\"files/2-8/step1.png\" width=300 />
-""", "", true), Revealable("""
-<img src=\"files/2-8/step2.png\" width=300 />
-""", "", true), Revealable("""
-<img src=\"files/2-8/step3.png\" width=300 />
-""", "", true), Revealable("""
-<img src=\"files/2-8/step4.png\" width=300 />
-""", "", true), Revealable("""
-<img src=\"files/2-8/step5.png\" width=300 />
-""", "", true)]
 
 ans208D = Revealable("""
 ###Answer D
@@ -667,16 +581,6 @@ function brute4(f, a, b)
 end
 </code>
 """, "Answer", false)
-
-steps210 = [Revealable("""
-<img src=\"files/2-10/step1.png\" width=300 />
-""", "", true), Revealable("""
-<img src=\"files/2-10/step2.png\" width=300 />
-""", "", true), Revealable("""
-<img src=\"files/2-10/step3.png\" width=300 />
-""", "", true), Revealable("""
-<img src=\"files/2-10/step4.png\" width=300 />
-""", "", true)]
 
 ans210B = Revealable("""
 ###Answer B
@@ -947,12 +851,6 @@ end
 # Lesson 12 #
 #############
 
-xsection = Revealable("""
-You should be able to identify stuff that looks like parabolas in both vertical cross-sections down the middle. The horizontal cross-sections are ellipses. 
-
-This function is f(x<sub>1</sub>, x<sub>2</sub>) = (x<sub>1</sub>)<sup>2</sup> + 2(x<sub>2</sub>)<sup>2</sup>. If you're familiar with conic sections, you should be able to see the elliptical equation in the variables. 
-""", "You might see...", false)
-
 ans212A = Revealable("""
 ###Answer A
 1. f(x<sub>1</sub>, -1) = (x<sub>1</sub> - 3)<sup>2</sup> + 16; or, f(x) = (x - 3)<sup>2</sup> + 16. 
@@ -1057,13 +955,6 @@ end
 # Lesson 13 #
 #############
 
-hint213A = Revealable("""
-###Hint A
-In each case, it's mostly a matter of switching \"&lt;\" with \"&gt;\".
-
-No solution is given for this problem. Solving it is entirely up to you!
-""", "Hint", false)
-
 ans213B = Revealable("""
 ###Answer B
 1. For my Hooke-Jeeves, not much would change because I used arrays. If they went with multiple variables instead of arrays, it will require a lot more work here because the number of variables goes up quickly with the number of dimensions. Otherwise the algorithm is the same: test a bunch of points, find the best one, form a vector from the original, push along that vector until it stops minimizing, then repeat, shrinking the interval as needed.
@@ -1164,13 +1055,6 @@ You may not have seen this yet, but `and` translates to `&&` (line 4)
 Whole thing can be enclosed in a `function`/`end` command.
 """, "Answer", false)
 
-binary215 = Revealable("""
-###Binary Numbers
-101 in binary = 5 in decimal
-
-1010 in binary = 10 in decimal
-""", "Answers", false)
-
 ans215B = Revealable("""
 ###Answer B
 1. The values are:
@@ -1218,9 +1102,3 @@ One thing I noticed while getting hooked is that I wrote a program that made an 
 VIII: 24, 23, 21, 19.<br clear="all">
 I stopped here because it was lunchtime. The optimum solution is 1111 / 1111 / 0000 = 30. It's clear that successive generations are approaching the optimum, and also getting more uniform (though mutation keeps it interesting). Cool stuff.
 """, "Answer", false)
-
-
-
-
-
-
