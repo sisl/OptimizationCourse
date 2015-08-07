@@ -528,7 +528,7 @@ ans209A = Revealable("""
 ###Answer A
 I chose to use a `for` loop on this, but a `while` loop with a counter would work perfectly well also.
 
-```
+<code>
 function fibstring(n)
     fibs = [1, 1]  # preloading the array fibs and variables
     a = 1
@@ -541,19 +541,20 @@ function fibstring(n)
     end
     println(fibs)  # at the end, print out the final list
 end
-```
+</code>
 """, "Answer", false)
 
 ans209B = Revealable("""
 ###Answer B
 
+<code>
     function vector(s, t)
         vec = t - s
         println (\"The vector from s to t is \$vec\")
         v = s + 1.5 * vec
         println(\"The new point v is \$v\")
     end
-```
+</code>
 """, "Answer", false)
 
 #############
