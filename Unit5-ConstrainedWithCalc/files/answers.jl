@@ -557,10 +557,13 @@ end
 
 ans509E2 = Revealable("""
 ###Answer E (again)
-Here's another version to look at. I defined the states and actions using integers that are the row and column numbers for my matrix.
+Here's another version to look at. Programmers generally don't like to have code that is copy-and-pasted over; repetition is what loops are for!
+
+I defined the states and actions using integers that are the row and column numbers for my matrix.
 
 For the matrix, I got away with using a 2D array because I only had two states and two actions to worry about. The variable `probmatrix` gives probabilities of moving to State A. If you randomly generate a number above that probability, you automatically go to State B because it's the only option left. If there were more states than just two, you'd have to figure out which of the remaining states you go to next, so you'd need a different implementation.
 
+I'm sure there's a better way to do this!
 <code>
 A = 1  # matrix row number
 B = 2
