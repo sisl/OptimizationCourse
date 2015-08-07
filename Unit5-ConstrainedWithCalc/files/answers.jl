@@ -506,7 +506,7 @@ ans509E = Revealable("""
 2. action y
 3. I got consistent high 60s/low 70s.
 
-  There is certainly a more elegant way to solve this problem by combining `actionx` and `actiony` into one function, maybe using matrices. But this works!
+This works, but it would be nicer to combine all the actions into one function so we don't repeat so many lines of code.
 <code>
 function actionx(x)
     if x == \"A\"
@@ -554,6 +554,46 @@ function intelligent(x)
 end
 </code>
 """, "Answer", false)
+
+ans509E2 = Revealable("""
+###Answer E (again)
+Here's another version to look at. I defined the states and actions using integers that are the row and column numbers for my matrix.
+
+For the matrix, I got away with using a 2D array because I only had two states and two actions to worry about. The variable `probmatrix` gives probabilities of moving to State A. If you randomly generate a number above that probability, you automatically go to State B because it's the only option left. If there were more states than just two, you'd have to figure out which of the remaining states you go to next, so you'd need a different implementation.
+
+<code>
+A = 1  # matrix row number
+B = 2
+x = 1  # matrix column number
+y = 2
+probmatrix = [.6 .5; .3 .8]  # the probability of moving to state A for each state/action combo
+
+function transition(state, action)
+    if rand() < probmatrix[state, action]
+        return(A)
+    else
+        return(B)
+    end
+end
+
+function reward(n)  # n: the number of trials; I usually run 100
+    value = 0
+    state = rand(A:B)
+    for i in 1:n
+        if state == A
+            action = x  # x is always the best action to choose from state A
+        elseif state == B
+            action = y  # y is always the best action to choose from state B
+        end
+        state = transition(state, action)
+        if state == A
+            value = value + 1
+        end
+    end
+    println(value)
+end
+</code>
+""", "Here's a slightly more elegant version:", false)
 
 
 ans509F = Revealable("""
