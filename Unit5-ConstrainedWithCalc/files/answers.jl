@@ -53,15 +53,6 @@ ans501E = Revealable("""
 """, "Answer", false)
 
 #############
-# Lesson 02 #
-#############
-
-ans502A = Revealable("""
-###Answer A
-
-""", "Answer", false)
-
-#############
 # Lesson 03 #
 #############
 
@@ -126,13 +117,6 @@ end
 </code>
 """, "Answer", false)
 
-phase2 = [
-Revealable("""<img src=\"files/5-4/p21.png\" width=150 />""", "", true), 
-Revealable("""<img src=\"files/5-4/p22.png\" width=150 />""", "", true),
-Revealable("""<img src=\"files/5-4/p23.png\" width=150 />""", "", true),
-Revealable("""<img src=\"files/5-4/p24.png\" width=150 />""", "", true)
-]
-
 ans504B = Revealable("""
 ###Answer B
 1. gradient [-1 2x<sub>2</sub>], at this point [-1, -0.4722], so steepest descent is &lt;1, 0.4722&gt;. Normalized &lt;.904, 0.427&gt;, multiplied by 0.5 gives &lt;.4521, 0.2135&gt;, then added to the original point = (1.508, -0.023).<br />
@@ -159,13 +143,6 @@ g<sub>2</sub>(new) = 0 when a = 0.10333
 
 The second constraint will become active with max a = 0.10333.
 """, "Answer", false)
-
-
-pushingoff = [
-Revealable("""<img src=\"files/5-4/corner1.png\" width=125 align=\"left\" style=\"padding:0 1em 0 0\" />We can do this by pretending the point lies on both constraints, finding both steepest descent vectors, and normalizing both vectors.""", "", true),
-Revealable("""<img src=\"files/5-4/corner2.png\" width=125 align=\"left\" style=\"padding:0 1em 0 0\" />Then we can add the two vectors together...""", "", true),
-Revealable("""<img src=\"files/5-4/corner3.png\" width=125 align=\"left\" style=\"padding:0 1em 0 0\" />...and if we normalize that vector we will have the vector we want.""", "", true)
-]
 
 ans504E = Revealable("""
 ###Answer E
