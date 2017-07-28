@@ -5,7 +5,7 @@ using Revealables
 #############
 
 ans105A = Revealable("""
-###Answer A
+### Answer A
 1. In order from left to right: (3.9, 18.21), (4, 19), (4.1, 19.81). Increases right, decreases left.
 
 2. (1, 15), (2, 17), (3, 35). Increases right, decreases left
@@ -14,14 +14,14 @@ ans105A = Revealable("""
 """, "Answer", false)
 
 ans105B = Revealable("""
-###Answer B
+### Answer B
 1. Points should be: (0, 0) (0.6, -2.04) (1.2, -3.36) (1.8, -3.96) (2.4, -3.84). The interval/answer is bolded.
 
 2. (2, -4) (2.5, -6.125) This is going the wrong direction; change step to -0.5. [If you didn't pay attention, you got the minimum, around 3.] Complete answer: (2, -4) (1.5, -1.375) (1, 1) (.5, 2.375) (0, 2)
 """, "Answer", false)
 
 ans105C = Revealable("""
-###Answer C
+### Answer C
 Answers will vary greatly depending on starting \$x\$, starting \$h\$, and how you increment \$h\$ (Fibonacci numbers are only a suggestion).
 
 Make sure you are beginning with a small \$h\$ (at most 0.5). It will ramp up fairly quickly as you increase its value.
@@ -36,7 +36,7 @@ Make sure you are beginning with a small \$h\$ (at most 0.5). It will ramp up fa
 #############
 
 ans106A = Revealable("""
-###Answer A
+### Answer A
 Your code might look different than mine. That's okay!
 1. `f(x) = x^2 + 2x - 7`
 2. `g(a,b) = (f(a) - f(b))/(a-b)`  Careful with parentheses here!
@@ -45,7 +45,7 @@ Your code might look different than mine. That's okay!
 """, "Answer", false)
 
 ans106B = Revealable("""
-###Answer B
+### Answer B
 My code, heavily documented as usual:
 <code>
 function info(a, b)
@@ -65,7 +65,7 @@ end
 #############
 
 ans107A = Revealable("""
-###Answer A
+### Answer A
 <code>
 function Abs(x)
     if x < 0
@@ -78,7 +78,7 @@ end
 """, "Answer", false)
 
 ans107B = Revealable("""
-###Answer B
+### Answer B
 <code>
 function grade(x)
     p = round(x/28*100,2)  # Converting points to percent, rounding to 2 decimal places
@@ -98,7 +98,7 @@ end
 #############
 
 ans108A = Revealable("""
-###Answer A
+### Answer A
 Sample code:
 <code>
 for x in -6:6
@@ -108,7 +108,7 @@ end
 """, "Answer", false)
 
 ans108B = Revealable("""
-###Answer B
+### Answer B
 Sample code:
 <code>
 x = 20
@@ -120,10 +120,10 @@ end
 """, "Answer", false)
 
 ans108C = Revealable("""
-###Answer C
+### Answer C
 It has to be a function, otherwise getting the first two numbers in the output is a real pain.
 <code>
-function fibo(x)    
+function fibo(x)
     println(1)  # first term
     println(1)  # second term
     a = 1  # seed numbers...
@@ -141,7 +141,7 @@ end
 """, "Answer", false)
 
 ans108D = Revealable("""
-###Answer D
+### Answer D
 Sample program (not including extensions):
 <code>
 function compound(P)
@@ -156,7 +156,7 @@ end
 """, "Answer", false)
 
 ans108E = Revealable("""
-###Answer E
+### Answer E
 Example code:
 <code>
 function calcgame(x)
@@ -165,7 +165,7 @@ function calcgame(x)
         if x%2 == 0
             x = x/2
             n = n + 1
-        else 
+        else
             x = 3x + 1
             n = n + 1
         end
@@ -176,7 +176,7 @@ end
 """, "Answer", false)
 
 ans108F = Revealable("""
-###Answer F
+### Answer F
 Example code:
 <code>
 for i in 1:20
@@ -186,7 +186,7 @@ end
 """, "Answer", false)
 
 ans108G = Revealable("""
-###Answer G
+### Answer G
 My version of the program has an interesting feature that you may or may not have come up with on their own: a variable called `primeness`, which is set to `true` unless/until the number divides evenly. There are lots of different ways to deal with the issue of how to report `n` as prime. As long as the program has output in words that tells whether the number is prime, consider yourself correct. Nevertheless, the idea of a binary variable is a useful one, so if you struggled, you might want go back and modify your program.
 
 For an extension to the extension, list out the factors of the non-prime numbers. For an extension, list out the factors as factor pairs rather than an ordered list.
@@ -202,7 +202,7 @@ function prime(n)
     end
     if primeness  # `primeness` variable generates an output
         println(\"\$n is prime.\")
-    else 
+    else
         println(\"\$n is not prime.\")
     end
 end
@@ -215,7 +215,7 @@ end
 
 
 ans109A = Revealable("""
-###Answer A
+### Answer A
 I chose to use a `for` loop on this, but a `while` loop with a counter would work perfectly well also.
 <code>
 function fibstring(n)
@@ -224,8 +224,8 @@ function fibstring(n)
     b = 1
     for x in 1:(n - 2)  # I have 2 elements, so for n elements total I need (n - 2) more
             c = a + b  # find the next term...
-            a = b  # ...and redefine the other variables 
-            b = c 
+            a = b  # ...and redefine the other variables
+            b = c
             push!(fibs, c)  # finally tack c on the end of fibs; this step could have been earlier
     end
     println(fibs)  # at the end, print out the final list
@@ -234,35 +234,35 @@ end
 """, "Answer", false)
 
 ans109B = Revealable("""
-###Answer B
+### Answer B
 <code>
 function vector(s, t)
     vec = t - s
-    println (\"The vector from s to t is \$vec\")
+    println("The vector from s to t is \$vec\")
     v = s + 1.5 \\\* vec
-    println(\"The new point v is \$v\")
+    println("The new point v is \$v\")
 end
 </code>
 """, "Answer", false)
 
 ans109C = Revealable("""
-###Answer C
+### Answer C
 <code>
 function unitize(v)
     n = length(v)  # so I know where to stop in my for loop later
-    sum = 0  # seed 0 for the current sum 
+    sum = 0  # seed 0 for the current sum
     for x in 1:n  # repeat for each element of v
         sum = sum + (v[x])^2  # augment sum with value of next term, squared -- Pythagorean Theorem
     end
     mag = sqrt(sum)  # finish with square root of the sum of squares, to find magnitude
     v = v/mag  # replace old vector v with unitized elements
-    println(\"The unitized vector is \$v\")
+    println("The unitized vector is \$v\")
 end
 </code>
 """, "Answer", false)
 
 ans109D = Revealable("""
-###Answer D
+### Answer D
 If you create an empty array without telling Julia what kind of objects you're going to put in it, you won't be able to increase the size of the array later. That's why I have the line `products = Number[]`. That tells Julia to save space for some Numbers in that array.
 
 <code>
@@ -273,7 +273,7 @@ function Dot(a, b)
             k = a[x] \\\* b[x]  # multiply each term in order...
             push!(products, k)  # ...and push that onto the end of products
         end
-    println(\"The dot product is \$(sum(products))\") 
+    println("The dot product is \$(sum(products))\")
 end
 </code>
 """, "Answer", false)
@@ -283,7 +283,7 @@ end
 #############
 
 ans110 = Revealable("""
-###Answer
+### Answer
 Your program may be different (and better!).
 <code>
 f(x) = x^2 - 4x  # function can be modified to whatever
@@ -294,7 +294,7 @@ function secant(f, a, b)
         m = (f(a) - f(b))/(a - b)  # made a variable for slope to simplify next line
         x = -f(a)/m + a  # calculating the x-intercept
         a = b  # redefining a and b to include the old b and the x-intercept x
-        b = x 
+        b = x
     end  # loop ends when tolerance is reached
     println(b)  # print the value of b (the last x-intercept found).
 end

@@ -5,7 +5,7 @@ using Revealables
 #############
 
 ans201A = Revealable("""
-###Answer A
+### Answer A
 1. Should look like an upside-down quartic:<br />
 <img src=\"files/2-1/quartic.png\" width=100 align=\"left\" />
 <br clear=\"all\" />
@@ -20,7 +20,7 @@ ans201A = Revealable("""
 """, "Answer", false)
 
 ans201B = Revealable("""
-###Answer B
+### Answer B
 To be possible, the numbers of local maxima and minima must be within 1 of each other. Or, with unbounded functions, there can't be both a global maximum and a global minimum.
 """, "Answer", false)
 
@@ -29,7 +29,7 @@ To be possible, the numbers of local maxima and minima must be within 1 of each 
 #############
 
 ans202A = Revealable("""
-###Answer A
+### Answer A
 
 <p>In unit 1, of course, you did this by hand. </p>
 
@@ -43,13 +43,13 @@ function threept(f, x, int)  # f is above, x is the given start value, int is th
     a = x + int  # find first point location
     if f(a) > f(x)  # test to see if the function is decreasing and...
         int = -int  # ...reverse direction if not
-        a = x + int 
+        a = x + int
     end
     b = a + int  # another step in same direction
     while f(b) < f(a)  # this loop will run until f(b) is greater than f(a), ie an increase
         x = a  # reassign variables here... this is what marches the entire interval along.
-        a = b 
-        b = b + int 
+        a = b
+        b = b + int
     end
     println(\"\$x, \$(f(x))\")  #print the three points in order found
     println(\"\$a, \$(f(a))\")
@@ -59,9 +59,9 @@ end
 """, "Answer", false)
 
 ans202B = Revealable("""
-###Answer B
+### Answer B
 
-The value of h controls two things: first, how accurate your interval is; and second, how many iterations are run. This was discussed in the previous unit: h too large and your interval could be inaccurate (or you might skip over it); h too small and your iteration count goes through the roof. 
+The value of h controls two things: first, how accurate your interval is; and second, how many iterations are run. This was discussed in the previous unit: h too large and your interval could be inaccurate (or you might skip over it); h too small and your iteration count goes through the roof.
 
 Here's my program with the counter thrown in:
 
@@ -69,15 +69,15 @@ Here's my program with the counter thrown in:
 function threept(f, x, int)
     a = x + int
     if f(a) > f(x)
-        int = -int 
-        a = x + int 
+        int = -int
+        a = x + int
     end
-    b = a + int 
+    b = a + int
     iter = 0
     while f(b) < f(a)
-        x = a 
-        a = b 
-        b = b + int 
+        x = a
+        a = b
+        b = b + int
         iter = iter + 1
     end
     println(\"\$x, \$(f(x))\")
@@ -89,7 +89,7 @@ end
 """, "Answer", false)
 
 ans202C = Revealable("""
-###Answer C
+### Answer C
 
 The first attempt is fairly straightforward, and the second a little harder.
 
@@ -97,7 +97,7 @@ For the first, a line just before the end of the `while` loop saying `h = 1.5h` 
 
 For the second, one option is to create a bunch of new variables for the intervals. This is ugly but sufficient.
 
-A much more elegant trick is to notice that the sum of the last two intervals is merely the difference between the first and third current points. In my code, the three points were named `x`, `a`, `b`; so I added a line just before the end of the `while` loop saying `h = b - x`.  
+A much more elegant trick is to notice that the sum of the last two intervals is merely the difference between the first and third current points. In my code, the three points were named `x`, `a`, `b`; so I added a line just before the end of the `while` loop saying `h = b - x`.
 
 My final code, with counter:
 
@@ -105,15 +105,15 @@ My final code, with counter:
 function threept(f, x, int)
     a = x + int
     if f(a) > f(x)
-        int = -int 
-        a = x + int 
+        int = -int
+        a = x + int
     end
-    b = a + int 
+    b = a + int
     iter = 0
     while f(b) < f(a)
-        x = a 
-        a = b 
-        b = b + int 
+        x = a
+        a = b
+        b = b + int
         iter = iter + 1
         int = b - x  # new line: create Fibonacci incrementation of interval width
     end
@@ -130,12 +130,12 @@ end
 #############
 
 ans203A = Revealable("""
-###Sample Answer
+### Sample Answer
 
 
 Because this program is awful, you won't use it again. The purpose is to:
 1. show you how to do a brute-force-type program in case you ever need to
-2. solidify the idea of a minimum value and some of the programming concepts behind finding it; and 
+2. solidify the idea of a minimum value and some of the programming concepts behind finding it; and
 3. show you how improvement-y the improvements are in the next few lessons.
 
 <code>
@@ -143,7 +143,7 @@ f(x) = x^2 - 4x  # could be anything
 
 function brute(f, int, a, b)  # f = predefined function, interval (very small, like .001), a = left endpoint, b = right endpoint
     low = f(a)  # defining variables; starting with the left endpoint a
-    test = a 
+    test = a
     loc = a
     while test < b  # will test all numbers between a and b
             if f(test) < low  # this check runs if the test point is lower than the previous low value
@@ -163,7 +163,7 @@ end
 #############
 
 ans204A = Revealable("""
-###Answer A
+### Answer A
 
 Although you won't always be required to write a plan as a practice problem, the longer the code, the more important it is to do so on you own.
 1. Start with the endpoints of an interval
@@ -173,7 +173,7 @@ Although you won't always be required to write a plan as a practice problem, the
 """, "Answer", false)
 
 ans204B = Revealable("""
-###Answer B
+### Answer B
 This code does not shorten calculations using the golden ratio property, but you could!
 
 <code>
@@ -206,21 +206,21 @@ end
 
 
 ans205A = Revealable("""
-###Answer A
+### Answer A
 
 One of the tricky things about this task is how much to narrow the interval. I used thirds in my program for speed and convenience, though I worried that thirds might be overly aggressive. There's a possibility that the minimum would occur in the outer third and if I skip over it, I'll end up with an infinite loop in my program. Fortunately infinite loops are easy to identify, and then I would just change my /3 to /4 or /10 or something and repeat.
 
-How did you choose to narrow the interval, and why? 
+How did you choose to narrow the interval, and why?
 <code>
-function findmin(f, leftbound, rightbound)  # Function `f` will need to be pre-loaded. 
+function findmin(f, leftbound, rightbound)  # Function `f` will need to be pre-loaded.
     while rightbound - leftbound > .0001  # This tolerance can be adjusted as needed. Or, add a new defined variable `tolerance`.
         slope = (f(rightbound) - f(leftbound))/(rightbound - leftbound)
         if slope < 0
                 leftbound = leftbound + (rightbound - leftbound)/3  # here's that /3 - modify as needed
         elseif slope > 0
                 rightbound = rightbound - (rightbound - leftbound)/3
-        else  # In the special case where the slopes are equal it marches both endpoints in. 
-            leftbound = leftbound + (rightbound + leftbound)/3 
+        else  # In the special case where the slopes are equal it marches both endpoints in.
+            leftbound = leftbound + (rightbound + leftbound)/3
             rightbound = rightbound - (rightbound + leftbound)/3
         end
     end
@@ -234,7 +234,7 @@ end
 #############
 
 ans206A = Revealable("""
-###Answer A
+### Answer A
 <code>
 function threeptmax(f, x, int) # f is the pre-loaded function (above), x is the initial value, int is the initial test interval (small).
     a = x + int
@@ -260,7 +260,7 @@ end
 """, "Answer", false)
 
 ans206B = Revealable("""
-###Answer B
+### Answer B
 <code>
 function fibmax(f, minlim, maxlim, epsilon)  # equation specified at the end. See above for cautions on minlim, maxlim. Epsilon is the acceptable interval width/error.
     phi = (-1+(5)^(1/2))/2  # the value of the golden ratio, about 61.8%, used as our sectioning number
@@ -268,7 +268,7 @@ function fibmax(f, minlim, maxlim, epsilon)  # equation specified at the end. Se
     iteration = 0  # totally unnecessary to keep track of iterations, but why not
     while int > epsilon  # loop runs until the interval is within the tolerance specified.
         subdiv = phi * int  # these three lines mark two points within the interval
-        lefttest = maxlim - subdiv  
+        lefttest = maxlim - subdiv
         righttest = minlim + subdiv
         if f(lefttest) > f(righttest)  # loop decreases interval by shifting endpoints inward to the inner point with the highest function value
             maxlim = righttest
@@ -278,14 +278,14 @@ function fibmax(f, minlim, maxlim, epsilon)  # equation specified at the end. Se
         int = maxlim - minlim
         iteration = iteration + 1  # again, not necessary.
     end
-    println(\"\$minlim, \$maxlim\")
+    println("\$minlim, \$maxlim\")
     println(iteration)  # still not necessary. Interesting maybe.
 end
 </code>
 """, "Answer", false)
 
 ans206C = Revealable("""
-###Answer C
+### Answer C
 <code>
 function findmin(f, leftbound, rightbound)  # Function `f` will need to be entered below. Leftbound and rightbound are your interval endpoints; see note above.
     while rightbound - leftbound > .0001  # This tolerance is arbitrary and can be adjusted as needed. Or, add a new defined variable `tolerance`
@@ -302,13 +302,13 @@ function findmin(f, leftbound, rightbound)  # Function `f` will need to be enter
             rightbound = rightbound - (rightbound + leftbound)/3
         end
     end
-    println(\"\$leftbound, \$rightbound\")  # Note that the response is the boundaries, from which you can probably estimate the minimum; if not, adjust the tolerance above.
+    println("\$leftbound, \$rightbound\")  # Note that the response is the boundaries, from which you can probably estimate the minimum; if not, adjust the tolerance above.
 end
 </code>
 """, "Answer", false)
 
 ans206D = Revealable("""
-###Answer D
+### Answer D
 The minima are at -0.421 and 2.256
 The maximum is at 0.790.
 
@@ -321,7 +321,7 @@ What you're really doing here is testing your code&mdash;if your answers don't a
 #############
 
 ans207A = Revealable("""
-###Answer A
+### Answer A
 <code>
 function ybasedint(f)
     step = 2  # totally arbitrary.
@@ -340,12 +340,12 @@ end
 """, "Answer", false)
 
 ans207B = Revealable("""
-###Answer B
+### Answer B
 <code>
 f(x) = x^4 + 35x^3 - 1062x^2 - 8336x + 47840  # the function analyzed
 
 function gridsearch(f, a, b)  #f is the function, a and b the endpoints of the interval in order
-    int = b - a 
+    int = b - a
     int = int/5  # divides interval into 50 subintervals
     test = a  # everything start with a. Test is the point we're currently testing...
     low = f(a)  # low is the record low value so far
@@ -363,7 +363,7 @@ end
 """, "Answer", false)
 
 ans207C = Revealable("""
-###Answer C
+### Answer C
 The main reason to do this is it's kind of nice to have one program that does everything rather than having to transfer by hand, but when I combined mine I noticed how glad I was that my code was documented.
 
 It looks so simple, but it is truly a pain in the butt. Since you wrote the three earlier programs in separate sittings, you probably have different variables for the same thing in all the different programs. You will have to unify like variables under a common name and separate variables that you accidentally named the same thing but are different. You will also have to maintain attention to the order of interval endpoints if any of the programs require them to be in numerical order.
@@ -372,7 +372,7 @@ Other than that, it's just a matter of deleting the `function` and `end` command
 <code>
 function globalmin(f, a, b)  # f is the function, a and b the endpoints of the interval in order
     # This composite function combines a grid search, a 3-point interval, and a slope-based minimization program to find a global minimum.
-    
+
     # the first part of the program is a grid search to determine a good starting point.
     int = b - a
     int = int/50  # divides interval into 50 subintervals
@@ -401,7 +401,7 @@ function globalmin(f, a, b)  # f is the function, a and b the endpoints of the i
         b = b + int
         int = b - save  # this increases the interval width in a Fibonacci pattern.
     end
-  
+
     # finally, the last part of the program minimizes in the interval [save, a].
     left = min(b, save)
     right = max(b, save)
@@ -492,7 +492,7 @@ I split this program into multiple functions, which is a good idea when programs
 
 <code>
     # pre-defined function
-g(x) =  -x^4 + 4x^3 + 30x^2 - 50x + 200 # function value here 
+g(x) =  -x^4 + 4x^3 + 30x^2 - 50x + 200 # function value here
 
     # this function will be called later to find intersection points of a line with slope m through (x1, y1) and a line with slope -m through (x2, y2)
 function augment(A, maxslope, x1, y1, x2, y2)  # must be in order, left point first.
@@ -501,7 +501,7 @@ function augment(A, maxslope, x1, y1, x2, y2)  # must be in order, left point fi
     A = vcat(A, [xcross ycross])
 end
 
-function sawtooth(f, maxslope, left, right)  # function, maximum slope, left and right boundaries only 
+function sawtooth(f, maxslope, left, right)  # function, maximum slope, left and right boundaries only
     A = [left f(left); (left + right)/2 f((left + right)/2); right f(right)]
     A = augment(A, maxslope, A[1,1], A[1,2], A[2, 1], A[2,2])
     A = augment(A, maxslope, A[2,1], A[2,2], A[3,1], A[3,2])
@@ -535,8 +535,8 @@ function fibstring(n)
     b = 1
     for x in 1:(n - 2)  # since I already have 2 elements, for n elements total I need (n - 2) more elements.
             c = a + b  # finding the next term...
-            a = b  # ...and redefining the other variables 
-            b = c 
+            a = b  # ...and redefining the other variables
+            b = c
             push!(fibs, c)  # finally tack c on the end of fibs; this step could have been earlier
     end
     println(fibs)  # at the end, print out the final list
@@ -566,7 +566,7 @@ ans210A = Revealable("""
 1. 134, 4, 21
 2. Make sure you are getting a visual of what this does: it evaluates a function at a given point, then a smidgen above, a smidgen below, a smidgen right, and a smidgen left, then minimizes those values. The answers are: (3, 4.9); (1.9, 0); (-4, -0.9)
 
-There are a lot of different ways to accomplish this task. Mine is below. 
+There are a lot of different ways to accomplish this task. Mine is below.
 
 <code>
 f(a, b) = a^2 + 5*b^2
@@ -587,7 +587,7 @@ ans210B = Revealable("""
 ###Answer B
 The first practice function should narrow down to the origin; the second to (4, -3).
 
-Again, multiple ways to do this. 
+Again, multiple ways to do this.
 <code>
 f(a, b) = a^2 + 5*b^2
 
@@ -603,7 +603,7 @@ function brute4min(f, a, b)
         a = A[loc]
         b = A[loc + 5] # taking advantage of fixed length of A at 5 to index directly rather than row, column
         end
-        step = step/10        
+        step = step/10
     end
     println(\"x1 = \$(round(a, 3)) and x2 = \$(round(b, 3))\")  # rounding to 3 decimal places
 end
@@ -647,7 +647,7 @@ The actual minimum occurs at (1, 1). My version of this code came up with a star
 f(a, b) = 100*(a - b)^2 + (1-b)^2
 
 function gridsearch(f, a, b, c, d)
-    int1 = (b-a)/5  # splits the x1 interval into 5 sections, 6 total points 
+    int1 = (b-a)/5  # splits the x1 interval into 5 sections, 6 total points
     int2 = (d-c)/5  # same for x2
     min = f(a, c)
     A = [a c]  # seeds (a, c) as initial minimum point
@@ -705,14 +705,14 @@ f(a, b) = (a-3)^2 + (b+1)^2
 function hjbegin(f, a, b)
     S = [a a+.1 a-.1]  # establishes an array S with our test points on x1
     A = [ ]  # seeds an empty set A
-    for n in 1:3 
-        A = vcat(A, f(S[n], b))  # builds A with function values of each point in S. 
+    for n in 1:3
+        A = vcat(A, f(S[n], b))  # builds A with function values of each point in S.
     end
     c = S[findmin(A)[2]]  # assigns the name "c" to the coordinate of S with the lowest function value
     A = [ ]  # resets A as empty
     T = [b b+.1 b-.1]  # establishes T with test points on x2
-    for n in 1:3 
-        A = vcat(A, f(c, T[n]))  # builds A with function values of T.   
+    for n in 1:3
+        A = vcat(A, f(c, T[n]))  # builds A with function values of T.
     end
     d = T[findmin(A)[2]]  # assigns the name "d" to the coordinate of T with the lowest function value
     println(\"\$a, \$b\")
@@ -731,8 +731,8 @@ f(a, b) = (a-3)^2 + (b+1)^2
 
 function vectorsearch(f, a, b, x, y)  # a and b are coordinates of the starting point; x, y is vector found by hjbegin
     while f(a + x, b + y) < f(a, b)
-        a = a + x 
-        b = b + y 
+        a = a + x
+        b = b + y
     end
     println(\"\$a, \$b\")
 end
@@ -747,20 +747,20 @@ Answers should converge towards (0.7315ish, -0.3658ish).
 If you have the written steps from the first part, you should see the same results from the combined code without the need to switch between two programs.
 <code>
 function hj(f, a, b) # function and starting point
-    int = .1 
-    S = [a a+int a-int]  # establishes an array S with our test points on x1. 
+    int = .1
+    S = [a a+int a-int]  # establishes an array S with our test points on x1.
     A = [ ]  # seeds an empty set A
-    for n in 1:3 
-        A = vcat(A, f(S[n], b))  # builds A with function values of each point in S. 
+    for n in 1:3
+        A = vcat(A, f(S[n], b))  # builds A with function values of each point in S.
     end
     c = S[findmin(A)[2]]  # assigns the name `c` to the coordinate of S with the lowest function value
     A = [ ]  # resets A as empty
     T = [b b+int b-int]  # establishes T with test points on x2
-    for n in 1:3 
-        A = vcat(A, f(c, T[n]))  # builds A with function values of T.   
+    for n in 1:3
+        A = vcat(A, f(c, T[n]))  # builds A with function values of T.
     end
     d = T[findmin(A)[2]]  # assigns the name `d` to the coordinate of T with the lowest function value
-    vectorx = c - a 
+    vectorx = c - a
     vectory = d - b
     while f(c + vectorx, d + vectory) < f(c, d)
         c = c + vectorx
@@ -777,29 +777,29 @@ ans211D = Revealable("""
 Answers should approach (0.7314ish, -0.3657ish)
 <code>
 function hj(f, a, b) # function and starting point
-    int = .1 
+    int = .1
     vectorx = 100  # could be any nonzero, just being careful here
     vectory = 100
     while vectorx != 0 && vectory != 0
-        S = [a a+int a-int]  # establishes an array S with our test points on x1. 
+        S = [a a+int a-int]  # establishes an array S with our test points on x1.
         A = [ ]  # seeds an empty set A
-        for n in 1:3 
-            A = vcat(A, f(S[n], b))  # builds A with function values of each point in S. 
+        for n in 1:3
+            A = vcat(A, f(S[n], b))  # builds A with function values of each point in S.
         end
         c = S[findmin(A)[2]]  # assigns the name `c` to the coordinate of S with the lowest function value
         A = [ ]  # resets A as empty
         T = [b b+int b-int]  # establishes T with test points on x2
-        for n in 1:3 
-            A = vcat(A, f(c, T[n]))  # builds A with function values of T.   
+        for n in 1:3
+            A = vcat(A, f(c, T[n]))  # builds A with function values of T.
         end
         d = T[findmin(A)[2]]  # assigns the name `d` to the coordinate of T with the lowest function value
-        vectorx = c - a 
+        vectorx = c - a
         vectory = d - b
         while f(c + vectorx, d + vectory) < f(c, d)
             c = c + vectorx
             d = d + vectory
         end
-        a = c 
+        a = c
         b = d
     end
     println(\"\$a, \$b\")
@@ -815,31 +815,31 @@ Answers should approach (0.731404, -0.365702).
 f(a, b) = (a+b)^2 + (sin(a+2))^2  + b^2 + 10
 
 function hj(f, a, b) # function and starting point
-    int = 1 
+    int = 1
     for n in 1:7  # this will end up with an interval of 0.000001.
         vectorx = 100  # could be any nonzero, just being careful
         vectory = 100
         while vectorx != 0 && vectory != 0
-            S = [a a+int a-int]  # establishes an array S with our test points on x1. 
+            S = [a a+int a-int]  # establishes an array S with our test points on x1.
             A = [ ]  # seeds an empty set A
-            for n in 1:3 
-                A = vcat(A, f(S[n], b))  # builds A with function values of each point in S. 
+            for n in 1:3
+                A = vcat(A, f(S[n], b))  # builds A with function values of each point in S.
             end
             c = S[findmin(A)[2]]  # assigns the name `c` to the coordinate of S with the lowest function value
             A = [ ]  # resets A as empty
             T = [b b+int b-int]  # establishes T with test points on x2
-            for n in 1:3 
-                A = vcat(A, f(c, T[n])  # builds A with function values of T.   
+            for n in 1:3
+                A = vcat(A, f(c, T[n])  # builds A with function values of T.
             end
             d = T[findmin(A)[2]]  # assigns the name `d` to the coordinate of T with the lowest function value
-            vectorx = c - a 
+            vectorx = c - a
             vectory = d - b
             while f(c + vectorx, d + vectory) < f(c, d)
                 c = c + vectorx
                 d = d + vectory
             end
-            a = c 
-            b = d   
+            a = c
+            b = d
         end
         int = int/10
     end
@@ -854,7 +854,7 @@ end
 
 ans212A = Revealable("""
 ###Answer A
-1. f(x<sub>1</sub>, -1) = (x<sub>1</sub> - 3)<sup>2</sup> + 16; or, f(x) = (x - 3)<sup>2</sup> + 16. 
+1. f(x<sub>1</sub>, -1) = (x<sub>1</sub> - 3)<sup>2</sup> + 16; or, f(x) = (x - 3)<sup>2</sup> + 16.
 2. minimized at x = 3. (If you've studied quadratics, you knew this&mdash;the function is a parabola in vertex form.)
 3. f(3, x<sub>2</sub>) = 0 + (x<sub>2</sub> + 5)<sup>2</sup>; or, f(x) = (x + 5)<sup>2</sup>. Minimized at -5; again, you knew this.
 The answer, (3, -5), is the minimum of this function. This happened here because it's a very simple function, but it won't always.
@@ -872,7 +872,7 @@ ans212C = Revealable("""
 1. The new point is (-1-1.5a, .5 -.5a)
 2. The raw version is f(x<sub>1</sub>, x<sub>2</sub>) = (-1 - 1.5a)<sup>2</sup> + 2(.5 - .5a)<sup>2</sup> + 2(-1 - 1.5a)(.5 - .5a). If you simplified, you would get f = 4.25a<sup>2</sup> + 1.5a + .5.
 
-Notice in Part 2: the new function is a function in one variable, and therefore *can be minimized*. 
+Notice in Part 2: the new function is a function in one variable, and therefore *can be minimized*.
 """, "Answer", false)
 
 ans212D = Revealable("""
@@ -933,9 +933,9 @@ function fibmin(f)  # input: function
     (maxlim + minlim)/2  # return minimum x-value
 end
 
-function cyclic(f, a, b)  # f is a function in 2 variables; (a, b) is the seed point 
+function cyclic(f, a, b)  # f is a function in 2 variables; (a, b) is the seed point
     q = 20  # any high number will do
-    f1 = 0 
+    f1 = 0
     f2 = 20
     while abs(f1 - f2) > 0.0001  # tolerance for final answer
         c = fibmin(f, a, b, 1)  # minimize a
@@ -976,7 +976,7 @@ ans213C = Revealable("""
 
 ans214A = Revealable("""
 ###Answer A
-Answers will vary, of course. 
+Answers will vary, of course.
 1. should use `rand()`
 2. should use `40 + 5*rand()`
 3. should use `randn()`
@@ -990,7 +990,7 @@ Somewhere in the 10-13 range, more or less, would be typical, but on one trial y
 
 ans214C = Revealable("""
 ###Answer C
-Answers will vary, of course. I got 11.58; 11.83; 11.79; 11.75. 
+Answers will vary, of course. I got 11.58; 11.83; 11.79; 11.75.
 
 The actual average appears to be around 11.8, ish. If you wrote your answers with more than 2 decimal places, DON'T!!!! This method is not that accurate and it is irresponsible to report results as if it is.
 <code>
@@ -1000,7 +1000,7 @@ function travel(n)
         a = 1 + 3&#42;rand() + .8 + .35&#42;randn() + .5 + 1.5&#42;rand() + 4 + .1&#42;randn() + .25 + 3 + .8&#42;randn()
         total = total + a
     end
-    average = total/n 
+    average = total/n
     println(average)
 end
 
@@ -1022,14 +1022,14 @@ function travel(n)
             a = a + .8 + .35&#42;randn()
         end
         a = a + .8 + .35&#42;randn() + .5 + 1.5&#42;rand() + 4 + .1&#42;randn() + .25
-        if a > 9 
+        if a > 9
             a = a + 5.1 + 1.9&#42;randn()
         else
             a = a + 3 + .8&#42;randn()
         end
-        total = total + a 
+        total = total + a
     end
-    average = total/n 
+    average = total/n
     println(average)
 end
 
@@ -1069,7 +1069,7 @@ ans215B = Revealable("""
 
 ans215C = Revealable("""
 ###Answer C
-Answers will vary here. You should have four individuals grouped into two pairs; individuals may be repeated but not within a pair. 
+Answers will vary here. You should have four individuals grouped into two pairs; individuals may be repeated but not within a pair.
 
 This process of weighting the probabilities is simplified, but basically equivalent to what might be actually used.
 """, "Answer", false)
@@ -1085,7 +1085,7 @@ Although I got rid of the -5, otherwise my children were markedly inferior to th
 """, "Answer", false)
 
 ans215E = Revealable("""
-My third generation was a huge improvement; my fourth, not so much. 
+My third generation was a huge improvement; my fourth, not so much.
 Here are the fitness ranks of my generations, if you're curious:<br clear="all">
 I: 19, 9, 8, -5<br clear="all">
 II: 13, 10, 3, 1<br clear="all">
