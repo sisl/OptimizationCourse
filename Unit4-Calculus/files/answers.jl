@@ -410,7 +410,7 @@ end
 """, "Answer", false)
 
 #############
-# Lesson 7 #
+# Lesson 07 #
 #############
 
 zeroslope = Revealable("""
@@ -461,6 +461,60 @@ ans407E = Revealable("""
 2. [2y 2x + 4z – 3z<sup>2</sup>w&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4y – 6yzw 3yz<sup>2</sup>]
 """, "Answer", false)
 
+#############
+# Lesson 08 #
+#############
+
+ans408A = Revealable("""
+### Answer A
+1. [0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0]
+2. [2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6]
+3. [-2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-10]
+""", "Answer", false)
+
+ans408B = Revealable("""
+### Answer B
+1. [-14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6]
+2. [-2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5]
+3. [19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-22]
+
+""", "Answer", false)
+
+ans408C = Revealable("""
+### Answer C
+The gradient is [2y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2x – 2]
+
+1. [0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-2], magnitude 2
+2. [-6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8], magnitude 10
+3. [20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;38], magnitude 42.942
+4. [8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-12], magnitude 14.422
+5. Gradient is 0 when 2y = 0 and 2x – 2 = 0, which occurs at (1, 0).
+""", "Answer", false)
+
+ans408D = Revealable("""
+### Answer D
+
+Gradient is [3y – 2w + 5z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3x – 2w&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2x – 2y]
+
+Vector at (0, 1, -1, 2) is [-6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-2]
+
+magnitude is 7.483
+""", "Answer", false)
+
+ans408E = Revealable("""
+### Answer E
+The gradient is [4 – 2x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 – 6y]
+1. [2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-28] magnitude 28.071
+2. [-2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14] magniude 14.142
+3. [0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2] magnitude 2
+4. [10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;38] magnitude 39.294
+5. Gradient is 0 at [2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1/3]. Note that on 3), the gradient’s x-value was 0 because it was already on the maximum point. In general, the farther we got from the maximum the higher the gradient became.
+""", "Answer", false)
+
+ans408F = Revealable("""
+### Answer F
+The gradient is [2x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+4y] which evaluates to [10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50]. Since you are trying to minimize, you should travel along [-10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-50], in the opposite direction of the gradient vector.
+""", "Answer", false)
 
 #############
 # Lesson 10 #
