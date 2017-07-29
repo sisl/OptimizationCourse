@@ -517,6 +517,37 @@ The gradient is [2x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+4y] which evaluat
 """, "Answer", false)
 
 #############
+# Lesson 09 #
+#############
+
+ans409A = Revealable("""
+### Answer A
+1. [2 0 ; 0 2]
+2. [6xy – 4  3x<sup>2</sup> – 4; 3x<sup>2</sup> – 4  0]
+3. [2 1 3z<sup>2</sup>; 1 0 0; 3z<sup>2</sup> 0 6zx]
+4. [4y – 2y<sup>2</sup>  4x – 4xy; 4x – 4xy  -2x<sup>2</sup>]
+
+Original functions, if you’re curious: f = x<sup>2</sup> + y<sup>2</sup>; f = x<sup>3</sup>y – 4xy + 3y; f = x<sup>2</sup> + xy – 2y + z<sup>3</sup>x; f = 2x<sup>2</sup>y – x<sup>2</sup>y<sup>2</sup>.
+""", "Answer", false)
+
+ans409B = Revealable("""
+### Answer B
+The transpose and the original _should be_ identical. 
+
+This happens because partial derivation is commutative, i.e.:
+
+d/dy(df/dx) = d/dx(df/dy).
+
+""", "Answer", false)
+
+ans409C = Revealable("""
+### Answer C
+1. Hessian [2y  2x; 2x  6]  evaluated [8 2; 2 6]
+2. [6x  -1; -1 0]; [0 -1 -1 0]
+3. [6z  0  6x; 0  -8z  -8y; 6x  -8y  0]; [12 0 18; 0 -19 8; 18 8 0]
+
+""", "Answer", false)
+#############
 # Lesson 10 #
 #############
 
