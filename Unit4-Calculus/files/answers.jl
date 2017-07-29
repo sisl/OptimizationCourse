@@ -5,7 +5,7 @@ using Revealables
 #############
 
 ans401A = Revealable("""
-###Answer A
+### Answer A
 1. 31.75
 2. 3
 3. 22.5
@@ -16,7 +16,7 @@ ans401A = Revealable("""
 """, "Answer", false)
 
 ans401B = Revealable("""
-###Answer B
+### Answer B
 1. 0.7201
 2. 0.7215
 3. 0.721673
@@ -27,7 +27,7 @@ ans401B = Revealable("""
 """, "Answer", false)
 
 ans401C = Revealable("""
-###Answer C
+### Answer C
 I chose to use the secant method. Either will work just fine.
 <code>
 function nderiv(f, n)  # function f, n is the x-value at which you want the slope
@@ -44,7 +44,7 @@ end
 #############
 
 ans402A = Revealable("""
-###Answer A
+### Answer A
 1. 41.33 in both cases.
 2. The three points will be (-1, 9), (2,30) and (5, 87). The integral of 2x<sup>2</sup> + 5x + 12 from -1 to 5 gives 216. Simpson's Rule yields 1 * (9 + 120 + 87) = 216.
 3. Both answers are identical at -4.67.
@@ -52,7 +52,7 @@ ans402A = Revealable("""
 """, "Answer", false)
 
 ans402B = Revealable("""
-###Answer B
+### Answer B
 1. Integral = 168; Simpson's = (-3, -9), (4, 12) and (11, 33) for 14 / 6 \\\* (-9 + 48 + 33) = 168.0. 
 2. Integral = 37.333; Simpson's = (4, 2) (10, 3.1623) (16, 4) for 2 \\\* (2 + 12.6491 + 4) = 37.298. 
 3. Integral = 1; Simpson's = (0, 1), (&pi;/4, .7071), (&pi;/2, 0) for &pi;/12 \\\* (1 + 2.8284 + 0) = 1.002
@@ -60,7 +60,7 @@ ans402B = Revealable("""
 """, "Answer", false)
 
 ans402C = Revealable("""
-###Answer C
+### Answer C
 Come up with your own definition of \"acceptable error.\" Sometimes the audience will dictate that, but sometimes it's just up to the designer (that's you!).
 
 I found that interval width 4 (original) gave 154.315726...; width 2 gave 146.417113...; width 1 gave 145.7439987. I wasn't happy until around 0.05; 0.01 was extremely accurate. (At that point I wondered how accurate just doing a Riemann sum would be, but it was not as accurate.)
@@ -80,14 +80,14 @@ println(b)
 """, "Answer", false)
 
 ans402D = Revealable("""
-###Answer D
+### Answer D
 This is a bit tricky because you really do need a whole number of intervals, and they really should be evenly spaced (though this is actually not necessary), and the width could be anything. 
 
 My solution is to divide `w` by 0.01 (which is my desired interval width), then round to the nearest whole number, then divide `w` again by that whole number to get the width of each interval. Rounding to a whole number can be accomplished using `round(k, 0)`.
 """, "Answer", false)
 
 ans402E = Revealable("""
-###Answer E
+### Answer E
 <code>
 function simpson(f, a, b)
     integral = 0  # seed initial value for sum later
@@ -111,7 +111,7 @@ simpson(f, 1, 5)
 #############
 
 ans403A = Revealable("""
-###Answer A
+### Answer A
 My fractional answer was 67917414/24012432, which came out to:
 
         2.828427124749...
@@ -122,7 +122,7 @@ compared to
 """, "Answer", false)
 
 ans403B = Revealable("""
-###Answer B
+### Answer B
 This has no hope of being more accurate than Newton's Method by hand, because we're using numerical derivatives which are very limited in accuracy. But it will be a lot faster.
 
 <code>
@@ -148,7 +148,7 @@ Newt2(f, 3)
 #############
 
 ans404A = Revealable("""
-###Answer A
+### Answer A
 For the derivative, Calculus using `f'` got:
 
         22.692712758264996
@@ -180,14 +180,14 @@ You may be upset about the fact that you were made to write these programs when 
 """, "Answer", false)
 
 ans404B = Revealable("""
-###Answer B
+### Answer B
 1. This derives to 15x<sup>2</sup> + 4x. The maximum will occur either at the endpoints or where the derivative of this equals zero (i.e., where the second derivative equals 0). The second derivative is 30x + 4, which equals 0 at -2/15. The slope (derivative) at each point is: (-2, 52); (-2/15, -2.67); (5, 395). Limiting slope is 395.
 
-2. This derives to 12x^<sup>3</sup> - 4x, second derivative 36x<sup>2</sup> - 4. The second derivative is 0 at &plusmn;1/3, with slopes &plusmn;0.88. The endpoints have slopes of &plusmn;0.5, so the limiting slope is 0.88.
+2. This derives to 12x<sup>3</sup> - 4x, second derivative 36x<sup>2</sup> - 4. The second derivative is 0 at &plusmn;1/3, with slopes &plusmn;0.88. The endpoints have slopes of &plusmn;0.5, so the limiting slope is 0.88.
 """, "Answer", false)
 
 ans404C = Revealable("""
-###Answer C
+### Answer C
 There ought to be a way to use symbolic differentiation too, but I could not figure out how to turn a variable storing a string into a string literal so I could pass it into the `differentiate` function in the Julia `Calculus` package.
 
 If that sentence makes zero sense to you, don't worry. Here's a program that works using numerical differentiation:
@@ -229,14 +229,14 @@ end
 #############
 
 ans405A = Revealable("""
-###Answer A
+### Answer A
 Decreasing from -&infin; to -1.366; increasing from -1.366 to 0.366; decreasing from 0.366 to 1; increasing from 1 to &infin;. Equals 0 at -1.366, 0.366 and 1.
 
 I used my Newton program to find the zeroes, of course!
 """, "Answer", false)
 
 ans405B = Revealable("""
-###Answer B
+### Answer B
 Depending on whether you used second derivatives = 0 to find where derivatives were maximized in the previous lesson, this might be super easy or super difficult.
 
 <code>
@@ -297,7 +297,7 @@ end
 """, "Answer", false)
 
 ans405C = Revealable("""
-###Answer C
+### Answer C
 This should be as simple as changing all instances of `f'(x)` from problem 2 into `f''(x)`, and all instances of \"increasing/decreasing\" to \"concave up/concave down.\" However, it may turn into a nice object lesson in what is often referred to in programming as the \"copy/paste\" bug, in which one instance is missed and the whole program fails because of it!
 
 I'm sure there is a more elegant way to handle all those `println` statements.
@@ -360,7 +360,7 @@ end
 """, "Answer", false)
 
 ans405D = Revealable("""
-###Answer D
+### Answer D
 Critical points are (-6., 3.394), (1.916, 54.126) and (5.434, -70).
 
 Inflection points have x-values at 0.5 and 4.
@@ -373,7 +373,7 @@ Graph is classic W-shaped graph of a positive 4th degree function; dec-inc-dec-i
 #############
 
 ans406 = Revealable("""
-###Answer
+### Answer
 My program steals blatantly from the first half of my increasing/decreasing program to find x-values where the derivative is zero; after that it's a few lines for concavity testing. It is **so much easier** to do concavity testing than increasing/decreasing interval testing.
 
 <code>
@@ -410,11 +410,64 @@ end
 """, "Answer", false)
 
 #############
+# Lesson 7 #
+#############
+
+zeroslope = Revealable("""
+The minimum point has a “slope” of zero. Notice that every line on the plane has a slope of zero at that point.
+""", "Answer", false)
+
+ans407A = Revealable("""
+### Answer A
+1. 32 + 8z<sup>2</sup> – 32z
+2. 27y + 2
+3. 2x<sup>2</sup> + 794x – 40000
+4. 484
+""", "Answer", false)
+
+ans407B = Revealable("""
+### Answer B
+1. derives to 16z – 32
+2. derives to 27
+3. derives to 4x + 794
+4. derives to 0
+""", "Answer", false)
+
+ans407C = Revealable("""
+### Answer C
+1. 3x<sup>2</sup> + 8x – 12
+2. 3x<sup>2</sup> + 4x – 3
+3. 3x<sup>2</sup> + 400x – 30000
+4. 3x<sup>2</sup> + 4yx – 3y<sup>2</sup>
+5. 32 – 24y
+6. 8 + 12y
+7. 2x<sup>2</sup> – 6xy
+""", "Answer", false)
+
+ans407D = Revealable("""
+### Answer D
+
+One of the hardest things for good calculus students is they'll use the product rule when they shouldn't – watch for it!
+
+1. [6x + 4y<sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8xy – 2]
+2. [28x<sup>3</sup> – 6y^2x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24y^2 – 6x<sup>2</sup>y + 12]
+3. [2x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2y]
+4. [12y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12x]
+""", "Answer", false)
+
+ans407E = Revealable("""
+### Answer E
+1. [4x + 3y – 4yz 3x + 4z – 4xz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2y<sup>2</sup> – 4xy]
+2. [2y 2x + 4z – 3z<sup>2</sup>w&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4y – 6yzw 3yz<sup>2</sup>]
+""", "Answer", false)
+
+
+#############
 # Lesson 10 #
 #############
 
 ans410A = Revealable("""
-###Answer A
+### Answer A
 1. 2
 
 2. 19
@@ -423,7 +476,7 @@ ans410A = Revealable("""
 """, "Answer", false)
 
 ans410B = Revealable("""
-###Answer B
+### Answer B
 1. 7 and -5
 
 2. 2.5i &plusmn; 2.40i  (no real eigenvalues, both imaginary)
@@ -432,7 +485,7 @@ ans410B = Revealable("""
 """, "Answer", false)
 
 ans410C = Revealable("""
-###Answer C
+### Answer C
 1. 1.99 and 72.01; concave up
 
 2. -12 and -6; concave down
@@ -441,7 +494,7 @@ ans410C = Revealable("""
 """, "Answer", false)
 
 ans410D = Revealable("""
-###Answer D
+### Answer D
 Hessian is [6x  -1; -1  12y]
 1. saddle
 
@@ -455,14 +508,14 @@ Hessian is [6x  -1; -1  12y]
 """, "Answer", false)
 
 ans410E = Revealable("""
-###Answer E
+### Answer E
 1. gradient [4 - 2x  2 - 6y], critical point (2, 1/3)
 
 2. Hessian [-2 0; 0 -6], eigenvalues negative therefore concave down. The critical point is a maximum.
 """, "Answer", false)
 
 ans410F = Revealable("""
-###Answer F
+### Answer F
 1. gradient [4x<sup>3</sup> - y   2y - x]. Critical points at (0, 0) and (sqrt(1/8), sqrt(1/32) or (0.35355, 0.17678)
 
 2.  Hessian [12x<sup>2</sup>  -1 ; -1  2]. (0, 0) is a saddle point, (0.35355, 0.17678) is concave up so this critical point is a minimum.
@@ -473,31 +526,31 @@ ans410F = Revealable("""
 #############
 
 ans411A = Revealable("""
-###Answer A
+### Answer A
 1. gradient [-65  32], eigenvalues 33.048 and -29.048
 2. gradient [3  9  17], eigenvalues -12.966, 12.043, and 0.922
 """, "Answer", false)
 
 ans411B = Revealable("""
-###Answer B
+### Answer B
 1. [20  47]
 2. f(a) = (10 - 2a)<sup>2</sup> + 2(12 - 47a)<sup>2</sup> - (12 - 47a)
 """, "Answer", false)
 
 ans411C = Revealable("""
-###Answer C
+### Answer C
 1. a = 0.2707
 2. New point = (4.5849, -0.7256)
 """, "Answer", false)
 
 ans411D = Revealable("""
-###Answer D
+### Answer D
 1. From (4.5849, -0.7256), vector = <-9.17, 3.90>, a = 0.434, new point (0.610, 0.966)
 2. From (0.610, 0.966), vector = <-1.22, -2.86>, a = .271, new point (0.2795, 0.1905)
 """, "Answer", false)
 
 ans411E = Revealable("""
-###Answer E
+### Answer E
 For 5 iterations, I got a final point (0.0170, 0.2464).
 
 For 10 iterations, I got (0.000, 0.2500), which is the minimum.
@@ -537,7 +590,7 @@ function steepdesc(f, x1, x2)  # x1 and x2 are values of the initial point
 """, "Answer", false)
 
 ans411F = Revealable("""
-###Answer F
+### Answer F
 This one is frustrating! 
 
 The actual minimum is at (2, 1), but even after 100 iterations it didn't get there. I got to (1.926, 0.963) and threw in the towel.
@@ -548,7 +601,7 @@ The actual minimum is at (2, 1), but even after 100 iterations it didn't get the
 #############
 
 ans412A = Revealable("""
-###Answer A
+### Answer A
 Careful with the subscripts!
 
 It ends up not mattering if you use v or g because the elements end up squared/positive anyway.
@@ -558,7 +611,7 @@ s<sub>2</sub> = 0.0386
 """, "Answer", false)
 
 ans412B = Revealable("""
-###Answer B
+### Answer B
 (1.8097, 0.0935)
 
 You could use the steepest-descent program from the last section and run one iteration, or just peel off the first iteration; or you could work by hand using gradients, vectors, and minimization.
@@ -567,19 +620,19 @@ The gradient here is [3.432, 0.308], vector is <-3.432, -0.308>.
 """, "Answer", false)
 
 ans412C = Revealable("""
-###Answer C
+### Answer C
 Scalar multiplier s = 0.00152; new vector = <-3.4452, -0.173926>
 """, "Answer", false)
 
 ans412D = Revealable("""
-###Answer D
+### Answer D
 Should get very close to the true minimum at (0, 0), with some rounding error.
 
 With quadratic functions of n variables, the conjugate gradient method will always converge within n iterations. In this case, there were 2 variables and it took 2 iterations to find the minimum.
 """, "Answer", false)
 
 ans412E = Revealable("""
-###Answer E
+### Answer E
 Still slow to converge, but at least after 100 I was at (1.993, 0.997)
 
 <code>
@@ -625,13 +678,13 @@ end
 #############
 
 ans413A = Revealable("""
-###Answer A
+### Answer A
 * Use the positive gradient as the direction vector rather than the negative gradient
 * Use a maximization program instead of a minimization program for maximizing f(a)
 """, "Answer", false)
 
 ans413B = Revealable("""
-###Answer B
+### Answer B
 Here's my old gridsearch program. It helped a little, but not much; it recommended that I start at (1, 1) instead of (0, 0), which got me to (1.988, 0.994) after 20 iterations.
 
 <code>
@@ -655,7 +708,7 @@ end
 """, "Answer", false)
 
 ans413C = Revealable("""
-###Answer C
+### Answer C
 1. You should get close to the actual minimum at z = 2, y = 4, x = 0
 
 2. This was kind of mean. Although with the simple functions we've been using as examples it seems \"easier\" to use calculus to minimize, it can get really ugly really fast. At some point the programs take over.
