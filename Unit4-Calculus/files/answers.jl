@@ -13,7 +13,7 @@ ans401A = Revealable("""
 5. 20.05
 6. 20.005
 7. 20, of course!
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans401B = Revealable("""
 ### Answer B
@@ -24,7 +24,7 @@ ans401B = Revealable("""
 5. 0.721688
 6. Answers will vary depending on how many zeroes they type in (I didn't bother counting). Anyway it's not accurate. The moral of this story is that rounding error becomes really significant when you try to get too accurate. Mine converged just fine for a while as I added 0's, but then it started getting worse.
 7. The actual derivative here is 5/(2*sqrt(5)), which is 0.7216878...
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans401C = Revealable("""
 ### Answer C
@@ -37,7 +37,7 @@ function nderiv(f, n)  # function f, n is the x-value at which you want the slop
       println(d)
 end
 </code>
-""", "Answer", false)
+""", "Answer", false, false)
 
 #############
 # Lesson 02 #
@@ -49,7 +49,7 @@ ans402A = Revealable("""
 2. The three points will be (-1, 9), (2,30) and (5, 87). The integral of 2x<sup>2</sup> + 5x + 12 from -1 to 5 gives 216. Simpson's Rule yields 1 * (9 + 120 + 87) = 216.
 3. Both answers are identical at -4.67.
 
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans402B = Revealable("""
 ### Answer B
@@ -57,7 +57,7 @@ ans402B = Revealable("""
 2. Integral = 37.333; Simpson's = (4, 2) (10, 3.1623) (16, 4) for 2 \\\* (2 + 12.6491 + 4) = 37.298. 
 3. Integral = 1; Simpson's = (0, 1), (&pi;/4, .7071), (&pi;/2, 0) for &pi;/12 \\\* (1 + 2.8284 + 0) = 1.002
 4. Integral = 145.6949; Simpson's = (1, 2.718) (3, 20.0855) (5, 148.4132) for 4 / 6 \\\* (2.718 + 80.3421 + 148.4132) = 154.3158.
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans402C = Revealable("""
 ### Answer C
@@ -77,14 +77,14 @@ for k in (1:.01:4.99)
 end
 println(b)
 </code>
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans402D = Revealable("""
 ### Answer D
 This is a bit tricky because you really do need a whole number of intervals, and they really should be evenly spaced (though this is actually not necessary), and the width could be anything. 
 
 My solution is to divide `w` by 0.01 (which is my desired interval width), then round to the nearest whole number, then divide `w` again by that whole number to get the width of each interval. Rounding to a whole number can be accomplished using `round(k, 0)`.
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans402E = Revealable("""
 ### Answer E
@@ -104,7 +104,7 @@ end
 f(x) = e^x 
 simpson(f, 1, 5)
 </code>
-""", "Answer", false)
+""", "Answer", false, false)
 
 #############
 # Lesson 03 #
@@ -119,7 +119,7 @@ My fractional answer was 67917414/24012432, which came out to:
 compared to
 
         2.828427124746...
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans403B = Revealable("""
 ### Answer B
@@ -141,7 +141,7 @@ end
 f(x) = x^2 - 8
 Newt2(f, 3)
 </code>
-""", "Answer", false)
+""", "Answer", false, false)
 
 #############
 # Lesson 04 #
@@ -177,14 +177,14 @@ Correct answer:
         148.32762217938892... I lose!
 
 You may be upset about the fact that you were made to write these programs when they were already written (and written better, at least in my case). I think the fact that someone already did write those programs is proof that it's a legitimate pursuit. It's important to know how it's done. People get paid to do this kind of work; someone had to write the program for graphing calculators after all. As soon as another language gets invented, someone will have to program derivatives for it, unless John Myles White gets there first, too.
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans404B = Revealable("""
 ### Answer B
 1. This derives to 15x<sup>2</sup> + 4x. The maximum will occur either at the endpoints or where the derivative of this equals zero (i.e., where the second derivative equals 0). The second derivative is 30x + 4, which equals 0 at -2/15. The slope (derivative) at each point is: (-2, 52); (-2/15, -2.67); (5, 395). Limiting slope is 395.
 
 2. This derives to 12x<sup>3</sup> - 4x, second derivative 36x<sup>2</sup> - 4. The second derivative is 0 at &plusmn;1/3, with slopes &plusmn;0.88. The endpoints have slopes of &plusmn;0.5, so the limiting slope is 0.88.
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans404C = Revealable("""
 ### Answer C
@@ -222,7 +222,7 @@ function sawprep(f, a, b)
     println(maximum(test))
 end
 </code>
-""", "Answer", false)
+""", "Answer", false, false)
 
 #############
 # Lesson 05 #
@@ -233,7 +233,7 @@ ans405A = Revealable("""
 Decreasing from -&infin; to -1.366; increasing from -1.366 to 0.366; decreasing from 0.366 to 1; increasing from 1 to &infin;. Equals 0 at -1.366, 0.366 and 1.
 
 I used my Newton program to find the zeroes, of course!
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans405B = Revealable("""
 ### Answer B
@@ -294,7 +294,7 @@ function incdec(f, a, b)
     end
 end
 </code>
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans405C = Revealable("""
 ### Answer C
@@ -357,7 +357,7 @@ function concavity(f, a, b)
     end
 end
 </code>
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans405D = Revealable("""
 ### Answer D
@@ -366,7 +366,7 @@ Critical points are (-6., 3.394), (1.916, 54.126) and (5.434, -70).
 Inflection points have x-values at 0.5 and 4.
 
 Graph is classic W-shaped graph of a positive 4th degree function; dec-inc-dec-inc; cu cd cu.
-""", "Answer", false)
+""", "Answer", false, false)
 
 #############
 # Lesson 06 #
@@ -407,7 +407,7 @@ function critpts(f, a, b)
     end
 end
 </code>
-""", "Answer", false)
+""", "Answer", false, false)
 
 #############
 # Lesson 07 #
@@ -415,7 +415,7 @@ end
 
 zeroslope = Revealable("""
 The minimum point has a 'slope' of zero. Notice that every line on the plane has a slope of zero at that point.
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans407A = Revealable("""
 ### Answer A
@@ -423,7 +423,7 @@ ans407A = Revealable("""
 2. 27y + 2
 3. 2x<sup>2</sup> + 794x - 40000
 4. 484
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans407B = Revealable("""
 ### Answer B
@@ -431,7 +431,7 @@ ans407B = Revealable("""
 2. derives to 27
 3. derives to 4x + 794
 4. derives to 0
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans407C = Revealable("""
 ### Answer C
@@ -442,7 +442,7 @@ ans407C = Revealable("""
 5. 32 - 24y
 6. 8 + 12y
 7. 2x<sup>2</sup> - 6xy
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans407D = Revealable("""
 ### Answer D
@@ -453,13 +453,13 @@ One of the hardest things for good calculus students is they'll use the product 
 2. [28x<sup>3</sup> - 6y^2x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24y^2 - 6x<sup>2</sup>y + 12]
 3. [2x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2y]
 4. [12y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12x]
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans407E = Revealable("""
 ### Answer E
 1. [4x + 3y - 4yz 3x + 4z - 4xz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2y<sup>2</sup> - 4xy]
 2. [2y 2x + 4z - 3z<sup>2</sup>w&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4y - 6yzw 3yz<sup>2</sup>]
-""", "Answer", false)
+""", "Answer", false, false)
 
 #############
 # Lesson 08 #
@@ -470,7 +470,7 @@ ans408A = Revealable("""
 1. [0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0]
 2. [2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6]
 3. [-2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-10]
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans408B = Revealable("""
 ### Answer B
@@ -478,7 +478,7 @@ ans408B = Revealable("""
 2. [-2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5]
 3. [19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-22]
 
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans408C = Revealable("""
 ### Answer C
@@ -489,7 +489,7 @@ The gradient is [2y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2x - 2]
 3. [20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;38], magnitude 42.942
 4. [8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-12], magnitude 14.422
 5. Gradient is 0 when 2y = 0 and 2x - 2 = 0, which occurs at (1, 0).
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans408D = Revealable("""
 ### Answer D
@@ -499,7 +499,7 @@ Gradient is [3y - 2w + 5z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3x - 2w&nbsp;
 Vector at (0, 1, -1, 2) is [-6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-2]
 
 magnitude is 7.483
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans408E = Revealable("""
 ### Answer E
@@ -508,13 +508,13 @@ The gradient is [4 - 2x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 - 6y]
 2. [-2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14] magniude 14.142
 3. [0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2] magnitude 2
 4. [10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;38] magnitude 39.294
-5. Gradient is 0 at [2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1/3]. Note that on 3), the gradient’s x-value was 0 because it was already on the maximum point. In general, the farther we got from the maximum the higher the gradient became.
-""", "Answer", false)
+5. Gradient is 0 at [2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1/3]. Note that on 3), the gradient's x-value was 0 because it was already on the maximum point. In general, the farther we got from the maximum the higher the gradient became.
+""", "Answer", false, false)
 
 ans408F = Revealable("""
 ### Answer F
 The gradient is [2x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+4y] which evaluates to [10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50]. Since you are trying to minimize, you should travel along [-10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-50], in the opposite direction of the gradient vector.
-""", "Answer", false)
+""", "Answer", false, false)
 
 #############
 # Lesson 09 #
@@ -527,8 +527,8 @@ ans409A = Revealable("""
 3. [2 1 3z<sup>2</sup>; 1 0 0; 3z<sup>2</sup> 0 6zx]
 4. [4y - 2y<sup>2</sup>  4x - 4xy; 4x - 4xy  -2x<sup>2</sup>]
 
-Original functions, if you’re curious: f = x<sup>2</sup> + y<sup>2</sup>; f = x<sup>3</sup>y - 4xy + 3y; f = x<sup>2</sup> + xy - 2y + z<sup>3</sup>x; f = 2x<sup>2</sup>y - x<sup>2</sup>y<sup>2</sup>.
-""", "Answer", false)
+Original functions, if you're curious: f = x<sup>2</sup> + y<sup>2</sup>; f = x<sup>3</sup>y - 4xy + 3y; f = x<sup>2</sup> + xy - 2y + z<sup>3</sup>x; f = 2x<sup>2</sup>y - x<sup>2</sup>y<sup>2</sup>.
+""", "Answer", false, false)
 
 ans409B = Revealable("""
 ### Answer B
@@ -538,7 +538,7 @@ This happens because partial derivation is commutative, i.e.:
 
 d/dy(df/dx) = d/dx(df/dy).
 
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans409C = Revealable("""
 ### Answer C
@@ -546,7 +546,7 @@ ans409C = Revealable("""
 2. [6x  -1; -1 0]; [0 -1 -1 0]
 3. [6z  0  6x; 0  -8z  -8y; 6x  -8y  0]; [12 0 18; 0 -19 8; 18 8 0]
 
-""", "Answer", false)
+""", "Answer", false, false)
 #############
 # Lesson 10 #
 #############
@@ -558,7 +558,7 @@ ans410A = Revealable("""
 2. 19
 
 3. 1
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans410B = Revealable("""
 ### Answer B
@@ -567,7 +567,7 @@ ans410B = Revealable("""
 2. 2.5i &plusmn; 2.40i  (no real eigenvalues, both imaginary)
 
 3. 2.30, 2, and -1.30
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans410C = Revealable("""
 ### Answer C
@@ -576,7 +576,7 @@ ans410C = Revealable("""
 2. -12 and -6; concave down
 
 3. at (1, -1) -6 and 2; saddle point. At (1, 0) -2 and 0; inconclusive
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans410D = Revealable("""
 ### Answer D
@@ -590,21 +590,21 @@ Hessian is [6x  -1; -1  12y]
 4. saddle
 
 5. concave down
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans410E = Revealable("""
 ### Answer E
 1. gradient [4 - 2x  2 - 6y], critical point (2, 1/3)
 
 2. Hessian [-2 0; 0 -6], eigenvalues negative therefore concave down. The critical point is a maximum.
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans410F = Revealable("""
 ### Answer F
 1. gradient [4x<sup>3</sup> - y   2y - x]. Critical points at (0, 0) and (sqrt(1/8), sqrt(1/32) or (0.35355, 0.17678)
 
 2.  Hessian [12x<sup>2</sup>  -1 ; -1  2]. (0, 0) is a saddle point, (0.35355, 0.17678) is concave up so this critical point is a minimum.
-""", "Answer", false)
+""", "Answer", false, false)
 
 #############
 # Lesson 11 #
@@ -614,25 +614,25 @@ ans411A = Revealable("""
 ### Answer A
 1. gradient [-65  32], eigenvalues 33.048 and -29.048
 2. gradient [3  9  17], eigenvalues -12.966, 12.043, and 0.922
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans411B = Revealable("""
 ### Answer B
 1. [20  47]
 2. f(a) = (10 - 2a)<sup>2</sup> + 2(12 - 47a)<sup>2</sup> - (12 - 47a)
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans411C = Revealable("""
 ### Answer C
 1. a = 0.2707
 2. New point = (4.5849, -0.7256)
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans411D = Revealable("""
 ### Answer D
 1. From (4.5849, -0.7256), vector = <-9.17, 3.90>, a = 0.434, new point (0.610, 0.966)
 2. From (0.610, 0.966), vector = <-1.22, -2.86>, a = .271, new point (0.2795, 0.1905)
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans411E = Revealable("""
 ### Answer E
@@ -672,14 +672,14 @@ function steepdesc(f, x1, x2)  # x1 and x2 are values of the initial point
     end
  end
 </code>
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans411F = Revealable("""
 ### Answer F
 This one is frustrating! 
 
 The actual minimum is at (2, 1), but even after 100 iterations it didn't get there. I got to (1.926, 0.963) and threw in the towel.
-""", "Answer", false)
+""", "Answer", false, false)
 
 #############
 # Lesson 12 #
@@ -693,7 +693,7 @@ It ends up not mattering if you use v or g because the elements end up squared/p
 
 s<sub>1</sub> = 0.022; 
 s<sub>2</sub> = 0.0386
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans412B = Revealable("""
 ### Answer B
@@ -702,19 +702,19 @@ ans412B = Revealable("""
 You could use the steepest-descent program from the last section and run one iteration, or just peel off the first iteration; or you could work by hand using gradients, vectors, and minimization.
 
 The gradient here is [3.432, 0.308], vector is <-3.432, -0.308>.
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans412C = Revealable("""
 ### Answer C
 Scalar multiplier s = 0.00152; new vector = <-3.4452, -0.173926>
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans412D = Revealable("""
 ### Answer D
 Should get very close to the true minimum at (0, 0), with some rounding error.
 
 With quadratic functions of n variables, the conjugate gradient method will always converge within n iterations. In this case, there were 2 variables and it took 2 iterations to find the minimum.
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans412E = Revealable("""
 ### Answer E
@@ -756,7 +756,7 @@ function conjgrad(f, x1, x2)  # x1 and x2 are values of the initial point
     end
 end
 </code>
-""", "Answer", false)
+""", "Answer", false, false)
 
 #############
 # Lesson 13 #
@@ -766,7 +766,7 @@ ans413A = Revealable("""
 ### Answer A
 * Use the positive gradient as the direction vector rather than the negative gradient
 * Use a maximization program instead of a minimization program for maximizing f(a)
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans413B = Revealable("""
 ### Answer B
@@ -790,7 +790,7 @@ function gridsearch(f, a, b, c, d)
     println(\"x1 = \$(A[1]), x2 = \$(A[2])\")  # prints the location of the lowest value
 end
 </code>
-""", "Answer", false)
+""", "Answer", false, false)
 
 ans413C = Revealable("""
 ### Answer C
@@ -825,4 +825,4 @@ function conjgrad3(f, x1, x2, x3)  # x1 through x3 are values of the initial poi
     end
 end
 </code>
-""", "Answer", false)
+""", "Answer", false, false)
