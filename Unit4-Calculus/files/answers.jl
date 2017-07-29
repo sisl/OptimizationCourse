@@ -414,20 +414,20 @@ end
 #############
 
 zeroslope = Revealable("""
-The minimum point has a “slope” of zero. Notice that every line on the plane has a slope of zero at that point.
+The minimum point has a 'slope' of zero. Notice that every line on the plane has a slope of zero at that point.
 """, "Answer", false)
 
 ans407A = Revealable("""
 ### Answer A
-1. 32 + 8z<sup>2</sup> – 32z
+1. 32 + 8z<sup>2</sup> - 32z
 2. 27y + 2
-3. 2x<sup>2</sup> + 794x – 40000
+3. 2x<sup>2</sup> + 794x - 40000
 4. 484
 """, "Answer", false)
 
 ans407B = Revealable("""
 ### Answer B
-1. derives to 16z – 32
+1. derives to 16z - 32
 2. derives to 27
 3. derives to 4x + 794
 4. derives to 0
@@ -435,30 +435,30 @@ ans407B = Revealable("""
 
 ans407C = Revealable("""
 ### Answer C
-1. 3x<sup>2</sup> + 8x – 12
-2. 3x<sup>2</sup> + 4x – 3
-3. 3x<sup>2</sup> + 400x – 30000
-4. 3x<sup>2</sup> + 4yx – 3y<sup>2</sup>
-5. 32 – 24y
+1. 3x<sup>2</sup> + 8x - 12
+2. 3x<sup>2</sup> + 4x - 3
+3. 3x<sup>2</sup> + 400x - 30000
+4. 3x<sup>2</sup> + 4yx - 3y<sup>2</sup>
+5. 32 - 24y
 6. 8 + 12y
-7. 2x<sup>2</sup> – 6xy
+7. 2x<sup>2</sup> - 6xy
 """, "Answer", false)
 
 ans407D = Revealable("""
 ### Answer D
 
-One of the hardest things for good calculus students is they'll use the product rule when they shouldn't – watch for it!
+One of the hardest things for good calculus students is they'll use the product rule when they shouldn't - watch for it!
 
-1. [6x + 4y<sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8xy – 2]
-2. [28x<sup>3</sup> – 6y^2x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24y^2 – 6x<sup>2</sup>y + 12]
+1. [6x + 4y<sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8xy - 2]
+2. [28x<sup>3</sup> - 6y^2x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24y^2 - 6x<sup>2</sup>y + 12]
 3. [2x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2y]
 4. [12y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12x]
 """, "Answer", false)
 
 ans407E = Revealable("""
 ### Answer E
-1. [4x + 3y – 4yz 3x + 4z – 4xz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2y<sup>2</sup> – 4xy]
-2. [2y 2x + 4z – 3z<sup>2</sup>w&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4y – 6yzw 3yz<sup>2</sup>]
+1. [4x + 3y - 4yz 3x + 4z - 4xz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2y<sup>2</sup> - 4xy]
+2. [2y 2x + 4z - 3z<sup>2</sup>w&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4y - 6yzw 3yz<sup>2</sup>]
 """, "Answer", false)
 
 #############
@@ -482,19 +482,19 @@ ans408B = Revealable("""
 
 ans408C = Revealable("""
 ### Answer C
-The gradient is [2y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2x – 2]
+The gradient is [2y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2x - 2]
 
 1. [0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-2], magnitude 2
 2. [-6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8], magnitude 10
 3. [20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;38], magnitude 42.942
 4. [8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-12], magnitude 14.422
-5. Gradient is 0 when 2y = 0 and 2x – 2 = 0, which occurs at (1, 0).
+5. Gradient is 0 when 2y = 0 and 2x - 2 = 0, which occurs at (1, 0).
 """, "Answer", false)
 
 ans408D = Revealable("""
 ### Answer D
 
-Gradient is [3y – 2w + 5z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3x – 2w&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2x – 2y]
+Gradient is [3y - 2w + 5z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3x - 2w&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2x - 2y]
 
 Vector at (0, 1, -1, 2) is [-6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-2]
 
@@ -503,7 +503,7 @@ magnitude is 7.483
 
 ans408E = Revealable("""
 ### Answer E
-The gradient is [4 – 2x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 – 6y]
+The gradient is [4 - 2x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 - 6y]
 1. [2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-28] magnitude 28.071
 2. [-2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14] magniude 14.142
 3. [0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2] magnitude 2
@@ -523,11 +523,11 @@ The gradient is [2x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2+4y] which evaluat
 ans409A = Revealable("""
 ### Answer A
 1. [2 0 ; 0 2]
-2. [6xy – 4  3x<sup>2</sup> – 4; 3x<sup>2</sup> – 4  0]
+2. [6xy - 4  3x<sup>2</sup> - 4; 3x<sup>2</sup> - 4  0]
 3. [2 1 3z<sup>2</sup>; 1 0 0; 3z<sup>2</sup> 0 6zx]
-4. [4y – 2y<sup>2</sup>  4x – 4xy; 4x – 4xy  -2x<sup>2</sup>]
+4. [4y - 2y<sup>2</sup>  4x - 4xy; 4x - 4xy  -2x<sup>2</sup>]
 
-Original functions, if you’re curious: f = x<sup>2</sup> + y<sup>2</sup>; f = x<sup>3</sup>y – 4xy + 3y; f = x<sup>2</sup> + xy – 2y + z<sup>3</sup>x; f = 2x<sup>2</sup>y – x<sup>2</sup>y<sup>2</sup>.
+Original functions, if you’re curious: f = x<sup>2</sup> + y<sup>2</sup>; f = x<sup>3</sup>y - 4xy + 3y; f = x<sup>2</sup> + xy - 2y + z<sup>3</sup>x; f = 2x<sup>2</sup>y - x<sup>2</sup>y<sup>2</sup>.
 """, "Answer", false)
 
 ans409B = Revealable("""
